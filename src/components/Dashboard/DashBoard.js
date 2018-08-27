@@ -16,6 +16,10 @@ class DashBoard extends Component {
     });
   }
 
+  handleDelete(id) {
+    axios.delete(`api/post/${id}`).then(this.getPosts());
+  }
+
   render() {
     console.log(this.state.posts);
     let mappedPosts = this.state.posts.map((e, i) => {
@@ -25,6 +29,7 @@ class DashBoard extends Component {
           <img alt="" src={e.picture} width="70px" />
           <div>{e.content}</div>
           <img alt="" src={e.image_url} width="70px" />
+          <button onClick={() => this.handleDelete(e.post_id)}>Delete</button>
         </div>
       );
     });

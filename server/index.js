@@ -6,7 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
 const { logout, login, getUser } = require("./auth_controller");
-const { getAllPosts } = require("./Controllers/postsControllers");
+const { getAllPosts, deletePost } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
 
@@ -71,6 +71,7 @@ app.get("/api/me", getUser);
 
 //----------------DashBoard Endpoints--------------------
 app.get("/api/getposts", getAllPosts);
+app.delete("/api/post/:post_id", deletePost);
 
 const port = 3001;
 app.listen(port, () => {
