@@ -6,6 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
 const { logout, login, getUser } = require("./auth_controller");
+const { getAllPosts } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
 
@@ -67,6 +68,9 @@ passport.deserializeUser((user, done) => {
 app.get("/login", login);
 app.post("/api/logout", logout);
 app.get("/api/me", getUser);
+
+//----------------DashBoard Endpoints--------------------
+app.get("/api/getposts", getAllPosts);
 
 const port = 3001;
 app.listen(port, () => {
