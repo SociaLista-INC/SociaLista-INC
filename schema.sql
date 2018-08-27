@@ -50,17 +50,19 @@ VALUES
 
 
 
-CREATE TABLE likes
+
+CREATE TABLE post_likes
 (
     like_id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(user_id),
-    post_id INT REFERENCES posts(post_id)
+    post_id integer REFERENCES posts(post_id) ON DELETE CASCADE,
+    auth_id text REFERENCES users(auth_id) ON DELETE CASCADE,
+    rate integer DEFAULT 0
 );
 
-INSERT INTO likes
-    (user_id, post_id)
+INSERT INTO post_likes
+    (post_id, post_id, auth_id, rate)
 VALUES
-    (1, 1)
+    (1, 1, 'dfafafsd', 0)
 
 
 
