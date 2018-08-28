@@ -5,8 +5,12 @@ class DashBoard extends Component {
     super(props);
     this.state = {
       posts: [],
-      user: []
+      user: {},
+      content: ""
     };
+    this.handleContentChange = this.handleContentChange.bind(this);
+    this.handlePostClick = this.handlePostClick.bind(this);
+    this.createPost = this.createPost.bind(this);
   }
   componentDidMount() {
     this.getPosts();
@@ -28,8 +32,29 @@ class DashBoard extends Component {
     axios.delete(`api/post/${id}`).then(this.getPosts());
   }
 
+  handleContentChange(content) {
+    this.setState({ content });
+  }
+
+  handlePostClick() {
+    let { content } = this.state;
+    let { auth_id } = this.state.user;
+    this.createPost(auth_id, content);
+  }
+
+  createPost(auth_id, content) {
+    axios
+      .post(`/api/post/create`, { auth_id, content })
+      .then(res => {
+        console.log(res);
+        // this.setState({ createPostData: res.data });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
-    console.log(this.state.posts);
+    console.log(this.state);
+
     let mappedPosts = this.state.posts.map((e, i) => {
       return (
         <div key={i}>
@@ -41,7 +66,24 @@ class DashBoard extends Component {
         </div>
       );
     });
-    return <div>{mappedPosts}</div>;
+    return (
+      <div>
+        <input
+          onChange={e => this.handleContentChange(e.target.value)}
+          type="text"
+          value={this.state.content || ""}
+          placeholder="Content of the Post"
+        />
+        <button
+          type="post createbutton"
+          onClick={() => this.handlePostClick()}
+          className="Post_Button_Dashboard"
+        >
+          Post
+        </button>
+        {mappedPosts}
+      </div>
+    );
   }
 }
 
