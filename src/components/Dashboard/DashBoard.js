@@ -4,15 +4,23 @@ class DashBoard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      posts: []
+      posts: [],
+      user: []
     };
   }
   componentDidMount() {
     this.getPosts();
+    this.getSessions();
   }
   getPosts() {
     axios.get("/api/getposts").then(res => {
       this.setState({ posts: res.data });
+    });
+  }
+  getSessions() {
+    axios.get("/api/session").then(res => {
+      console.log(res.data);
+      this.setState({ user: res.data });
     });
   }
 
