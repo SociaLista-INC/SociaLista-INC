@@ -6,7 +6,11 @@ const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
 const { logout, login, getUser } = require("./auth_controller");
-const { getAllPosts } = require("./Controllers/postsControllers");
+const {
+  getAllPosts,
+  deletePost,
+  createPost
+} = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
 
@@ -51,10 +55,16 @@ passport.serializeUser((user, done) => {
             9
           )}/picture?width=9999`
         ])
-          .then(res => done(null, res[0]))
+          .then(res => {
+            session.auth_id = response[0].auth_id;
+            // console.log("new", session.auth_id);
+            done(null, res[0]);
+          })
           .catch(err => done(err, null));
       } else {
         // console.log("loooooog", response);
+        session.auth_id = response[0].auth_id;
+        // console.log("ELSE", session.auth_id);
         return done(null, response[0]);
       }
     })
@@ -71,6 +81,13 @@ app.get("/api/me", getUser);
 
 //----------------DashBoard Endpoints--------------------
 app.get("/api/getposts", getAllPosts);
+app.delete("/api/post/:post_id", deletePost);
+app.post("/api/post/create", createPost);
+
+//---------------Session Endpoints------------------------
+app.get("/api/session", (req, res) =>
+  res.status(200).send({ auth_id: session.auth_id })
+);
 
 const port = 3001;
 app.listen(port, () => {
