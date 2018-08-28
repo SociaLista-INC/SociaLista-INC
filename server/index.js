@@ -10,7 +10,8 @@ const {
   getAllPosts,
   deletePost,
   createPost,
-  createPostImage
+  createPostImage,
+  updatePost
 } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
@@ -57,7 +58,7 @@ passport.serializeUser((user, done) => {
           )}/picture?width=9999`
         ])
           .then(res => {
-            session.auth_id = response[0].auth_id;
+            session.auth_id = res[0].auth_id;
             // console.log("new", session.auth_id);
             done(null, res[0]);
           })
@@ -85,6 +86,7 @@ app.get("/api/getposts", getAllPosts);
 app.delete("/api/post/:post_id", deletePost);
 app.post("/api/post/create", createPost);
 app.post("/api/post/image/create", createPostImage);
+app.put("/api/post/:post_id", updatePost);
 
 //---------------Session Endpoints------------------------
 app.get("/api/session", (req, res) =>

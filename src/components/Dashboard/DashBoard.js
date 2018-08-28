@@ -8,12 +8,17 @@ class DashBoard extends Component {
       user: {},
       content: "",
       createPostData: {},
-      image_url: ""
+      image_url: "",
+      editing: false,
+      contentEdit: ""
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
     this.createPost = this.createPost.bind(this);
     this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
+    this.handleContentChange = this.handleContentChange.bind(this);
+    this.handleContentEdit = this.handleContentEdit.bind(this);
+    this.handleSendContentEdit = this.handleSendContentEdit.bind(this);
   }
   componentDidMount() {
     this.getPosts();
@@ -26,7 +31,7 @@ class DashBoard extends Component {
   }
   getSessions() {
     axios.get("/api/session").then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       this.setState({ user: res.data });
     });
   }
@@ -47,6 +52,26 @@ class DashBoard extends Component {
     let { content } = this.state;
     let { auth_id } = this.state.user;
     this.createPost(auth_id, content);
+  }
+
+  handleEditingPost() {
+    this.setState({ editing: true });
+  }
+
+  handleContentEdit(contentEdit) {
+    this.setState({ contentEdit });
+  }
+
+  handleSendContentEdit(post_id) {
+    // console.log(post_id);
+    this.setState({ editing: false });
+    axios
+      .put(`/api/post/${post_id}`, { content: this.state.contentEdit })
+      .then(() => {
+        this.getPosts();
+        this.setState({ content: "" });
+      })
+      .catch(err => console.log(err));
   }
 
   createPost(auth_id, content) {
@@ -73,11 +98,20 @@ class DashBoard extends Component {
     // console.log(this.state);
 
     let mappedPosts = this.state.posts.map((e, i) => {
+      let { name, picture, content, post_id } = e;
+
       return (
         <div key={i}>
-          <div>{e.name}</div>
-          <img alt="" src={e.picture} width="70px" />
-          <div>{e.content}</div>
+          <div>{name}</div>
+          <img alt="" src={picture} width="70px" />
+          {!this.state.editing ? (
+            <p onClick={e => this.handleEditingPost(e)}>{content}</p>
+          ) : (
+            <input
+              onChange={e => this.handleContentEdit(e.target.value)}
+              onBlur={() => this.handleSendContentEdit(post_id)}
+            />
+          )}
           <img alt="" src={e.image_url} width="70px" />
           <button onClick={() => this.handleDelete(e.post_id)}>Delete</button>
         </div>
