@@ -23,6 +23,7 @@ const login = passport.authenticate("auth0", {
   successRedirect: process.env.SUCCESS,
   failureRedirect: process.env.FAIL
 });
+
 module.exports = {
   logout,
   login,
