@@ -9,7 +9,8 @@ const { logout, login, getUser } = require("./auth_controller");
 const {
   getAllPosts,
   deletePost,
-  createPost
+  createPost,
+  createPostImage
 } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
@@ -83,6 +84,7 @@ app.get("/api/me", getUser);
 app.get("/api/getposts", getAllPosts);
 app.delete("/api/post/:post_id", deletePost);
 app.post("/api/post/create", createPost);
+app.post("/api/post/image/create", createPostImage);
 
 //---------------Session Endpoints------------------------
 app.get("/api/session", (req, res) =>

@@ -29,8 +29,22 @@ const createPost = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const createPostImage = (req, res, next) => {
+  // console.log(req.body);
+  let { post_id, image_url } = req.body;
+
+  const db = req.app.get("db");
+
+  db.create_post_image([post_id, image_url])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
-  createPost
+  createPost,
+  createPostImage
 };

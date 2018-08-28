@@ -6,11 +6,14 @@ class DashBoard extends Component {
     this.state = {
       posts: [],
       user: {},
-      content: ""
+      content: "",
+      createPostData: {},
+      image_url: ""
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
     this.createPost = this.createPost.bind(this);
+    this.handleImageUrlChange = this.handleImageUrlChange.bind(this);
   }
   componentDidMount() {
     this.getPosts();
@@ -36,6 +39,10 @@ class DashBoard extends Component {
     this.setState({ content });
   }
 
+  handleImageUrlChange(image_url) {
+    this.setState({ image_url });
+  }
+
   handlePostClick() {
     let { content } = this.state;
     let { auth_id } = this.state.user;
@@ -46,14 +53,24 @@ class DashBoard extends Component {
     axios
       .post(`/api/post/create`, { auth_id, content })
       .then(res => {
-        console.log(res);
-        // this.setState({ createPostData: res.data });
+        // console.log(res.data[0]);
+        this.setState({ createPostData: res.data[0] });
+      })
+      .then(() => {
+        let { image_url } = this.state;
+        let { post_id } = this.state.createPostData;
+
+        axios.post(`/api/post/image/create`, { post_id, image_url });
+      })
+      .then(res => {
+        this.getPosts();
+        this.setState({ content: "", image_url: "" });
       })
       .catch(err => console.log(err));
   }
 
   render() {
-    console.log(this.state);
+    // console.log(this.state);
 
     let mappedPosts = this.state.posts.map((e, i) => {
       return (
@@ -73,6 +90,13 @@ class DashBoard extends Component {
           type="text"
           value={this.state.content || ""}
           placeholder="Content of the Post"
+          className="Content_InputBox_Dashboard"
+        />
+        <input
+          className="ImageURL_InputBox_Dashboard"
+          value={this.state.image_url || ""}
+          placeholder="Image URL"
+          onChange={e => this.handleImageUrlChange(e.target.value)}
         />
         <button
           type="post createbutton"
