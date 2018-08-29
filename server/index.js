@@ -6,6 +6,7 @@ const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
 const { logout, login, getUser } = require("./auth_controller");
+const { getProfile, addFollower } = require("./Controllers/profileControllers");
 const {
   getAllPosts,
   deletePost,
@@ -42,12 +43,12 @@ app.use(passport.session());
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-  //   console.log("first", user);
+  console.log("first", user);
   const db = app.get("db");
   db.get_user_by_authid(user.id)
     .then(response => {
       if (!response[0]) {
-        // console.log("loooooog", user);
+        console.log("loooooog", user);
         db.add_user_by_authid([
           user.displayName,
           user.id,
@@ -56,15 +57,13 @@ passport.serializeUser((user, done) => {
           )}/picture?width=9999`
         ])
           .then(res => {
-            session.auth_id = response[0].auth_id;
-            // console.log("new", session.auth_id);
+            session.auth_id = res[0].auth_id;
+
             done(null, res[0]);
           })
           .catch(err => done(err, null));
       } else {
-        // console.log("loooooog", response);
         session.auth_id = response[0].auth_id;
-        // console.log("ELSE", session.auth_id);
         return done(null, response[0]);
       }
     })
@@ -74,7 +73,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
-//------------------Auth end points--------------------
+//------------------Auth Endpoints--------------------
 app.get("/login", login);
 app.post("/api/logout", logout);
 app.get("/api/me", getUser);
@@ -83,6 +82,11 @@ app.get("/api/me", getUser);
 app.get("/api/getposts", getAllPosts);
 app.delete("/api/post/:post_id", deletePost);
 app.post("/api/post/create", createPost);
+
+//----------------user profile Endpoints------------------
+
+app.get("/api/getprofileinfo/:auth_id", getProfile);
+app.post("/api/followuser/:auth_id/:followed_by", addFollower);
 
 //---------------Session Endpoints------------------------
 app.get("/api/session", (req, res) =>

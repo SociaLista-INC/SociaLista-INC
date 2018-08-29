@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 class DashBoard extends Component {
   constructor(props) {
     super(props);
@@ -33,6 +34,7 @@ class DashBoard extends Component {
     let mappedPosts = this.state.posts.map((e, i) => {
       return (
         <div key={i}>
+          <Link to={`/profile/${e.auth_id}`}>{e.name}</Link>
           <div>{e.name}</div>
           <img alt="" src={e.picture} width="70px" />
           <div>{e.content}</div>
