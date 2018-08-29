@@ -3,18 +3,17 @@ import "./App.css";
 import { HashRouter } from "react-router-dom";
 import router from "./router";
 import Nav from "./components/Nav/Nav";
+import { withRouter } from "react-router-dom";
 
 class App extends Component {
   render() {
     return (
-      <HashRouter>
-        <div className="App">
-          {router}
-          {/* <Nav /> */}
-        </div>
-      </HashRouter>
+      <div className="App">
+        {this.props.location.pathname !== "/" && <Nav />}
+        {router}
+      </div>
     );
   }
 }
 
-export default App;
+export default withRouter(App);
