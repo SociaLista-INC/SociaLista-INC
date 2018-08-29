@@ -12,7 +12,10 @@ const {
   deletePost,
   createPost,
   createPostImage,
-  updatePost
+  updatePost,
+  likePost,
+  getAllLikesPost,
+  deleteLikePost
 } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
@@ -45,12 +48,12 @@ app.use(passport.session());
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
-  console.log("first", user);
+  // console.log("first", user);
   const db = app.get("db");
   db.get_user_by_authid(user.id)
     .then(response => {
       if (!response[0]) {
-        console.log("loooooog", user);
+        // console.log("loooooog", user);
         db.add_user_by_authid([
           user.displayName,
           user.id,
@@ -86,6 +89,9 @@ app.delete("/api/post/:post_id", deletePost);
 app.post("/api/post/create", createPost);
 app.post("/api/post/image/create", createPostImage);
 app.put("/api/post/:post_id", updatePost);
+app.post("/api/post/like/:post_id", likePost);
+app.get("/api/getlikes", getAllLikesPost);
+app.delete("/api/like/:post_id/:auth_id", deleteLikePost);
 
 //----------------user profile Endpoints------------------
 
