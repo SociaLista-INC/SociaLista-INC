@@ -1,0 +1,1 @@
+DELETE FROM post_likes WHERE post_id = $1 and auth_id =$2
