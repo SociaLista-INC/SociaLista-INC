@@ -10,7 +10,9 @@ const { getProfile, addFollower } = require("./Controllers/profileControllers");
 const {
   getAllPosts,
   deletePost,
-  createPost
+  createPost,
+  createPostImage,
+  updatePost
 } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
@@ -59,6 +61,7 @@ passport.serializeUser((user, done) => {
           .then(res => {
             session.auth_id = res[0].auth_id;
 
+            // console.log("new", session.auth_id);
             done(null, res[0]);
           })
           .catch(err => done(err, null));
@@ -82,6 +85,8 @@ app.get("/api/me", getUser);
 app.get("/api/getposts", getAllPosts);
 app.delete("/api/post/:post_id", deletePost);
 app.post("/api/post/create", createPost);
+app.post("/api/post/image/create", createPostImage);
+app.put("/api/post/:post_id", updatePost);
 
 //----------------user profile Endpoints------------------
 
