@@ -11,7 +11,8 @@ class DashBoard extends Component {
       createPostData: {},
       image_url: "",
       editing: false,
-      contentEdit: ""
+      contentEdit: "",
+      postsLikes: []
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
@@ -20,10 +21,13 @@ class DashBoard extends Component {
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handleContentEdit = this.handleContentEdit.bind(this);
     this.handleSendContentEdit = this.handleSendContentEdit.bind(this);
+    this.handleLikePost = this.handleLikePost.bind(this);
+    this.handleDeleteLikePost = this.handleDeleteLikePost.bind(this);
   }
   componentDidMount() {
     this.getPosts();
     this.getSessions();
+    this.getPostsLikes();
   }
   getPosts() {
     axios.get("/api/getposts").then(res => {
@@ -95,6 +99,27 @@ class DashBoard extends Component {
       .catch(err => console.log(err));
   }
 
+  handleLikePost(post_id) {
+    let { auth_id } = this.state.user;
+    let rate = 1;
+
+    axios
+      .post(`/api/post/like/${post_id}`, { auth_id, rate })
+      .then(this.getPosts());
+  }
+
+  handleDeleteLikePost(post_id) {
+    let { auth_id } = this.state.user;
+
+    axios.delete(`/api/like/${post_id}/${auth_id}`).then(this.getPosts());
+  }
+
+  getPostsLikes() {
+    axios.get("/api/getlikes").then(res => {
+      this.setState({ postsLikes: res.data });
+    });
+  }
+
   render() {
     // console.log(this.state);
 
@@ -125,6 +150,12 @@ class DashBoard extends Component {
           )}
           <div>{likestotal}</div>
           <img alt="" src={image_url} width="70px" />
+          <button onClick={() => this.handleLikePost(post_id)}>
+            Like Post
+          </button>
+          <button onClick={() => this.handleDeleteLikePost(post_id)}>
+            Dislike Post
+          </button>
           <button onClick={() => this.handleDelete(post_id)}>Delete</button>
         </div>
       );
