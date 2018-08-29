@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 class DashBoard extends Component {
   constructor(props) {
     super(props);
@@ -98,12 +99,22 @@ class DashBoard extends Component {
     // console.log(this.state);
 
     let mappedPosts = this.state.posts.map((e, i) => {
-      let { name, picture, content, post_id, likestotal } = e;
+      let {
+        name,
+        picture,
+        content,
+        post_id,
+        likestotal,
+        auth_id,
+        image_url
+      } = e;
 
       return (
         <div key={i}>
-          <div>{name}</div>
+          <Link to={`/profile/${auth_id}`}>{name}</Link>
+
           <img alt="" src={picture} width="70px" />
+
           {!this.state.editing ? (
             <p onClick={e => this.handleEditingPost(e)}>{content}</p>
           ) : (
@@ -113,8 +124,8 @@ class DashBoard extends Component {
             />
           )}
           <div>{likestotal}</div>
-          <img alt="" src={e.image_url} width="70px" />
-          <button onClick={() => this.handleDelete(e.post_id)}>Delete</button>
+          <img alt="" src={image_url} width="70px" />
+          <button onClick={() => this.handleDelete(post_id)}>Delete</button>
         </div>
       );
     });

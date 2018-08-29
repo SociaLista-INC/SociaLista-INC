@@ -1,0 +1,49 @@
+.app-intro {
+  color: white;
+  position: absolute;
+  height: 50vh;
+  width: 50%;
+  margin: auto;
+  right: 25%;
+  top: 25%;
+  border-radius: 4px;
+  padding: 5px;
+  text-align: center;
+}
+.landing-title {
+  background-color: #272d4e;
+  background-image: radial-gradient(
+    circle farthest-side at right bottom,
+    #414b82 34%,
+    #272d4e 100%
+  );
+  height: 600px;
+}
+#connect-button {
+  color: black;
+
+  margin-top: 20px;
+}
+.particlesHider {
+  height: 600px;
+}
+@media only screen and (max-width: 1050px) {
+  .fontIcons {
+    display: none;
+  }
+}
+@media only screen and (max-width: 375px) {
+  #free-trial-button {
+    font-size: 0.7rem;
+  }
+  .features {
+    height: 566px;
+  }
+  .rows {
+    text-align: center;
+  }
+  .contact-small-text {
+    font-size: 16px;
+    line-height: 55px;
+  }
+}
