@@ -56,7 +56,7 @@ passport.serializeUser((user, done) => {
           )}/picture?width=9999`
         ])
           .then(res => {
-            session.auth_id = response[0].auth_id;
+            session.auth_id = res[0].auth_id;
             // console.log("new", session.auth_id);
             done(null, res[0]);
           })
