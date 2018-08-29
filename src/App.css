@@ -23,6 +23,26 @@
 }
 
 @keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+a {
+  width: auto;
+  color: rgba(0, 0, 0, 0.87);
+  height: 24px;
+  overflow: hidden;
+  font-size: 1rem;
+  box-sizing: content-box;
+  font-weight: 400;
+  line-height: 1.5em;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  white-space: nowrap;
+  padding-left: 16px;
+  text-overflow: ellipsis;
+  padding-right: 16px;
+  text-decoration: none;
 }

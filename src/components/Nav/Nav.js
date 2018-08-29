@@ -1,139 +1,191 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import Hidden from "@material-ui/core/Hidden";
-import Divider from "@material-ui/core/Divider";
 import MenuIcon from "@material-ui/icons/Menu";
-// import { mailFolderListItems, otherMailFolderListItems } from "./tileData";
-
-const drawerWidth = 240;
-
-const styles = theme => ({
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import Switch from "@material-ui/core/Switch";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormGroup from "@material-ui/core/FormGroup";
+import MenuItem from "@material-ui/core/MenuItem";
+import Drawer from "@material-ui/core/Drawer";
+import Menu from "@material-ui/core/Menu";
+import classNames from "classnames";
+import Divider from "@material-ui/core/Divider";
+import Avatar from "@material-ui/core/Avatar";
+import { Link } from "react-router-dom";
+import axios from "axios";
+const styles = {
   root: {
-    flexGrow: 1,
-    height: 440,
-    zIndex: 1,
-    overflow: "hidden",
-    position: "relative",
-    display: "flex",
-    width: "100%"
+    flexGrow: 1
   },
-  appBar: {
-    position: "absolute",
-    marginLeft: drawerWidth,
-    [theme.breakpoints.up("md")]: {
-      width: `calc(100% - ${drawerWidth}px)`
-    }
+  flex: {
+    flexGrow: 1
   },
-  navIconHide: {
-    [theme.breakpoints.up("md")]: {
-      display: "none"
-    }
-  },
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-    [theme.breakpoints.up("md")]: {
-      position: "relative"
-    }
-  },
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3
+  menuButton: {
+    marginLeft: -12,
+    marginRight: 20
   }
-});
+};
 
-class ResponsiveDrawer extends React.Component {
+class MenuAppBar extends React.Component {
   state = {
-    mobileOpen: false
+    auth: true,
+    anchorEl: null,
+    left: false,
+    name: "React",
+    open: false,
+    user: "",
+    userOnSessions: null
   };
 
-  handleDrawerToggle = () => {
-    this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+  handleMenuClick1() {
+    this.setState({ pageNumber: 1 });
+    this.handleDrawerClick();
+  }
+
+  componentDidMount() {
+    this.getSessions();
+  }
+  async getSessions() {
+    await axios
+      .get("/api/session")
+      .then(res => {
+        console.log(res.data.auth_id);
+        this.setState({ user: res.data.auth_id });
+      })
+      .then(() => this.gettingUser());
+  }
+  gettingUser = () => {
+    console.log(this.state);
+    axios.get(`/api/getprofileinfo/${this.state.user}`).then(res => {
+      this.setState({ userOnSessions: res.data[0].picture });
+      console.log("the data needed", this.state.userOnSessions);
+    });
   };
+
+  handleMenuClick2() {
+    this.setState({ pageNumber: 2 });
+    this.handleDrawerClick();
+  }
+
+  toggleDrawer = (side, open) => () => {
+    this.setState({
+      [side]: open
+    });
+  };
+
+  handleChange = event => {
+    this.setState({ auth: event.target.checked });
+  };
+
+  handleMenu = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+  handleDrawerClick() {
+    // if (this.state.open == false) this.setState({ open: true });
+    // else this.setState({ open: false });
+    // this.setState({ open: true });
+    if (this.state.open === false) {
+      this.setState({ open: true });
+    } else {
+      this.setState({ open: false });
+    }
+  }
 
   render() {
-    const { classes, theme } = this.props;
-
-    const drawer = (
-      <div>
-        <div className={classes.toolbar} />
-        <Divider />
-        <List>
-          <Link to="/dashboard">Dashboard</Link>
-        </List>
-
-        <Divider />
-        {/* <List>{otherMailFolderListItems}</List> */}
-      </div>
-    );
-
+    console.log(this.state.user);
+    const { classes } = this.props;
+    const { auth, anchorEl } = this.state;
+    const open = Boolean(anchorEl);
+    console.log("hello ", this.state.userOnSessions);
     return (
       <div className={classes.root}>
-        <AppBar className={classes.appBar}>
+        <AppBar position="static">
           <Toolbar>
             <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              onClick={this.handleDrawerToggle}
-              className={classes.navIconHide}
+              className={classes.menuButton}
+              onClick={() => this.handleDrawerClick()}
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" noWrap>
-              Responsive drawer
+            <Drawer open={this.state.open}>
+              <MenuItem>
+                <Link onClick={() => this.setState({ open: false })} to="/">
+                  Home
+                </Link>
+              </MenuItem>
+              <Divider />
+              <MenuItem>
+                <Link
+                  onClick={() => this.setState({ open: false })}
+                  to="/dashboard"
+                >
+                  Dashboard
+                </Link>
+              </MenuItem>
+              <Divider />
+            </Drawer>
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.flex}
+            >
+              Photos
             </Typography>
+            {auth && (
+              <div>
+                <IconButton
+                  aria-owns={open ? "menu-appbar" : null}
+                  aria-haspopup="true"
+                  onClick={this.handleMenu}
+                  color="inherit"
+                >
+                  {this.state.userOnSessions && (
+                    <Avatar
+                      alt="Adelle Charles"
+                      src={this.state.userOnSessions}
+                      className={classNames(classes.avatar, classes.bigAvatar)}
+                    />
+                  )}
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorEl}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right"
+                  }}
+                  open={open}
+                  onClose={this.handleClose}
+                >
+                  <MenuItem onClick={this.handleClose}>
+                    <Link to={`/profile/${this.state.user}`}>Profile</Link>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                </Menu>
+              </div>
+            )}
           </Toolbar>
         </AppBar>
-        <Hidden mdUp>
-          <Drawer
-            variant="temporary"
-            anchor={theme.direction === "rtl" ? "right" : "left"}
-            open={this.state.mobileOpen}
-            onClose={this.handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper
-            }}
-            ModalProps={{
-              keepMounted: true // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer
-            variant="permanent"
-            open
-            classes={{
-              paper: classes.drawerPaper
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Typography noWrap>
-            {"You think water moves fast? You should see ice."}
-          </Typography>
-        </main>
       </div>
     );
   }
 }
 
-ResponsiveDrawer.propTypes = {
-  classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired
+MenuAppBar.propTypes = {
+  classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(ResponsiveDrawer);
+export default withStyles(styles)(MenuAppBar);
