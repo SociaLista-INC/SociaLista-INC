@@ -98,7 +98,7 @@ class DashBoard extends Component {
     // console.log(this.state);
 
     let mappedPosts = this.state.posts.map((e, i) => {
-      let { name, picture, content, post_id } = e;
+      let { name, picture, content, post_id, likestotal } = e;
 
       return (
         <div key={i}>
@@ -112,6 +112,7 @@ class DashBoard extends Component {
               onBlur={() => this.handleSendContentEdit(post_id)}
             />
           )}
+          <div>{likestotal}</div>
           <img alt="" src={e.image_url} width="70px" />
           <button onClick={() => this.handleDelete(e.post_id)}>Delete</button>
         </div>

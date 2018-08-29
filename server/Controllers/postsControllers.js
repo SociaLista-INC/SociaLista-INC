@@ -45,7 +45,7 @@ const createPostImage = (req, res, next) => {
 const updatePost = (req, res, next) => {
   let { post_id } = req.params;
   let { content } = req.body;
-  console.log(post_id, content);
+  // console.log(post_id, content);
   const db = req.app.get("db");
 
   db.update_post_by_postid([post_id, content])
