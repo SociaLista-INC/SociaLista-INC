@@ -1,2 +1,2 @@
 SELECT *
-FROM post_likes;
+FROM post_like;

@@ -54,16 +54,16 @@ class MenuAppBar extends React.Component {
     await axios
       .get("/api/session")
       .then(res => {
-        console.log(res.data.auth_id);
+        // console.log(res.data.auth_id);
         this.setState({ user: res.data.auth_id });
       })
       .then(() => this.gettingUser());
   }
   gettingUser = () => {
-    console.log(this.state);
+    // console.log(this.state);
     axios.get(`/api/getprofileinfo/${this.state.user}`).then(res => {
       this.setState({ userOnSessions: res.data[0].picture });
-      console.log("the data needed", this.state.userOnSessions);
+      // console.log("the data needed", this.state.userOnSessions);
     });
   };
 
@@ -101,11 +101,11 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    console.log(this.state.user);
+    // console.log(this.state.user);
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    console.log("hello ", this.state.userOnSessions);
+    // console.log("hello ", this.state.userOnSessions);
     return (
       <div className={classes.root}>
         <AppBar position="static">
