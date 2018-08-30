@@ -138,7 +138,7 @@ class MenuAppBar extends React.Component {
               color="inherit"
               className={classes.flex}
             >
-              Photos
+              S o c i a L i s t a
             </Typography>
             {auth && (
               <div>

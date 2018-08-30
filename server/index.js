@@ -6,7 +6,11 @@ const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
 const { logout, login, getUser } = require("./auth_controller");
-const { getProfile, addFollower } = require("./Controllers/profileControllers");
+const {
+  getProfile,
+  addFollower,
+  getNumOfFollowers
+} = require("./Controllers/profileControllers");
 const {
   getAllPosts,
   deletePost,
@@ -97,6 +101,7 @@ app.delete("/api/like/:post_id/:auth_id", deleteLikePost);
 
 app.get("/api/getprofileinfo/:auth_id", getProfile);
 app.post("/api/followuser/:auth_id/:followed_by", addFollower);
+app.get("/api/numoffollowers/:auth_id", getNumOfFollowers);
 
 //---------------Session Endpoints------------------------
 app.get("/api/session", (req, res) =>
