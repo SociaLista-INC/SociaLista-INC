@@ -1,5 +1,5 @@
 SELECT ps.post_id, us.name, us.auth_id, us.picture, ps.content, pi.image_id, pi.image_url, (SELECT SUM(rate)
-    FROM post_likes pl
+    FROM post_like pl
     WHERE ps.post_id = pl.post_id) likestotal
 FROM posts ps
     JOIN users us ON us.auth_id= ps.auth_id
