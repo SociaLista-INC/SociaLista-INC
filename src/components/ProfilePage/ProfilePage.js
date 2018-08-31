@@ -33,7 +33,7 @@ class ProfilePage extends Component {
   }
 
   render() {
-    console.log(this.state.currentUser.auth_id);
+    // console.log(this.state.currentUser.auth_id);
     return (
       <div>
         <div>{this.state.currentUser.name}</div>

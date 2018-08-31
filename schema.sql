@@ -76,3 +76,12 @@ INSERT INTO chats
     (user_id)
 VALUES
     (1)
+
+
+CREATE TABLE followers
+(
+    id SERIAL PRIMARY KEY,
+    auth_id text REFERENCES users(auth_id),
+    followed_by text REFERENCES users(auth_id),
+    UNIQUE (auth_id, followed_by)
+);
