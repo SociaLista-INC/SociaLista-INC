@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FeaturesPictureTwo from "../../FeaturesPictureTwo.png";
+// import FeaturesPictureTwo from "../../FeaturesPictureTwo.png";
 import "./FeatureTwo.css";
 
 class FeatureTwo extends Component {

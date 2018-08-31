@@ -36,6 +36,7 @@ function ImageAvatars(props) {
       >
         <a href="https://github.com/KaustubhDeshpandeDev">
           <img
+            alt="name"
             src="https://image.flaticon.com/icons/svg/25/25231.svg"
             width="20px"
           />

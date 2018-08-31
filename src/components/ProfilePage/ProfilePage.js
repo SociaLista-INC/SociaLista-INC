@@ -101,7 +101,11 @@ class ProfilePage extends Component {
     return (
       <div>
         <div>{this.state.currentUser.name}</div>
-        <img src={this.state.currentUser.picture} width="90px" />
+        <img
+          alt={this.state.currentUser.name}
+          src={this.state.currentUser.picture}
+          width="90px"
+        />
         <Moment format="ll">{this.state.currentUser.time}</Moment>
         {this.state.user.auth_id ? (
           <div>
@@ -120,7 +124,12 @@ class ProfilePage extends Component {
         </div>
         <SimpleDialog followers={this.state.followers} />
         <br />
-        <PostCard posts={this.state.posts} />
+        <PostCard
+          getUserInfo={this.getUserInfo}
+          user={this.state.user}
+          posts={this.state.posts}
+          currentUser={this.state.currentUser}
+        />
       </div>
     );
   }

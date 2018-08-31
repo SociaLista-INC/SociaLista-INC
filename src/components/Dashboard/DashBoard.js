@@ -160,7 +160,7 @@ class DashBoard extends Component {
         >
           Post
         </button>
-        {mappedPosts}
+        <div className="list-posts-postCard">{mappedPosts}</div>
       </div>
     );
   }

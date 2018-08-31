@@ -104,12 +104,15 @@ app.delete("/api/like/:post_id/:auth_id", deleteLikePost);
 //----------------user profile Endpoints------------------
 
 app.get("/api/getprofileinfo/:auth_id", getProfile);
-app.post("/api/followuser/:auth_id/:followed_by", addFollower);
 app.get("/api/numoffollowers/:auth_id", getNumOfFollowers);
-app.delete("/api/unfollowuser/:auth_id/:followed_by", deleteFollow);
 app.get("/api/getfollowinginfo/:auth_id/:followed_by", getIfFollowing);
 app.get("/api/getlistoffollowers/:auth_id", getListOfFollowers);
 app.get("/api/getuserposts/:auth_id", getEachUserPosts);
+app.post("/api/followuser/:auth_id/:followed_by", addFollower);
+app.post("/api/post/like/:post_id", likePost);
+app.delete("/api/unfollowuser/:auth_id/:followed_by", deleteFollow);
+app.delete("/api/like/:post_id/:auth_id", deleteLikePost);
+app.delete("/api/post/:post_id", deletePost);
 
 //---------------Session Endpoints------------------------
 
