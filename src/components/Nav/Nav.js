@@ -18,6 +18,7 @@ import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
 const styles = {
   root: {
     flexGrow: 1
@@ -54,16 +55,16 @@ class MenuAppBar extends React.Component {
     await axios
       .get("/api/session")
       .then(res => {
-        console.log(res.data.auth_id);
+        // console.log(res.data.auth_id);
         this.setState({ user: res.data.auth_id });
       })
       .then(() => this.gettingUser());
   }
   gettingUser = () => {
-    console.log(this.state);
+    // console.log(this.state);
     axios.get(`/api/getprofileinfo/${this.state.user}`).then(res => {
       this.setState({ userOnSessions: res.data[0].picture });
-      console.log("the data needed", this.state.userOnSessions);
+      // console.log("the data needed", this.state.userOnSessions);
     });
   };
 
@@ -89,10 +90,12 @@ class MenuAppBar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+
+  handleLogOut() {
+    axios.post("/api/logout");
+  }
+
   handleDrawerClick() {
-    // if (this.state.open == false) this.setState({ open: true });
-    // else this.setState({ open: false });
-    // this.setState({ open: true });
     if (this.state.open === false) {
       this.setState({ open: true });
     } else {
@@ -101,11 +104,11 @@ class MenuAppBar extends React.Component {
   }
 
   render() {
-    console.log(this.state.user);
+    // console.log(this.state.user);
     const { classes } = this.props;
     const { auth, anchorEl } = this.state;
     const open = Boolean(anchorEl);
-    console.log("hello ", this.state.userOnSessions);
+    // console.log("hello ", this.state.userOnSessions);
     return (
       <div className={classes.root}>
         <AppBar position="static">
@@ -138,7 +141,7 @@ class MenuAppBar extends React.Component {
               color="inherit"
               className={classes.flex}
             >
-              Photos
+              S o c i a L i s t a
             </Typography>
             {auth && (
               <div>
@@ -173,7 +176,14 @@ class MenuAppBar extends React.Component {
                   <MenuItem onClick={this.handleClose}>
                     <Link to={`/profile/${this.state.user}`}>Profile</Link>
                   </MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <a
+                      href={process.env.REACT_APP_CLIENT}
+                      onClick={this.handleLogOut}
+                    >
+                      Logout
+                    </a>
+                  </MenuItem>
                 </Menu>
               </div>
             )}
