@@ -58,6 +58,31 @@ const getEachUserPosts = (req, res, next) => {
     .catch(e => res.status(500).send("Something is wrong"));
 };
 
+const likePost = (req, res, next) => {
+  let { post_id } = req.params;
+
+  let { auth_id, rate } = req.body;
+
+  const db = req.app.get("db");
+
+  db.add_likes_by_postid([post_id, auth_id, rate])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const deleteLikePost = (req, res, next) => {
+  let { post_id, auth_id } = req.params;
+  const db = req.app.get("db");
+
+  db.delete_like_by_postid([post_id, auth_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = {
   getProfile,
   addFollower,
@@ -65,5 +90,7 @@ module.exports = {
   deleteFollow,
   getIfFollowing,
   getListOfFollowers,
-  getEachUserPosts
+  getEachUserPosts,
+  likePost,
+  deleteLikePost
 };

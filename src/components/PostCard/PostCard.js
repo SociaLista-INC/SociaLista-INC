@@ -14,11 +14,13 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import red from "@material-ui/core/colors/red";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+// import ShareIcon from "@material-ui/icons/Share";
+// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+// import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Moment from "react-moment";
+import axios from "axios";
+import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 
 const styles = theme => ({
   card: {
@@ -58,8 +60,33 @@ class RecipeReviewCard extends React.Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
+  handleDelete(id) {
+    axios.delete(`api/post/${id}`);
+    // .then(() => this.props.getUserInfo());
+  }
+
+  handleLikePost(post_id) {
+    console.log("THIS IS THE ID", post_id);
+
+    let { auth_id } = this.props.user;
+    let rate = 1;
+
+    axios.post(`/api/post/like/${post_id}`, { auth_id, rate });
+    // .then(res => {});
+  }
+
+  handleDeleteLikePost(post_id) {
+    let { auth_id } = this.props.user;
+
+    axios.delete(`/api/like/${post_id}/${auth_id}`);
+    // .then(res => {
+    //   this.getPosts();
+    // }
+    // );
+  }
+
   render() {
-    console.log(this.props.posts);
+    console.log(this.props);
 
     const { classes } = this.props;
 
@@ -89,22 +116,59 @@ class RecipeReviewCard extends React.Component {
             <Typography component="p">{e.content}</Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
-            <IconButton aria-label="Add to favorites">
+            <IconButton
+              aria-label="Like the Post"
+              onClick={() => this.handleLikePost(e.post_id)}
+            >
               <FavoriteIcon />
             </IconButton>
+            <IconButton
+              aria-label="Share"
+              onClick={() => this.handleDeleteLikePost(e.post_id)}
+            >
+              <img
+                alt="unlike btn"
+                src="https://image.flaticon.com/icons/svg/838/838669.svg"
+                width="20px"
+              />
+            </IconButton>
+            {this.props.user.auth_id === e.auth_id ? (
+              <IconButton
+                aria-label="Delete the Post"
+                onClick={() => this.handleDelete(e.post_id)}
+              >
+                <DeleteForeverOutlinedIcon />
+              </IconButton>
+            ) : (
+              ""
+            )}
+
             {/* <IconButton aria-label="Share">
               <ShareIcon />
             </IconButton> */}
-            <IconButton
-              className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded
-              })}
-              onClick={this.handleExpandClick}
-              aria-expanded={this.state.expanded}
-              aria-label="Show more"
-            >
-              <ExpandMoreIcon />
-            </IconButton>
+            {e.likestotal ? (
+              <IconButton
+                className={classnames(classes.expand, {
+                  [classes.expandOpen]: this.state.expanded
+                })}
+                // onClick={this.handleExpandClick}
+                // aria-expanded={this.state.expanded}
+                // aria-label="Show more"
+              >
+                <div style={{ fontSize: "1rem" }}>
+                  {e.likestotal > 1 ? (
+                    <div>{e.likestotal} Likes</div>
+                  ) : (
+                    <div>
+                      {e.likestotal}
+                      Like
+                    </div>
+                  )}
+                </div>
+              </IconButton>
+            ) : (
+              ""
+            )}
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
             <CardContent>
@@ -151,7 +215,9 @@ class RecipeReviewCard extends React.Component {
 
 RecipeReviewCard.propTypes = {
   classes: PropTypes.object.isRequired,
-  posts: PropTypes.array.isRequired
+  posts: PropTypes.array.isRequired,
+  user: PropTypes.string.isRequired,
+  getUserInfo: PropTypes.isRequired
 };
 
 export default withStyles(styles)(RecipeReviewCard);
