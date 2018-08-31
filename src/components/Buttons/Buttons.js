@@ -2,9 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import AddIcon from "@material-ui/icons/Add";
-import Icon from "@material-ui/core/Icon";
-import DeleteIcon from "@material-ui/icons/Delete";
+// import AddIcon from "@material-ui/icons/Add";
+// import Icon from "@material-ui/core/Icon";
+// import DeleteIcon from "@material-ui/icons/Delete";
 import NavigationIcon from "@material-ui/icons/Navigation";
 
 const styles = theme => ({
@@ -21,12 +21,14 @@ function FloatingActionButtons(props) {
   return (
     <div>
       <Button
+        // component={Link}
+        // to="http://localhost:3001/login"
         variant="extendedFab"
         aria-label="Delete"
         className={classes.button}
       >
         <NavigationIcon className={classes.extendedIcon} />
-        Connect
+        <a href="http://localhost:3001/login">Connect</a>
       </Button>
     </div>
   );

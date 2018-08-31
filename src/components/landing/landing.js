@@ -2,17 +2,11 @@ import React, { Component } from "react";
 import Particles from "react-particles-js";
 import "./style.css";
 import FloatingActionButtons from "../Buttons/Buttons";
-import MainLogo from "../../../src/LogoMakr_7PRQtL.png";
-import { Link } from "react-router-dom";
-import Button from "@material-ui/core/Button";
-import Icon from "@material-ui/core/Icon";
-import DeleteIcon from "@material-ui/icons/Delete";
-import NavigationIcon from "@material-ui/icons/Navigation";
 
-// other pages
-// import Description from "./../Description/Description";
-// import Contact from "./../Contact/Contact";
-// import Footers from "./../Footer/Footer";
+import Features from "../Features/Features";
+import FeatureTwo from "../FeatureTwo/FeatureTwo";
+import Footer from "../Footer/Footer";
+
 class landing extends Component {
   goLogin() {
     window.alert("this will take you to the login or sign up");
@@ -29,7 +23,7 @@ class landing extends Component {
                   params={{
                     particles: {
                       number: {
-                        value: 50,
+                        value: 55,
                         density: {
                           enable: false
                         }
@@ -39,11 +33,12 @@ class landing extends Component {
                       },
                       size: {
                         value: 4,
-                        random: true,
-                        anim: {
-                          speed: 4,
-                          size_min: 0.3
-                        }
+                        random: true
+                        // anim: {
+                        //   speed: 6,
+                        //   opacity_min: 1,
+                        //   size_min: 0.3
+                        // }
                       },
                       line_linked: {
                         enable: false
@@ -51,7 +46,7 @@ class landing extends Component {
                       move: {
                         bounce: false,
                         random: true,
-                        speed: 6,
+                        speed: 10,
                         direction: "top-right",
                         out_mode: "out"
                       }
@@ -68,6 +63,13 @@ class landing extends Component {
                       modes: {
                         grab: {
                           distance: 140
+                        },
+                        bubble: {
+                          distance: 500,
+                          size: 4,
+                          duration: 0.3,
+                          opacity: 1,
+                          speed: 3
                         }
                       }
                     }
@@ -78,7 +80,7 @@ class landing extends Component {
                 {/* <img className="centered" src={MainLogo} /> */}
                 <div
                   style={{
-                    fontFamily: "Playfair Display ,serif",
+                    fontFamily: "Playfair Display",
                     color: "white",
                     fontSize: "55px"
                   }}
@@ -88,7 +90,7 @@ class landing extends Component {
                 <div
                   id="slogan"
                   style={{
-                    fontFamily: "Playfair Display ,serif",
+                    fontFamily: "Roboto",
                     color: "white",
                     fontSize: "20px"
                   }}
@@ -101,10 +103,10 @@ class landing extends Component {
               </div>
             </div>
           </div>
-          {/* <Features />
-          <Contact /> */}
+          <Features />
+          <FeatureTwo />
         </div>
-        {/* <Footers /> */}
+        <Footer />
       </div>
     );
   }

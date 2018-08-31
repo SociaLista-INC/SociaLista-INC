@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.css";
-import { HashRouter } from "react-router-dom";
+// import { HashRouter } from "react-router-dom";
 import router from "./router";
 import Nav from "./components/Nav/Nav";
 import { withRouter } from "react-router-dom";
