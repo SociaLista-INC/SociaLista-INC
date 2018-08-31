@@ -123,7 +123,7 @@ class DashBoard extends Component {
   // }
 
   render() {
-    // console.log(this.state);
+    console.log(this.state.user.auth_id);
 
     let mappedPosts = this.state.posts.map((e, i) => {
       let {
@@ -158,7 +158,11 @@ class DashBoard extends Component {
           <button onClick={() => this.handleDeleteLikePost(post_id)}>
             Dislike Post
           </button>
-          <button onClick={() => this.handleDelete(post_id)}>Delete</button>
+          {this.state.user.auth_id === auth_id ? (
+            <button onClick={() => this.handleDelete(post_id)}>Delete</button>
+          ) : (
+            ""
+          )}
         </div>
       );
     });

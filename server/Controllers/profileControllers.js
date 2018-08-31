@@ -17,10 +17,43 @@ const addFollower = (req, res, next) => {
     });
 };
 
+const getIfFollowing = (req, res, next) => {
+  console.log(req.params.auth_id, req.params.followed_by);
+  const db = res.app.get("db");
+  db.get_following_info([req.params.auth_id, req.params.followed_by])
+    .then(response => res.status(200).send(response))
+    .catch(e => res.status(500).send("Something is wrong"));
+};
+
 const getNumOfFollowers = (req, res, next) => {
-  console.log(req.params.auth_id);
+  // console.log(req.params.auth_id);
   const db = res.app.get("db");
   db.get_num_of_followers([req.params.auth_id])
+    .then(response => res.status(200).send(response))
+    .catch(e => res.status(500).send("Something is wrong"));
+};
+
+const deleteFollow = (req, res, next) => {
+  const db = res.app.get("db");
+  // console.log(req.params.auth_id);
+
+  db.delete_follow([req.params.auth_id, req.params.followed_by])
+    .then(() => res.status(200).send("Unfollowed"))
+    .catch(e => res.status(500).send("Something is wrong"));
+};
+
+const getListOfFollowers = (req, res, next) => {
+  // console.log(req.params.auth_id);
+  const db = res.app.get("db");
+  db.get_list_of_followers([req.params.auth_id])
+    .then(response => res.status(200).send(response))
+    .catch(e => res.status(500).send("Something is wrong"));
+};
+
+const getEachUserPosts = (req, res, next) => {
+  console.log(req.params.auth_id);
+  const db = res.app.get("db");
+  db.get_posts_by_user([req.params.auth_id])
     .then(response => res.status(200).send(response))
     .catch(e => res.status(500).send("Something is wrong"));
 };
@@ -28,5 +61,9 @@ const getNumOfFollowers = (req, res, next) => {
 module.exports = {
   getProfile,
   addFollower,
-  getNumOfFollowers
+  getNumOfFollowers,
+  deleteFollow,
+  getIfFollowing,
+  getListOfFollowers,
+  getEachUserPosts
 };

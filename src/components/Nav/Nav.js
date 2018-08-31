@@ -18,6 +18,7 @@ import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import axios from "axios";
+
 const styles = {
   root: {
     flexGrow: 1
@@ -89,10 +90,12 @@ class MenuAppBar extends React.Component {
   handleClose = () => {
     this.setState({ anchorEl: null });
   };
+
+  handleLogOut() {
+    axios.post("/api/logout");
+  }
+
   handleDrawerClick() {
-    // if (this.state.open == false) this.setState({ open: true });
-    // else this.setState({ open: false });
-    // this.setState({ open: true });
     if (this.state.open === false) {
       this.setState({ open: true });
     } else {
@@ -173,7 +176,14 @@ class MenuAppBar extends React.Component {
                   <MenuItem onClick={this.handleClose}>
                     <Link to={`/profile/${this.state.user}`}>Profile</Link>
                   </MenuItem>
-                  <MenuItem onClick={this.handleClose}>My account</MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <a
+                      href={process.env.REACT_APP_CLIENT}
+                      onClick={this.handleLogOut}
+                    >
+                      Logout
+                    </a>
+                  </MenuItem>
                 </Menu>
               </div>
             )}

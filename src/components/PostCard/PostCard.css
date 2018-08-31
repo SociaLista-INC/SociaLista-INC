@@ -1,0 +1,9 @@
+.list-posts-postCard {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
+  /* width: 400px; */
+}
