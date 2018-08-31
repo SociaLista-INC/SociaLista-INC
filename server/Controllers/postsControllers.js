@@ -90,6 +90,18 @@ const deleteLikePost = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const getUserListlikePost = (req, res, next) => {
+  let { post_id } = req.params;
+
+  const db = req.app.get("db");
+
+  db.get_listofusers_postLikes([post_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -98,5 +110,6 @@ module.exports = {
   updatePost,
   likePost,
   getAllLikesPost,
-  deleteLikePost
+  deleteLikePost,
+  getUserListlikePost
 };
