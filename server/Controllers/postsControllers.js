@@ -12,7 +12,7 @@ const deletePost = (req, res, next) => {
 
   db.delete_by_postid(post_id)
     .then(response => {
-      res.status(200).send(response);
+      res.status(200).send("response");
     })
     .catch(err => res.status(500).send(err));
 };

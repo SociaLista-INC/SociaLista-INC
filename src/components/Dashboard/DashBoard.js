@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import Post from "./Post";
+
 class DashBoard extends Component {
   constructor(props) {
     super(props);
@@ -10,9 +11,8 @@ class DashBoard extends Component {
       content: "",
       createPostData: {},
       image_url: "",
-      editing: false,
-      contentEdit: ""
-      // ,postsLikes: []
+      contentEdit: "",
+      postsLikes: []
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
@@ -23,12 +23,18 @@ class DashBoard extends Component {
     this.handleSendContentEdit = this.handleSendContentEdit.bind(this);
     this.handleLikePost = this.handleLikePost.bind(this);
     this.handleDeleteLikePost = this.handleDeleteLikePost.bind(this);
+    this.getPosts = this.getPosts.bind(this);
+    this.getSessions = this.getSessions.bind(this);
+    this.createPost = this.createPost.bind(this);
+    this.getPostsLikes = this.getPostsLikes.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
   componentDidMount() {
     this.getPosts();
     this.getSessions();
-    // this.getPostsLikes();
+    this.getPostsLikes();
   }
+
   getPosts() {
     axios.get("/api/getposts").then(res => {
       this.setState({ posts: res.data });
@@ -36,13 +42,12 @@ class DashBoard extends Component {
   }
   getSessions() {
     axios.get("/api/session").then(res => {
-      // console.log(res.data);
       this.setState({ user: res.data });
     });
   }
 
   handleDelete(id) {
-    axios.delete(`api/post/${id}`).then(this.getPosts());
+    axios.delete(`api/post/${id}`).then(() => this.getPosts());
   }
 
   handleContentChange(content) {
@@ -59,17 +64,11 @@ class DashBoard extends Component {
     this.createPost(auth_id, content);
   }
 
-  handleEditingPost() {
-    this.setState({ editing: true });
-  }
-
   handleContentEdit(contentEdit) {
     this.setState({ contentEdit });
   }
 
   handleSendContentEdit(post_id) {
-    // console.log(post_id);
-    this.setState({ editing: false });
     axios
       .put(`/api/post/${post_id}`, { content: this.state.contentEdit })
       .then(() => {
@@ -83,7 +82,6 @@ class DashBoard extends Component {
     axios
       .post(`/api/post/create`, { auth_id, content })
       .then(res => {
-        // console.log(res.data[0]);
         this.setState({ createPostData: res.data[0] });
       })
       .then(() => {
@@ -116,53 +114,27 @@ class DashBoard extends Component {
     });
   }
 
-  // getPostsLikes() {
-  //   axios.get("/api/getlikes").then(res => {
-  //     this.setState({ postsLikes: res.data });
-  //   });
-  // }
+  getPostsLikes() {
+    axios.get("/api/getlikes").then(res => {
+      this.setState({ postsLikes: res.data });
+    });
+  }
 
   render() {
-    console.log(this.state.user.auth_id);
-
+    // console.log(this.state);
     let mappedPosts = this.state.posts.map((e, i) => {
-      let {
-        name,
-        picture,
-        content,
-        post_id,
-        likestotal,
-        auth_id,
-        image_url
-      } = e;
-
       return (
         <div key={i}>
-          <Link to={`/profile/${auth_id}`}>{name}</Link>
-
-          <img alt="" src={picture} width="70px" />
-
-          {!this.state.editing ? (
-            <p onClick={e => this.handleEditingPost(e)}>{content}</p>
-          ) : (
-            <input
-              onChange={e => this.handleContentEdit(e.target.value)}
-              onBlur={() => this.handleSendContentEdit(post_id)}
-            />
-          )}
-          <div>{likestotal}</div>
-          <img alt="" src={image_url} width="70px" />
-          <button onClick={() => this.handleLikePost(post_id)}>
-            Like Post
-          </button>
-          <button onClick={() => this.handleDeleteLikePost(post_id)}>
-            Dislike Post
-          </button>
-          {this.state.user.auth_id === auth_id ? (
-            <button onClick={() => this.handleDelete(post_id)}>Delete</button>
-          ) : (
-            ""
-          )}
+          <Post
+            e={e}
+            handleContentEdit={this.handleContentEdit}
+            handleSendContentEdit={this.handleSendContentEdit}
+            handleDelete={this.handleDelete}
+            currentUser={this.state.user}
+            handleLikePost={this.handleLikePost}
+            handleDeleteLikePost={this.handleDeleteLikePost}
+            postsLikes={this.state.postsLikes}
+          />
         </div>
       );
     });
