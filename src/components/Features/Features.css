@@ -1,0 +1,38 @@
+#Features-Background {
+  padding: 20px;
+  background-color: #d3d5d6;
+
+  height: 600px;
+  color: white;
+  text-align: center;
+  padding-top: 3%;
+}
+
+.center-align {
+  color: black;
+}
+
+.features {
+  height: 700px;
+  width: 75%;
+  margin: auto;
+}
+.rows {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+@media only screen and (max-width: 425px) {
+  .features {
+    width: 95%;
+  }
+  .rows {
+    font-size: 12px;
+  }
+}
+
+#Features-Picture {
+  margin-top: 40px;
+  height: 70vh;
+  width: 110vh;
+}
