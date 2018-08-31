@@ -73,7 +73,7 @@ class RecipeReviewCard extends React.Component {
                 <MoreVertIcon />
               </IconButton>
             }
-            title="Shrimp and Chorizo Paella"
+            title={e.name}
             subheader={<Moment calendar="()">{e.time}</Moment>}
           />
           {e.image_url ? (
@@ -85,11 +85,6 @@ class RecipeReviewCard extends React.Component {
           ) : (
             ""
           )}
-          {/* <CardMedia
-            className={classes.media}
-            image="/static/images/cards/paella.jpg"
-            title="Contemplative Reptile"
-          /> */}
           <CardContent>
             <Typography component="p">{e.content}</Typography>
           </CardContent>
@@ -97,9 +92,9 @@ class RecipeReviewCard extends React.Component {
             <IconButton aria-label="Add to favorites">
               <FavoriteIcon />
             </IconButton>
-            <IconButton aria-label="Share">
+            {/* <IconButton aria-label="Share">
               <ShareIcon />
-            </IconButton>
+            </IconButton> */}
             <IconButton
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded
