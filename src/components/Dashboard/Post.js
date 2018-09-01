@@ -21,6 +21,9 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Moment from "react-moment";
 
+import PostLikeListOutput from "./PostLikeList";
+import axios from "axios";
+
 const styles = theme => ({
   card: {
     width: "400px",
@@ -72,9 +75,6 @@ class Post extends Component {
   };
 
   render() {
-    // console.log("state", this.state);
-    // console.log("props", this.props);
-
     let {
       name,
       picture,
@@ -86,6 +86,7 @@ class Post extends Component {
       time
     } = this.props.e;
 
+    console.log(this.props.e);
     const { classes } = this.props;
 
     return (
@@ -144,7 +145,6 @@ class Post extends Component {
               width="20px"
             />
           </IconButton>
-
           {this.state.currentUser === auth_id ? (
             <IconButton
               aria-label="Delete the Post"
@@ -155,29 +155,7 @@ class Post extends Component {
           ) : (
             ""
           )}
-          {likestotal ? (
-            <IconButton
-              className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded
-              })}
-              // onClick={this.handleExpandClick}
-              // aria-expanded={this.state.expanded}
-              // aria-label="Show more"
-            >
-              <div style={{ fontSize: "1rem" }}>
-                {likestotal > 1 ? (
-                  <div>{likestotal} Likes</div>
-                ) : (
-                  <div>
-                    {likestotal}
-                    Like
-                  </div>
-                )}
-              </div>
-            </IconButton>
-          ) : (
-            ""
-          )}
+          <PostLikeListOutput post_id={post_id} likestotal={likestotal} />
         </CardActions>
       </Card>
     );
