@@ -102,6 +102,18 @@ const getUserListlikePost = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const getUserCommentPost = (req, res, next) => {
+  let { post_id } = req.params;
+
+  const db = req.app.get("db");
+
+  db.get_comments_postid([post_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -111,5 +123,6 @@ module.exports = {
   likePost,
   getAllLikesPost,
   deleteLikePost,
-  getUserListlikePost
+  getUserListlikePost,
+  getUserCommentPost
 };
