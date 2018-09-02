@@ -103,6 +103,13 @@ CREATE TABLE comment_like
     UNIQUE (auth_id, comment_id)
 );
 
+INSERT INTO post_comments
+    (auth_id, post_id, comment)
+VALUES
+    ($1, $2, $3);
+
+-- ALTER TABLE post_comments ADD COLUMN time TIMESTAMP DEFAULT NOW();
+
 
 
 --SELECT ps.post_id, us.name, us.auth_id, us.picture, ps.content, pi.image_id, pi.image_url, ps.time, pl.rate as likestotal, pl.auth_id as like_auth_id

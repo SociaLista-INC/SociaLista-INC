@@ -24,6 +24,7 @@ import Moment from "react-moment";
 import PostLikeListOutput from "./PostLikeList";
 import axios from "axios";
 import Comments from "./Comments";
+import CommentCreate from "./CommentCreate";
 
 const styles = theme => ({
   card: {
@@ -66,6 +67,7 @@ class Post extends Component {
       currentUser: this.props.currentUser.auth_id
     };
     this.handleEditingPost = this.handleEditingPost.bind(this);
+    this.createComment = this.createComment.bind(this);
   }
   handleEditingPost() {
     this.setState({ editing: true });
@@ -74,6 +76,12 @@ class Post extends Component {
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
+
+  createComment(post_id, auth_id, comment) {
+    axios
+      .post(`/api/post/comment`, { post_id, auth_id, comment })
+      .then(() => this.handleExpandClick());
+  }
 
   render() {
     let {
@@ -171,6 +179,11 @@ class Post extends Component {
         </CardActions>
         <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
           <Comments post_id={post_id} currentUser={this.state.currentUser} />
+          <CommentCreate
+            post_id={post_id}
+            auth_id={this.state.currentUser}
+            createComment={this.createComment}
+          />
         </Collapse>
       </Card>
     );
