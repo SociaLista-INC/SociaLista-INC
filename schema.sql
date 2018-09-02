@@ -108,6 +108,10 @@ INSERT INTO post_comments
 VALUES
     ($1, $2, $3);
 
+UPDATE post_comments SET
+    comment = 'I am now trying to update' 
+    WHERE comment_id=10;
+
 -- ALTER TABLE post_comments ADD COLUMN time TIMESTAMP DEFAULT NOW();
 
 

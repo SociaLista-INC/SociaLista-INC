@@ -126,6 +126,19 @@ const createComment = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const updateComment = (req, res, next) => {
+  let { comment_id } = req.params;
+  let { comment } = req.body;
+
+  const db = req.app.get("db");
+
+  db.update_comment_by_id([comment_id, comment])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -137,5 +150,6 @@ module.exports = {
   deleteLikePost,
   getUserListlikePost,
   getUserCommentPost,
-  createComment
+  createComment,
+  updateComment
 };
