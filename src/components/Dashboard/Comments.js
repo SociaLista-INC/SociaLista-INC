@@ -1,6 +1,6 @@
 import React from "react";
-import Collapse from "@material-ui/core/Collapse";
-import IconButton from "@material-ui/core/IconButton";
+// import Collapse from "@material-ui/core/Collapse";
+// import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import axios from "axios";
@@ -9,6 +9,7 @@ class Comments extends React.Component {
   constructor(props) {
     super(props);
     this.state = { comments: [] };
+    this.getComments = this.getComments.bind(this);
   }
 
   handleExpandClick = () => {
@@ -26,12 +27,11 @@ class Comments extends React.Component {
   }
 
   render() {
-    const { classes } = this.props;
+    // const { classes } = this.props;
     // console.log(this.props);
     // console.log(this.state);
 
     let commentsection = this.state.comments.map((com, i) => {
-      console.log(com);
       return (
         <Typography paragraph key={i}>
           {com.comment} By: {com.name}

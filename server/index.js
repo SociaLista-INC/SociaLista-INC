@@ -25,7 +25,8 @@ const {
   getAllLikesPost,
   deleteLikePost,
   getUserListlikePost,
-  getUserCommentPost
+  getUserCommentPost,
+  createComment
 } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
@@ -104,6 +105,7 @@ app.get("/api/getlikes", getAllLikesPost);
 app.delete("/api/like/:post_id/:auth_id", deleteLikePost);
 app.get("/api/post/userlist/like/:post_id", getUserListlikePost);
 app.get("/api/post/comments/:post_id", getUserCommentPost);
+app.post("/api/post/comment", createComment);
 
 //----------------user profile Endpoints------------------
 
