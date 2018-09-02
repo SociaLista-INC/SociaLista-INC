@@ -139,6 +139,18 @@ const updateComment = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const deleteComment = (req, res, next) => {
+  let { comment_id } = req.params;
+
+  const db = req.app.get("db");
+
+  db.delete_comment_by_id([comment_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -151,5 +163,6 @@ module.exports = {
   getUserListlikePost,
   getUserCommentPost,
   createComment,
-  updateComment
+  updateComment,
+  deleteComment
 };
