@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Post from "./Post";
-import FileUpload from "../FileUpload/FileUpload";
+// import FileUpload from "../FileUpload/FileUpload";
+import PostCreate from "./PostCreate";
 
 class DashBoard extends Component {
   constructor(props) {
@@ -160,27 +161,11 @@ class DashBoard extends Component {
     });
     return (
       <div>
-        <FileUpload getImages={this.getMedia} />
-        <input
-          onChange={e => this.handleContentChange(e.target.value)}
-          type="text"
-          value={this.state.content || ""}
-          placeholder="Content of the Post"
-          className="Content_InputBox_Dashboard"
+        <PostCreate
+          handleContentChange={this.handleContentChange}
+          handleImageUrlChange={this.handleImageUrlChange}
+          handlePostClick={this.handlePostClick}
         />
-        <input
-          className="ImageURL_InputBox_Dashboard"
-          value={this.state.image_url || ""}
-          placeholder="Image URL"
-          onChange={e => this.handleImageUrlChange(e.target.value)}
-        />
-        <button
-          type="post createbutton"
-          onClick={() => this.handlePostClick()}
-          className="Post_Button_Dashboard"
-        >
-          Post
-        </button>
         <div className="list-posts-postCard">{mappedPosts}</div>
       </div>
     );

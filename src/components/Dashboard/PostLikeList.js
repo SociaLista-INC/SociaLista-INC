@@ -9,13 +9,9 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-import PersonIcon from "@material-ui/icons/Person";
-import AddIcon from "@material-ui/icons/Add";
-// import Typography from "@material-ui/core/Typography";
 import blue from "@material-ui/core/colors/blue";
-// import axios from "axios";
 
-let getUsers = ["username@gmail.com", "user02@gmail.com"];
+let getUsers = [];
 
 const styles = {
   avatar: {
@@ -35,6 +31,7 @@ class PostLikeList extends React.Component {
 
   render() {
     const { classes, onClose, selectedValue, ...other } = this.props;
+    // console.log(getUsers);
 
     return (
       <Dialog
@@ -42,34 +39,29 @@ class PostLikeList extends React.Component {
         aria-labelledby="simple-dialog-title"
         {...other}
       >
-        <DialogTitle id="simple-dialog-title">Liked By</DialogTitle>
+        <DialogTitle style={{ textAlign: "center" }} id="simple-dialog-title">
+          Liked By
+        </DialogTitle>
         <div>
           <List>
-            {getUsers.map(user => (
+            {getUsers.map((user, i) => (
+              // console.log(user)
               <ListItem
                 button
                 onClick={() => this.handleListItemClick(user)}
-                key={user}
+                key={i}
               >
                 <ListItemAvatar>
-                  <Avatar className={classes.avatar}>
-                    <PersonIcon />
-                  </Avatar>
+                  <Avatar
+                    className={classes.avatar}
+                    alt={user.name}
+                    src={user.picture}
+                  />
                 </ListItemAvatar>
-                <ListItemText primary={user} />
+
+                <ListItemText primary={user.name} />
               </ListItem>
             ))}
-            <ListItem
-              button
-              onClick={() => this.handleListItemClick("addAccount")}
-            >
-              <ListItemAvatar>
-                <Avatar>
-                  <AddIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary="add account" />
-            </ListItem>
           </List>
         </div>
       </Dialog>
@@ -104,11 +96,20 @@ class PostLikeListOutput extends React.Component {
 
   render() {
     // console.log(this.props);
+
+    getUsers = this.props.likeList;
+
     return (
       <div>
         <br />
 
-        <Button onClick={this.handleClickOpen}>
+        <Button
+          className="like-btn-postlike"
+          onClick={() => {
+            this.props.getListofLikes(this.props.post_id);
+            this.handleClickOpen();
+          }}
+        >
           {this.props.likestotal > 1 ? (
             <div>{this.props.likestotal} Likes</div>
           ) : (
