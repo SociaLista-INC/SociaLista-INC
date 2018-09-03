@@ -64,10 +64,12 @@ class Post extends Component {
     this.state = {
       expanded: false,
       editing: false,
+      likeList: [],
       currentUser: this.props.currentUser.auth_id
     };
     this.handleEditingPost = this.handleEditingPost.bind(this);
     this.createComment = this.createComment.bind(this);
+    this.getListofLikes = this.getListofLikes.bind(this);
   }
   handleEditingPost() {
     this.setState({ editing: true });
@@ -81,6 +83,12 @@ class Post extends Component {
     axios
       .post(`/api/post/comment`, { post_id, auth_id, comment })
       .then(() => this.handleExpandClick());
+  }
+
+  getListofLikes(post_id) {
+    axios
+      .get(`/api/post/userlist/like/${post_id}`)
+      .then(res => this.setState({ likeList: res.data }));
   }
 
   render() {
@@ -164,7 +172,12 @@ class Post extends Component {
           ) : (
             ""
           )}
-          <PostLikeListOutput post_id={post_id} likestotal={likestotal} />
+          <PostLikeListOutput
+            post_id={post_id}
+            getListofLikes={this.getListofLikes}
+            likeList={this.state.likeList}
+            likestotal={likestotal}
+          />
 
           <IconButton
             className={classnames(classes.expand, {
