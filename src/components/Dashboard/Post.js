@@ -9,7 +9,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-// import Collapse from "@material-ui/core/Collapse";
+import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 // import Typography from "@material-ui/core/Typography";
@@ -17,9 +17,14 @@ import red from "@material-ui/core/colors/red";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 // import ShareIcon from "@material-ui/icons/Share";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
-// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Moment from "react-moment";
+
+import PostLikeListOutput from "./PostLikeList";
+import axios from "axios";
+import Comments from "./Comments";
+import CommentCreate from "./CommentCreate";
 
 const styles = theme => ({
   card: {
@@ -62,6 +67,7 @@ class Post extends Component {
       currentUser: this.props.currentUser.auth_id
     };
     this.handleEditingPost = this.handleEditingPost.bind(this);
+    this.createComment = this.createComment.bind(this);
   }
   handleEditingPost() {
     this.setState({ editing: true });
@@ -71,10 +77,13 @@ class Post extends Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
-  render() {
-    // console.log("state", this.state);
-    // console.log("props", this.props);
+  createComment(post_id, auth_id, comment) {
+    axios
+      .post(`/api/post/comment`, { post_id, auth_id, comment })
+      .then(() => this.handleExpandClick());
+  }
 
+  render() {
     let {
       name,
       picture,
@@ -86,6 +95,7 @@ class Post extends Component {
       time
     } = this.props.e;
 
+    // console.log(this.props.e);
     const { classes } = this.props;
 
     return (
@@ -144,7 +154,6 @@ class Post extends Component {
               width="20px"
             />
           </IconButton>
-
           {this.state.currentUser === auth_id ? (
             <IconButton
               aria-label="Delete the Post"
@@ -155,30 +164,27 @@ class Post extends Component {
           ) : (
             ""
           )}
-          {likestotal ? (
-            <IconButton
-              className={classnames(classes.expand, {
-                [classes.expandOpen]: this.state.expanded
-              })}
-              // onClick={this.handleExpandClick}
-              // aria-expanded={this.state.expanded}
-              // aria-label="Show more"
-            >
-              <div style={{ fontSize: "1rem" }}>
-                {likestotal > 1 ? (
-                  <div>{likestotal} Likes</div>
-                ) : (
-                  <div>
-                    {likestotal}
-                    Like
-                  </div>
-                )}
-              </div>
-            </IconButton>
-          ) : (
-            ""
-          )}
+          <PostLikeListOutput post_id={post_id} likestotal={likestotal} />
+
+          <IconButton
+            className={classnames(classes.expand, {
+              [classes.expandOpen]: this.state.expanded
+            })}
+            onClick={this.handleExpandClick}
+            aria-expanded={this.state.expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
         </CardActions>
+        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+          <Comments post_id={post_id} currentUser={this.state.currentUser} />
+          <CommentCreate
+            post_id={post_id}
+            auth_id={this.state.currentUser}
+            createComment={this.createComment}
+          />
+        </Collapse>
       </Card>
     );
   }

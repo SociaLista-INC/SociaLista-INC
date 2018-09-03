@@ -102,6 +102,55 @@ const getUserListlikePost = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const getUserCommentPost = (req, res, next) => {
+  let { post_id } = req.params;
+
+  const db = req.app.get("db");
+
+  db.get_comments_postid([post_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const createComment = (req, res, next) => {
+  let { auth_id, post_id, comment } = req.body;
+
+  const db = req.app.get("db");
+
+  db.create_comment([auth_id, post_id, comment])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const updateComment = (req, res, next) => {
+  let { comment_id } = req.params;
+  let { comment } = req.body;
+
+  const db = req.app.get("db");
+
+  db.update_comment_by_id([comment_id, comment])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const deleteComment = (req, res, next) => {
+  let { comment_id } = req.params;
+
+  const db = req.app.get("db");
+
+  db.delete_comment_by_id([comment_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -111,5 +160,9 @@ module.exports = {
   likePost,
   getAllLikesPost,
   deleteLikePost,
-  getUserListlikePost
+  getUserListlikePost,
+  getUserCommentPost,
+  createComment,
+  updateComment,
+  deleteComment
 };

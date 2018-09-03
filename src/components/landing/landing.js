@@ -98,7 +98,9 @@ class landing extends Component {
                   Be Simple, Be Social
                 </div>
                 <div id="connect-button">
-                  <FloatingActionButtons />
+                  <a href="http://localhost:3001/login">
+                    <FloatingActionButtons />
+                  </a>
                 </div>
               </div>
             </div>

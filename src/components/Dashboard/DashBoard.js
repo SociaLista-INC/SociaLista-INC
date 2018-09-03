@@ -140,7 +140,7 @@ class DashBoard extends Component {
   };
 
   render() {
-    console.log(this.state.media);
+    // console.log(this.state);
 
     let mappedPosts = this.state.posts.map((e, i) => {
       return (
@@ -153,7 +153,7 @@ class DashBoard extends Component {
             currentUser={this.state.user}
             handleLikePost={this.handleLikePost}
             handleDeleteLikePost={this.handleDeleteLikePost}
-            postsLikes={this.state.postsLikes}
+            // postsLikes=
           />
         </div>
       );
