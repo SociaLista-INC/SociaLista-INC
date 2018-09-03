@@ -28,7 +28,8 @@ const {
   getUserCommentPost,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
+  getAllImagesGallery
 } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
@@ -118,6 +119,10 @@ app.get("/api/post/comments/:post_id", getUserCommentPost);
 app.post("/api/post/comment", createComment);
 app.put("/api/post/comment/:comment_id", updateComment);
 app.delete("/api/post/comment/:comment_id", deleteComment);
+
+//---------------Gallery Endpoints -----------------------
+
+app.get("/api/getgallery/images", getAllImagesGallery);
 
 //----------------user profile Endpoints------------------
 

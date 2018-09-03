@@ -151,6 +151,13 @@ const deleteComment = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const getAllImagesGallery = (req, res, next) => {
+  const db = req.app.get("db");
+  db.get_gallery_image_by_postid()
+    .then(post => res.status(200).send(post))
+    .catch(e => res.status(500).send("somethingiswrong"));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -164,5 +171,6 @@ module.exports = {
   getUserCommentPost,
   createComment,
   updateComment,
-  deleteComment
+  deleteComment,
+  getAllImagesGallery
 };
