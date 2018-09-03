@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Post from "./Post";
+// import FileUpload from "../FileUpload/FileUpload";
 import PostCreate from "./PostCreate";
 
 class DashBoard extends Component {
@@ -13,7 +14,8 @@ class DashBoard extends Component {
       createPostData: {},
       image_url: "",
       contentEdit: "",
-      postsLikes: []
+      postsLikes: [],
+      media: ""
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
@@ -34,6 +36,7 @@ class DashBoard extends Component {
     this.getPosts();
     this.getSessions();
     this.getPostsLikes();
+    this.getMedia();
   }
 
   getPosts() {
@@ -107,6 +110,14 @@ class DashBoard extends Component {
     });
   }
 
+  getMedia = () => {
+    axios.get("/media").then(res =>
+      this.setState({
+        media: res.data.Contents
+      })
+    );
+  };
+
   handleDeleteLikePost(post_id) {
     let { auth_id } = this.state.user;
 
@@ -120,6 +131,14 @@ class DashBoard extends Component {
       this.setState({ postsLikes: res.data });
     });
   }
+
+  getMedia = () => {
+    axios.get("/media").then(res =>
+      this.setState({
+        media: res.data.Contents
+      })
+    );
+  };
 
   render() {
     // console.log(this.state);

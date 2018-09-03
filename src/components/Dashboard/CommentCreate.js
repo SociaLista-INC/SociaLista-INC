@@ -43,7 +43,7 @@ export default class CommentCreate extends React.Component {
     // console.log(this.state);
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Post a comment</Button>
+        <Button onClick={this.handleClickOpen}>Leave a comment</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
