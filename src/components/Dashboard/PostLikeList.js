@@ -9,12 +9,10 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-// import PersonIcon from "@material-ui/icons/Person";
-// import AddIcon from "@material-ui/icons/Add";
-// import Typography from "@material-ui/core/Typography";
 import blue from "@material-ui/core/colors/blue";
 
-var emails = ["username@gmail.com", "user02@gmail.com"];
+let getUsers = [];
+
 const styles = {
   avatar: {
     backgroundColor: blue[100],
@@ -22,7 +20,7 @@ const styles = {
   }
 };
 
-class SimpleDialog extends React.Component {
+class PostLikeList extends React.Component {
   handleClose = () => {
     this.props.onClose(this.props.selectedValue);
   };
@@ -33,7 +31,8 @@ class SimpleDialog extends React.Component {
 
   render() {
     const { classes, onClose, selectedValue, ...other } = this.props;
-    // console.log(emails);
+    // console.log(getUsers);
+
     return (
       <Dialog
         onClose={this.handleClose}
@@ -41,37 +40,28 @@ class SimpleDialog extends React.Component {
         {...other}
       >
         <DialogTitle style={{ textAlign: "center" }} id="simple-dialog-title">
-          Followers
+          Liked By
         </DialogTitle>
         <div>
           <List>
-            {emails.map((email, i) => (
+            {getUsers.map((user, i) => (
+              // console.log(user)
               <ListItem
                 button
-                onClick={() => this.handleListItemClick(email)}
+                onClick={() => this.handleListItemClick(user)}
                 key={i}
               >
                 <ListItemAvatar>
                   <Avatar
-                    alt="Adelle Charles"
-                    src={email.picture}
-                    // className={classNames(classes.avatar, classes.bigAvatar)}
+                    className={classes.avatar}
+                    alt={user.name}
+                    src={user.picture}
                   />
                 </ListItemAvatar>
-                <ListItemText primary={email.name} />
+
+                <ListItemText primary={user.name} />
               </ListItem>
             ))}
-            <ListItem
-              button
-              onClick={() => this.handleListItemClick("addAccount")}
-            >
-              {/* <ListItemAvatar>
-                <Avatar>
-                  <AddIcon />
-                </Avatar>
-              </ListItemAvatar> */}
-              {/* <ListItemText primary="add account" /> */}
-            </ListItem>
           </List>
         </div>
       </Dialog>
@@ -79,18 +69,19 @@ class SimpleDialog extends React.Component {
   }
 }
 
-SimpleDialog.propTypes = {
+PostLikeList.propTypes = {
   classes: PropTypes.object.isRequired,
   onClose: PropTypes.func,
-  selectedValue: PropTypes.string
+  selectedValue: PropTypes.string,
+  post_id: PropTypes.isRequired
 };
 
-const SimpleDialogWrapped = withStyles(styles)(SimpleDialog);
+const SimpleDialogWrapped = withStyles(styles)(PostLikeList);
 
-class SimpleDialogDemo extends React.Component {
+class PostLikeListOutput extends React.Component {
   state = {
     open: false,
-    selectedValue: emails[1]
+    selectedValue: getUsers[1]
   };
 
   handleClickOpen = () => {
@@ -104,13 +95,28 @@ class SimpleDialogDemo extends React.Component {
   };
 
   render() {
-    // console.log(this.props.followers);
-    emails = this.props.followers;
-    // console.log(emails);
+    // console.log(this.props);
+
+    getUsers = this.props.likeList;
+
     return (
       <div>
         <br />
-        <Button onClick={this.handleClickOpen}>Followers</Button>
+
+        <Button
+          className="like-btn-postlike"
+          onClick={() => {
+            this.props.getListofLikes(this.props.post_id);
+            this.handleClickOpen();
+          }}
+        >
+          {this.props.likestotal > 1 ? (
+            <div>{this.props.likestotal} Likes</div>
+          ) : (
+            <div>{this.props.likestotal} Like</div>
+          )}
+        </Button>
+
         <SimpleDialogWrapped
           selectedValue={this.state.selectedValue}
           open={this.state.open}
@@ -121,4 +127,4 @@ class SimpleDialogDemo extends React.Component {
   }
 }
 
-export default SimpleDialogDemo;
+export default PostLikeListOutput;

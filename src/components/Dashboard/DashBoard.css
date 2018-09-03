@@ -1,0 +1,19 @@
+/* .comments-section-comments {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  align-items: center;
+  align-content: stretch;
+} */
+
+/* .comments-section-comments-text {
+  padding-left: 50px;
+}
+.comments-section-comments-text {
+  padding-left: 50px;
+} */
+.like-btn-postlike {
+  position: relative;
+  bottom: 8.1px;
+}

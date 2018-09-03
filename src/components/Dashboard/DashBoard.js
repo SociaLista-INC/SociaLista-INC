@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Post from "./Post";
+// import FileUpload from "../FileUpload/FileUpload";
+import PostCreate from "./PostCreate";
 
 class DashBoard extends Component {
   constructor(props) {
@@ -12,7 +14,8 @@ class DashBoard extends Component {
       createPostData: {},
       image_url: "",
       contentEdit: "",
-      postsLikes: []
+      postsLikes: [],
+      media: ""
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
@@ -33,6 +36,7 @@ class DashBoard extends Component {
     this.getPosts();
     this.getSessions();
     this.getPostsLikes();
+    this.getMedia();
   }
 
   getPosts() {
@@ -106,6 +110,14 @@ class DashBoard extends Component {
     });
   }
 
+  getMedia = () => {
+    axios.get("/media").then(res =>
+      this.setState({
+        media: res.data.Contents
+      })
+    );
+  };
+
   handleDeleteLikePost(post_id) {
     let { auth_id } = this.state.user;
 
@@ -120,8 +132,17 @@ class DashBoard extends Component {
     });
   }
 
+  getMedia = () => {
+    axios.get("/media").then(res =>
+      this.setState({
+        media: res.data.Contents
+      })
+    );
+  };
+
   render() {
     // console.log(this.state);
+
     let mappedPosts = this.state.posts.map((e, i) => {
       return (
         <div key={i}>
@@ -133,34 +154,19 @@ class DashBoard extends Component {
             currentUser={this.state.user}
             handleLikePost={this.handleLikePost}
             handleDeleteLikePost={this.handleDeleteLikePost}
-            postsLikes={this.state.postsLikes}
+            // postsLikes=
           />
         </div>
       );
     });
     return (
       <div>
-        <input
-          onChange={e => this.handleContentChange(e.target.value)}
-          type="text"
-          value={this.state.content || ""}
-          placeholder="Content of the Post"
-          className="Content_InputBox_Dashboard"
+        <PostCreate
+          handleContentChange={this.handleContentChange}
+          handleImageUrlChange={this.handleImageUrlChange}
+          handlePostClick={this.handlePostClick}
         />
-        <input
-          className="ImageURL_InputBox_Dashboard"
-          value={this.state.image_url || ""}
-          placeholder="Image URL"
-          onChange={e => this.handleImageUrlChange(e.target.value)}
-        />
-        <button
-          type="post createbutton"
-          onClick={() => this.handlePostClick()}
-          className="Post_Button_Dashboard"
-        >
-          Post
-        </button>
-        {mappedPosts}
+        <div className="list-posts-postCard">{mappedPosts}</div>
       </div>
     );
   }

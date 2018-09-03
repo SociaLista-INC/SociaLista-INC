@@ -85,3 +85,50 @@ CREATE TABLE followers
     followed_by text REFERENCES users(auth_id),
     UNIQUE (auth_id, followed_by)
 );
+
+CREATE TABLE comments
+(
+    comment_id SERIAL PRIMARY KEY,
+    auth_id text REFERENCES users(auth_id),
+    post_id integer REFERENCES posts(post_id),
+    comment text
+);
+
+CREATE TABLE comment_like
+(
+    comment_like_id SERIAL PRIMARY KEY,
+    auth_id text REFERENCES users(auth_id),
+    comment_id integer REFERENCES comments(comment_id),
+    rate integer,
+    UNIQUE (auth_id, comment_id)
+);
+
+INSERT INTO post_comments
+    (auth_id, post_id, comment)
+VALUES
+    ($1, $2, $3);
+
+UPDATE post_comments SET
+    comment = 'I am now trying to update' 
+    WHERE comment_id=10;
+
+-- ALTER TABLE post_comments ADD COLUMN time TIMESTAMP DEFAULT NOW();
+
+
+
+--SELECT ps.post_id, us.name, us.auth_id, us.picture, ps.content, pi.image_id, pi.image_url, ps.time, pl.rate as likestotal, pl.auth_id as like_auth_id
+--FROM posts ps
+--    JOIN users us ON us.auth_id= ps.auth_id
+--    left outer JOIN post_images pi ON ps.post_id= pi.post_id
+--    left outer Join post_like pl on pl.post_id = pi.post_id
+--ORDER BY ps.time DESC;
+
+--, (SELECT SUM(rate)
+--    FROM post_like pl
+--    WHERE ps.post_id = pl.post_id) likestotal
+--
+--SELECT pl.post_id, pl.like_id, us.auth_id, us.name, us.picture, pl.rate FROM post_like pl JOIN users us ON us.auth_id = pl.auth_id WHERE pl.post_id = 168 ORDER BY pl.like_id DESC;
+
+--SELECT pl.post_id, pl.like_id, us.auth_id, us.name, us.picture, pl.rate
+--FROM post_like pl JOIN users us ON us.auth_id = pl.auth_id
+--ORDER BY pl.like_id DESC;

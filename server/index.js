@@ -23,10 +23,24 @@ const {
   updatePost,
   likePost,
   getAllLikesPost,
-  deleteLikePost
+  deleteLikePost,
+  getUserListlikePost,
+  getUserCommentPost,
+  createComment,
+  updateComment,
+  deleteComment,
+  getAllImagesGallery
 } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
+
+//---------------AWS setup----------------------
+
+const AWS = require("aws-sdk");
+const fs = require("fs");
+const fileType = require("file-type");
+const bluebird = require("bluebird");
+const multiparty = require("multiparty");
 
 //---------------massive------------------------
 
@@ -100,22 +114,89 @@ app.put("/api/post/:post_id", updatePost);
 app.post("/api/post/like/:post_id", likePost);
 app.get("/api/getlikes", getAllLikesPost);
 app.delete("/api/like/:post_id/:auth_id", deleteLikePost);
+app.get("/api/post/userlist/like/:post_id", getUserListlikePost);
+app.get("/api/post/comments/:post_id", getUserCommentPost);
+app.post("/api/post/comment", createComment);
+app.put("/api/post/comment/:comment_id", updateComment);
+app.delete("/api/post/comment/:comment_id", deleteComment);
+
+//---------------Gallery Endpoints -----------------------
+
+app.get("/api/getgallery/images", getAllImagesGallery);
 
 //----------------user profile Endpoints------------------
 
 app.get("/api/getprofileinfo/:auth_id", getProfile);
-app.post("/api/followuser/:auth_id/:followed_by", addFollower);
 app.get("/api/numoffollowers/:auth_id", getNumOfFollowers);
-app.delete("/api/unfollowuser/:auth_id/:followed_by", deleteFollow);
 app.get("/api/getfollowinginfo/:auth_id/:followed_by", getIfFollowing);
 app.get("/api/getlistoffollowers/:auth_id", getListOfFollowers);
 app.get("/api/getuserposts/:auth_id", getEachUserPosts);
+app.post("/api/followuser/:auth_id/:followed_by", addFollower);
+app.post("/api/post/like/:post_id", likePost);
+app.delete("/api/unfollowuser/:auth_id/:followed_by", deleteFollow);
+app.delete("/api/like/:post_id/:auth_id", deleteLikePost);
+app.delete("/api/post/:post_id", deletePost);
 
 //---------------Session Endpoints------------------------
 
 app.get("/api/session", (req, res) =>
   res.status(200).send({ auth_id: session.auth_id })
 );
+
+//-------------------Aws info-------------------------------
+// using credentials to access AWS
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+
+// configure AWS to work with promises
+AWS.config.setPromisesDependency(bluebird);
+
+// create S3 instance
+const s3 = new AWS.S3();
+
+// s3 function for uploading file
+const uploadFile = (buffer, name, type) => {
+  const params = {
+    ACL: "public-read",
+    Body: buffer,
+    Bucket: process.env.S3_BUCKET,
+    ContentType: type.mime,
+    Key: `${name}.${type.ext}`
+  };
+  return s3.upload(params).promise();
+};
+
+// s3 get endpoint
+app.get("/media", async (req, res) => {
+  var response = await s3
+    .listObjectsV2({
+      Bucket: process.env.S3_BUCKET
+    })
+    .promise();
+  console.log("this is loggining", response);
+  res.status(200).send(response.Contents);
+});
+
+// s3 post endpoint
+app.post("/test-upload", (request, response) => {
+  const form = new multiparty.Form();
+  form.parse(request, async (error, fields, files) => {
+    if (error) throw new Error(error);
+    try {
+      const path = files.file[0].path;
+      const buffer = fs.readFileSync(path);
+      const type = fileType(buffer);
+      const timestamp = Date.now().toString();
+      const fileName = `${timestamp}`;
+      const data = await uploadFile(buffer, fileName, type);
+      return response.status(200).send(data);
+    } catch (error) {
+      return response.status(400).send(error);
+    }
+  });
+});
 
 //----------------port info---------------------------------
 

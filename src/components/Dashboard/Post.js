@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import ContentEditable from "react-contenteditable";
-
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import classnames from "classnames";
@@ -13,17 +12,25 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import red from "@material-ui/core/colors/red";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+// import ShareIcon from "@material-ui/icons/Share";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Moment from "react-moment";
+
+import PostLikeListOutput from "./PostLikeList";
+import axios from "axios";
+import Comments from "./Comments";
+import CommentCreate from "./CommentCreate";
 
 const styles = theme => ({
   card: {
-    maxWidth: 400
+    width: "400px",
+    marginBottom: "10px",
+    minWidth: "300px"
   },
   media: {
     height: 0,
@@ -38,6 +45,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.shortest
     }),
     marginLeft: "auto",
+    marginRight: "20px",
     [theme.breakpoints.up("sm")]: {
       marginRight: -8
     }
@@ -56,9 +64,12 @@ class Post extends Component {
     this.state = {
       expanded: false,
       editing: false,
+      likeList: [],
       currentUser: this.props.currentUser.auth_id
     };
     this.handleEditingPost = this.handleEditingPost.bind(this);
+    this.createComment = this.createComment.bind(this);
+    this.getListofLikes = this.getListofLikes.bind(this);
   }
   handleEditingPost() {
     this.setState({ editing: true });
@@ -68,10 +79,19 @@ class Post extends Component {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
-  render() {
-    // console.log("state", this.state);
-    // console.log("props", this.props);
+  createComment(post_id, auth_id, comment) {
+    axios
+      .post(`/api/post/comment`, { post_id, auth_id, comment })
+      .then(() => this.handleExpandClick());
+  }
 
+  getListofLikes(post_id) {
+    axios
+      .get(`/api/post/userlist/like/${post_id}`)
+      .then(res => this.setState({ likeList: res.data }));
+  }
+
+  render() {
     let {
       name,
       picture,
@@ -83,30 +103,31 @@ class Post extends Component {
       time
     } = this.props.e;
 
+    // console.log(this.props.e);
     const { classes } = this.props;
 
     return (
       <Card className={classes.card}>
         <CardHeader
-          avatar={
-            <Avatar aria-label={name} className={classes.avatar}>
-              {name}
-            </Avatar>
-          }
+          avatar={<Avatar alt="Adelle Charles" src={picture} />}
           action={
             <IconButton>
               <MoreVertIcon />
             </IconButton>
           }
           title={<Link to={`/profile/${auth_id}`}>{name}</Link>}
-          subheader={time}
+          subheader={<Moment calendar="()">{time}</Moment>}
         />
 
-        <CardMedia
-          className={classes.media}
-          image={image_url}
-          title="We need a Title"
-        />
+        {image_url ? (
+          <CardMedia
+            className={classes.media}
+            image={image_url}
+            title="Contemplative Reptile"
+          />
+        ) : (
+          ""
+        )}
 
         <CardContent>
           {!this.state.editing ? (
@@ -124,10 +145,6 @@ class Post extends Component {
             <p onClick={e => this.handleEditingPost(e)}>{content}</p>
           )}
         </CardContent>
-
-        <img alt="" src={picture} width="70px" />
-        <div>{likestotal}</div>
-
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton
             aria-label="Like the Post"
@@ -139,9 +156,12 @@ class Post extends Component {
             aria-label="Share"
             onClick={() => this.props.handleDeleteLikePost(post_id)}
           >
-            <ShareIcon />
+            <img
+              alt="unlike btn"
+              src="https://image.flaticon.com/icons/svg/838/838669.svg"
+              width="20px"
+            />
           </IconButton>
-
           {this.state.currentUser === auth_id ? (
             <IconButton
               aria-label="Delete the Post"
@@ -150,9 +170,34 @@ class Post extends Component {
               <DeleteForeverOutlinedIcon />
             </IconButton>
           ) : (
-            <nothing />
+            ""
           )}
+          <PostLikeListOutput
+            post_id={post_id}
+            getListofLikes={this.getListofLikes}
+            likeList={this.state.likeList}
+            likestotal={likestotal}
+          />
+
+          <IconButton
+            className={classnames(classes.expand, {
+              [classes.expandOpen]: this.state.expanded
+            })}
+            onClick={this.handleExpandClick}
+            aria-expanded={this.state.expanded}
+            aria-label="Show more"
+          >
+            <ExpandMoreIcon />
+          </IconButton>
         </CardActions>
+        <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
+          <Comments post_id={post_id} currentUser={this.state.currentUser} />
+          <CommentCreate
+            post_id={post_id}
+            auth_id={this.state.currentUser}
+            createComment={this.createComment}
+          />
+        </Collapse>
       </Card>
     );
   }

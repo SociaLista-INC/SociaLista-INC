@@ -90,6 +90,74 @@ const deleteLikePost = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
+const getUserListlikePost = (req, res, next) => {
+  let { post_id } = req.params;
+
+  const db = req.app.get("db");
+
+  db.get_listofusers_postLikes([post_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const getUserCommentPost = (req, res, next) => {
+  let { post_id } = req.params;
+
+  const db = req.app.get("db");
+
+  db.get_comments_postid([post_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const createComment = (req, res, next) => {
+  let { auth_id, post_id, comment } = req.body;
+
+  const db = req.app.get("db");
+
+  db.create_comment([auth_id, post_id, comment])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const updateComment = (req, res, next) => {
+  let { comment_id } = req.params;
+  let { comment } = req.body;
+
+  const db = req.app.get("db");
+
+  db.update_comment_by_id([comment_id, comment])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const deleteComment = (req, res, next) => {
+  let { comment_id } = req.params;
+
+  const db = req.app.get("db");
+
+  db.delete_comment_by_id([comment_id])
+    .then(response => {
+      res.status(200).send(response);
+    })
+    .catch(err => res.status(500).send(err));
+};
+
+const getAllImagesGallery = (req, res, next) => {
+  const db = req.app.get("db");
+  db.get_gallery_image_by_postid()
+    .then(post => res.status(200).send(post))
+    .catch(e => res.status(500).send("somethingiswrong"));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -98,5 +166,11 @@ module.exports = {
   updatePost,
   likePost,
   getAllLikesPost,
-  deleteLikePost
+  deleteLikePost,
+  getUserListlikePost,
+  getUserCommentPost,
+  createComment,
+  updateComment,
+  deleteComment,
+  getAllImagesGallery
 };

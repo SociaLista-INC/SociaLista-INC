@@ -1,0 +1,1 @@
+DELETE FROM post_comments WHERE comment_id = $1; 

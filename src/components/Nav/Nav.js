@@ -120,6 +120,7 @@ class MenuAppBar extends React.Component {
               <MenuIcon />
             </IconButton>
             <Drawer open={this.state.open}>
+              <MenuItem disabled>Menu</MenuItem>
               <MenuItem>
                 <Link onClick={() => this.setState({ open: false })} to="/">
                   Home
@@ -131,8 +132,16 @@ class MenuAppBar extends React.Component {
                   onClick={() => this.setState({ open: false })}
                   to="/dashboard"
                 >
-                  Dashboard
+                  Timeline
                 </Link>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={() => this.setState({ open: false })}>
+                <Link to="/gallery">Gallery</Link>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={() => this.setState({ open: false })}>
+                <Link to={`/profile/${this.state.user}`}>Profile</Link>
               </MenuItem>
               <Divider />
             </Drawer>
