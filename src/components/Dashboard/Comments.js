@@ -5,6 +5,8 @@ import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import axios from "axios";
 import ContentEditable from "react-contenteditable";
+import IconButton from "@material-ui/core/IconButton";
+import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 
 class Comments extends React.Component {
   constructor(props) {
@@ -18,6 +20,7 @@ class Comments extends React.Component {
     this.handleEditingComment = this.handleEditingComment.bind(this);
     this.handleCommentEdit = this.handleCommentEdit.bind(this);
     this.handleSendCommentEdit = this.handleSendCommentEdit.bind(this);
+    this.handleDeleteComment = this.handleDeleteComment.bind(this);
   }
 
   handleExpandClick = () => {
@@ -46,6 +49,15 @@ class Comments extends React.Component {
       .then(() => {
         this.getComments(this.props.post_id);
         this.setState({ comment_id: "" });
+      })
+      .catch(err => console.log(err));
+  }
+
+  handleDeleteComment(comment_id) {
+    axios
+      .delete(`/api/post/comment/${comment_id}`)
+      .then(() => {
+        this.getComments(this.props.post_id);
       })
       .catch(err => console.log(err));
   }
@@ -80,6 +92,17 @@ class Comments extends React.Component {
             <Typography paragraph key={i}>
               {com.comment} By: {com.name}
             </Typography>
+          )}
+
+          {this.props.currentUser === com.auth_id ? (
+            <IconButton
+              aria-label="Delete the Post"
+              onClick={() => this.handleDeleteComment(com.comment_id)}
+            >
+              <DeleteForeverOutlinedIcon />
+            </IconButton>
+          ) : (
+            ""
           )}
         </Typography>
       );

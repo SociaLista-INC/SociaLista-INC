@@ -27,7 +27,8 @@ const {
   getUserListlikePost,
   getUserCommentPost,
   createComment,
-  updateComment
+  updateComment,
+  deleteComment
 } = require("./Controllers/postsControllers");
 const app = express();
 app.use(bodyParser.json());
@@ -108,6 +109,7 @@ app.get("/api/post/userlist/like/:post_id", getUserListlikePost);
 app.get("/api/post/comments/:post_id", getUserCommentPost);
 app.post("/api/post/comment", createComment);
 app.put("/api/post/comment/:comment_id", updateComment);
+app.delete("/api/post/comment/:comment_id", deleteComment);
 
 //----------------user profile Endpoints------------------
 
