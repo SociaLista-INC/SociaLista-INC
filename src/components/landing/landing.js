@@ -73,7 +73,6 @@ class landing extends Component {
                         speed: 3
                       }
                     }
-<<<<<<< HEAD
                   }
                 }}
               />
@@ -83,37 +82,6 @@ class landing extends Component {
               <h5 id="slogan">Be Simple, Be Social</h5>
               <div id="connect-button">
                 <FloatingActionButtons>connect</FloatingActionButtons>
-=======
-                  }}
-                />
-              </div>
-              <div className="app-intro">
-                {/* <img className="centered" src={MainLogo} /> */}
-                <div
-                  style={{
-                    fontFamily: "Playfair Display",
-                    color: "white",
-                    fontSize: "55px"
-                  }}
-                >
-                  S o c i a L i s t a
-                </div>
-                <div
-                  id="slogan"
-                  style={{
-                    fontFamily: "Roboto",
-                    color: "white",
-                    fontSize: "20px"
-                  }}
-                >
-                  Be Simple, Be Social
-                </div>
-                <div id="connect-button">
-                  <a href="http://localhost:3001/login">
-                    <FloatingActionButtons />
-                  </a>
-                </div>
->>>>>>> c3677cd52786af9eaf9ab93cbae90b1b068574c3
               </div>
             </div>
           </div>
