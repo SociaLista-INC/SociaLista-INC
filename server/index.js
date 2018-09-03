@@ -29,6 +29,14 @@ const {
 const app = express();
 app.use(bodyParser.json());
 
+//---------------AWS setup----------------------
+
+const AWS = require("aws-sdk");
+const fs = require("fs");
+const fileType = require("file-type");
+const bluebird = require("bluebird");
+const multiparty = require("multiparty");
+
 //---------------massive------------------------
 
 massive(process.env.CONNECTION_STRING)
@@ -121,6 +129,61 @@ app.delete("/api/post/:post_id", deletePost);
 app.get("/api/session", (req, res) =>
   res.status(200).send({ auth_id: session.auth_id })
 );
+
+//-------------------Aws info-------------------------------
+// using credentials to access AWS
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
+
+// configure AWS to work with promises
+AWS.config.setPromisesDependency(bluebird);
+
+// create S3 instance
+const s3 = new AWS.S3();
+
+// s3 function for uploading file
+const uploadFile = (buffer, name, type) => {
+  const params = {
+    ACL: "public-read",
+    Body: buffer,
+    Bucket: process.env.S3_BUCKET,
+    ContentType: type.mime,
+    Key: `${name}.${type.ext}`
+  };
+  return s3.upload(params).promise();
+};
+
+// s3 get endpoint
+app.get("/media", async (req, res) => {
+  var response = await s3
+    .listObjectsV2({
+      Bucket: process.env.S3_BUCKET
+    })
+    .promise();
+  console.log("this is loggining", response);
+  res.status(200).send(response.Contents);
+});
+
+// s3 post endpoint
+app.post("/test-upload", (request, response) => {
+  const form = new multiparty.Form();
+  form.parse(request, async (error, fields, files) => {
+    if (error) throw new Error(error);
+    try {
+      const path = files.file[0].path;
+      const buffer = fs.readFileSync(path);
+      const type = fileType(buffer);
+      const timestamp = Date.now().toString();
+      const fileName = `${timestamp}`;
+      const data = await uploadFile(buffer, fileName, type);
+      return response.status(200).send(data);
+    } catch (error) {
+      return response.status(400).send(error);
+    }
+  });
+});
 
 //----------------port info---------------------------------
 

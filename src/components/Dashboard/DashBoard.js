@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Post from "./Post";
+import FileUpload from "../FileUpload/FileUpload";
 
 class DashBoard extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class DashBoard extends Component {
       createPostData: {},
       image_url: "",
       contentEdit: "",
-      postsLikes: []
+      postsLikes: [],
+      media: ""
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
@@ -33,6 +35,7 @@ class DashBoard extends Component {
     this.getPosts();
     this.getSessions();
     this.getPostsLikes();
+    this.getMedia();
   }
 
   getPosts() {
@@ -106,6 +109,14 @@ class DashBoard extends Component {
     });
   }
 
+  getMedia = () => {
+    axios.get("/media").then(res =>
+      this.setState({
+        media: res.data.Contents
+      })
+    );
+  };
+
   handleDeleteLikePost(post_id) {
     let { auth_id } = this.state.user;
 
@@ -120,8 +131,17 @@ class DashBoard extends Component {
     });
   }
 
+  getMedia = () => {
+    axios.get("/media").then(res =>
+      this.setState({
+        media: res.data.Contents
+      })
+    );
+  };
+
   render() {
-    // console.log(this.state);
+    console.log(this.state.media);
+
     let mappedPosts = this.state.posts.map((e, i) => {
       return (
         <div key={i}>
@@ -140,6 +160,7 @@ class DashBoard extends Component {
     });
     return (
       <div>
+        <FileUpload getImages={this.getMedia} />
         <input
           onChange={e => this.handleContentChange(e.target.value)}
           type="text"
