@@ -31,6 +31,7 @@ class PostLikeList extends React.Component {
 
   render() {
     const { classes, onClose, selectedValue, ...other } = this.props;
+    // console.log(getUsers);
 
     return (
       <Dialog
@@ -38,7 +39,9 @@ class PostLikeList extends React.Component {
         aria-labelledby="simple-dialog-title"
         {...other}
       >
-        <DialogTitle id="simple-dialog-title">Liked By</DialogTitle>
+        <DialogTitle style={{ textAlign: "center" }} id="simple-dialog-title">
+          Liked By
+        </DialogTitle>
         <div>
           <List>
             {getUsers.map((user, i) => (
@@ -55,6 +58,7 @@ class PostLikeList extends React.Component {
                     src={user.picture}
                   />
                 </ListItemAvatar>
+
                 <ListItemText primary={user.name} />
               </ListItem>
             ))}
@@ -68,7 +72,8 @@ class PostLikeList extends React.Component {
 PostLikeList.propTypes = {
   classes: PropTypes.object.isRequired,
   onClose: PropTypes.func,
-  selectedValue: PropTypes.string
+  selectedValue: PropTypes.string,
+  post_id: PropTypes.isRequired
 };
 
 const SimpleDialogWrapped = withStyles(styles)(PostLikeList);
@@ -99,6 +104,7 @@ class PostLikeListOutput extends React.Component {
         <br />
 
         <Button
+          className="like-btn-postlike"
           onClick={() => {
             this.props.getListofLikes(this.props.post_id);
             this.handleClickOpen();

@@ -1,12 +1,15 @@
 import React from "react";
 // import Collapse from "@material-ui/core/Collapse";
 // import IconButton from "@material-ui/core/IconButton";
+import "./DashBoard.css";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import axios from "axios";
 import ContentEditable from "react-contenteditable";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
+
+import Avatar from "@material-ui/core/Avatar";
 
 class Comments extends React.Component {
   constructor(props) {
@@ -69,48 +72,74 @@ class Comments extends React.Component {
   render() {
     // const { classes } = this.props;
     // console.log(this.props);
-    // console.log(this.state);
+    console.log(this.state);
 
     let commentsection = this.state.comments.map((com, i) => {
-      //   console.log(com);
+      console.log(com.picture);
       return (
-        <Typography key={i}>
-          {!this.state.editing ? (
-            <Typography paragraph onClick={e => this.handleEditingComment(e)}>
-              {com.comment} By: {com.name}
-            </Typography>
-          ) : this.props.currentUser === com.auth_id ? (
-            <ContentEditable
-              onChange={e => this.handleCommentEdit(e.target.value)}
-              html={com.comment}
-              onBlur={() => {
-                this.handleSendCommentEdit(com.comment_id);
-                this.setState({ editing: false });
-              }}
+        <div className="comments-section-comments" key={i}>
+          <div>
+            <Avatar
+              // className={this.props.classes.avatar}
+              alt={com.picture}
+              src={com.picture}
             />
-          ) : (
-            <Typography paragraph key={i}>
-              {com.comment} By: {com.name}
+          </div>
+          <div className="comments-section-comments-text">
+            <Typography>
+              {!this.state.editing ? (
+                <Typography
+                  paragraph
+                  onClick={e => this.handleEditingComment(e)}
+                >
+                  {com.comment}
+                  {this.props.currentUser === com.auth_id ? (
+                    <IconButton
+                      aria-label="Delete the Post"
+                      onClick={() => this.handleDeleteComment(com.comment_id)}
+                    >
+                      <DeleteForeverOutlinedIcon />
+                    </IconButton>
+                  ) : (
+                    ""
+                  )}
+                  {/* By: {com.name} */}
+                </Typography>
+              ) : this.props.currentUser === com.auth_id ? (
+                <ContentEditable
+                  onChange={e => this.handleCommentEdit(e.target.value)}
+                  html={com.comment}
+                  onBlur={() => {
+                    this.handleSendCommentEdit(com.comment_id);
+                    this.setState({ editing: false });
+                  }}
+                />
+              ) : (
+                <Typography paragraph key={i}>
+                  {com.comment} By: {com.name}
+                </Typography>
+              )}
             </Typography>
-          )}
-
-          {this.props.currentUser === com.auth_id ? (
-            <IconButton
-              aria-label="Delete the Post"
-              onClick={() => this.handleDeleteComment(com.comment_id)}
-            >
-              <DeleteForeverOutlinedIcon />
-            </IconButton>
-          ) : (
-            ""
-          )}
-        </Typography>
+          </div>
+          <div className="comments-section-comments-btn">
+            {/* {this.props.currentUser === com.auth_id ? (
+              <IconButton
+                aria-label="Delete the Post"
+                onClick={() => this.handleDeleteComment(com.comment_id)}
+              >
+                <DeleteForeverOutlinedIcon />
+              </IconButton>
+            ) : (
+              ""
+            )} */}
+          </div>
+        </div>
       );
     });
     return (
       <CardContent>
         <Typography paragraph variant="body2">
-          Comments:
+          {this.state.comments[0] ? "Comments" : "No comments yet"}
         </Typography>
         {commentsection}
       </CardContent>
