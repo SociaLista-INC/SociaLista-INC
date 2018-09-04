@@ -1,0 +1,3 @@
+SELECT *
+FROM stories
+ORDER BY time DESC;
