@@ -112,6 +112,28 @@ UPDATE post_comments SET
     comment = 'I am now trying to update' 
     WHERE comment_id=10;
 
+CREATE TABLE stories
+(
+    story_id SERIAL PRIMARY KEY,
+    auth_id text REFERENCES users(auth_id),
+    title text,
+    img_url text,
+    time timestamp DEFAULT now()
+    -- with time zone
+);
+
+INSERT INTO stories
+    (auth_id, title, img_url)
+VALUES
+    ('facebook|2288355554514695', 'Story 1', 'http://mountainrailwv.com/wp-content/uploads/Chase-Gunnoe-IMG_7795_HR-1.jpg'),
+    ('facebook|2288355554514695', 'Story 2', 'https://eng.taiwan.net.tw/resources/images/Attractions/0011324.jpg'),
+    ('facebook|2288355554514695', 'Story 3', 'http://svcdn.simpleviewinc.com/v3/cache/www_exploreboone_com/56C58EA2B124FFAFD2BDBF75E7A2FD59.jpg'),
+    ('facebook|2288355554514695', 'Story 4', 'https://www.goldcoastaustralia.com/assets/images/scenic-drive-rainforest.jpg'),
+    ('facebook|2288355554514695', 'Story 5', 'https://barkerewing.com/wp-content/uploads/2014/04/Barker-Ewing-Grand-Teton-Scenic-Float-Trips-Home-01.jpg'),
+    ('facebook|2288355554514695', 'Story 6', 'https://oceandrive.com/get/files/image/migration/6375_content_wow.jpg');
+
+
+
 -- ALTER TABLE post_comments ADD COLUMN time TIMESTAMP DEFAULT NOW();
 
 
