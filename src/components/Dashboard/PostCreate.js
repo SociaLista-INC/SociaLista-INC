@@ -24,6 +24,7 @@ export default class PostCreate extends React.Component {
   };
 
   render() {
+    // console.log(this.props.file);
     return (
       <div>
         <Button onClick={this.handleClickOpen}>Write a Post</Button>
@@ -55,10 +56,18 @@ export default class PostCreate extends React.Component {
               label="Enter an Image URL or select one below"
               type="input"
               fullWidth
-              onChange={e => this.props.handleImageUrlChange(e.target.value)}
+              onChange={e => this.props.handelUrlText(e.target.value)}
             />
             <Button label="My Label">
-              <input type="file" />
+              <form onSubmit={this.props.handleImageUrlChange}>
+                <input
+                  label="upload file"
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .mp4, .mp3"
+                  onChange={this.props.handleFileUpload}
+                />
+                <button type="submit">Upload</button>
+              </form>
             </Button>
           </DialogContent>
           <DialogActions>
