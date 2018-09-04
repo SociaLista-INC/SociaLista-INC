@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Post from "./Post";
-// import FileUpload from "../FileUpload/FileUpload";
 import PostCreate from "./PostCreate";
 
 class DashBoard extends Component {
@@ -15,7 +14,8 @@ class DashBoard extends Component {
       image_url: "",
       contentEdit: "",
       postsLikes: [],
-      media: ""
+      media: "",
+      file: null
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
@@ -31,12 +31,12 @@ class DashBoard extends Component {
     this.createPost = this.createPost.bind(this);
     this.getPostsLikes = this.getPostsLikes.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.handelUrlText = this.handelUrlText.bind(this);
   }
   componentDidMount() {
     this.getPosts();
     this.getSessions();
     this.getPostsLikes();
-    this.getMedia();
   }
 
   getPosts() {
@@ -58,9 +58,36 @@ class DashBoard extends Component {
     this.setState({ content });
   }
 
-  handleImageUrlChange(image_url) {
+  handelUrlText(image_url) {
     this.setState({ image_url });
   }
+
+  handleFileUpload = event => {
+    console.log(event.target.files);
+    this.setState({ file: event.target.files });
+  };
+
+  handleImageUrlChange = event => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("file", this.state.file[0]);
+    axios
+      .post(`/api/post-upload-file`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(res => {
+        // console.log("this will be the link ", res.data.Location);
+
+        this.setState({
+          image_url: res.data.Location
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
 
   handlePostClick() {
     let { content } = this.state;
@@ -110,14 +137,6 @@ class DashBoard extends Component {
     });
   }
 
-  getMedia = () => {
-    axios.get("/media").then(res =>
-      this.setState({
-        media: res.data.Contents
-      })
-    );
-  };
-
   handleDeleteLikePost(post_id) {
     let { auth_id } = this.state.user;
 
@@ -131,14 +150,6 @@ class DashBoard extends Component {
       this.setState({ postsLikes: res.data });
     });
   }
-
-  getMedia = () => {
-    axios.get("/media").then(res =>
-      this.setState({
-        media: res.data.Contents
-      })
-    );
-  };
 
   render() {
     // console.log(this.state);
@@ -154,7 +165,6 @@ class DashBoard extends Component {
             currentUser={this.state.user}
             handleLikePost={this.handleLikePost}
             handleDeleteLikePost={this.handleDeleteLikePost}
-            // postsLikes=
           />
         </div>
       );
@@ -162,6 +172,9 @@ class DashBoard extends Component {
     return (
       <div>
         <PostCreate
+          handelUrlText={this.handelUrlText}
+          file={this.state.file}
+          handleFileUpload={this.handleFileUpload}
           handleContentChange={this.handleContentChange}
           handleImageUrlChange={this.handleImageUrlChange}
           handlePostClick={this.handlePostClick}

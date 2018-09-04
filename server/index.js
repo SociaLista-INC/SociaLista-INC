@@ -169,18 +169,18 @@ const uploadFile = (buffer, name, type) => {
 };
 
 // s3 get endpoint
-app.get("/media", async (req, res) => {
-  var response = await s3
-    .listObjectsV2({
-      Bucket: process.env.S3_BUCKET
-    })
-    .promise();
-  console.log("this is loggining", response);
-  res.status(200).send(response.Contents);
-});
+// app.get("/media", async (req, res) => {
+//   var response = await s3
+//     .listObjectsV2({
+//       Bucket: process.env.S3_BUCKET
+//     })
+//     .promise();
+//   console.log("this is loggining", response);
+//   res.status(200).send(response.Contents);
+// });
 
 // s3 post endpoint
-app.post("/test-upload", (request, response) => {
+app.post("/api/post-upload-file", (request, response) => {
   const form = new multiparty.Form();
   form.parse(request, async (error, fields, files) => {
     if (error) throw new Error(error);
@@ -191,6 +191,7 @@ app.post("/test-upload", (request, response) => {
       const timestamp = Date.now().toString();
       const fileName = `${timestamp}`;
       const data = await uploadFile(buffer, fileName, type);
+      console.log("THIS IS DATA", data.Location);
       return response.status(200).send(data);
     } catch (error) {
       return response.status(400).send(error);
