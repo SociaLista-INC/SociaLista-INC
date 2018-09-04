@@ -48,14 +48,24 @@ class Gallery1 extends React.Component {
   render() {
     console.log(this.state.photos);
 
-    let mappedPhotoes = this.state.photos.map((e, i) => {
-      console.log(e);
-      return {
-        src: e.image_url,
-        width: Math.floor(Math.random() * 3) + 1,
-        height: Math.floor(Math.random() * 2) + 1
-      };
-    });
+    let mappedPhotoes = this.state.photos
+      .filter(e => {
+        console.log(!e.image_url.toLowerCase().includes(".mp3"));
+
+        return (
+          e.image_url.toLowerCase().includes(".png") ||
+          e.image_url.toLowerCase().includes(".jpg") ||
+          e.image_url.toLowerCase().includes(".jpeg")
+        );
+      })
+      .map((e, i) => {
+        console.log(e);
+        return {
+          src: e.image_url,
+          width: Math.floor(Math.random() * 3) + 1,
+          height: Math.floor(Math.random() * 2) + 1
+        };
+      });
 
     return (
       <div>

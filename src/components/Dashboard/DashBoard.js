@@ -159,6 +159,7 @@ class DashBoard extends Component {
         <div key={i}>
           <Post
             e={e}
+            getPosts={this.getPosts}
             handleContentEdit={this.handleContentEdit}
             handleSendContentEdit={this.handleSendContentEdit}
             handleDelete={this.handleDelete}

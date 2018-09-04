@@ -25,6 +25,7 @@ import PostLikeListOutput from "./PostLikeList";
 import axios from "axios";
 import Comments from "./Comments";
 import CommentCreate from "./CommentCreate";
+import ReactPlayer from "react-player";
 
 const styles = theme => ({
   card: {
@@ -66,6 +67,7 @@ class Post extends Component {
       editing: false,
       likeList: [],
       currentUser: this.props.currentUser.auth_id
+      // e: this.props.e
     };
     this.handleEditingPost = this.handleEditingPost.bind(this);
     this.createComment = this.createComment.bind(this);
@@ -103,7 +105,7 @@ class Post extends Component {
       time
     } = this.props.e;
 
-    // console.log(this.props.e);
+    // console.log(this.state.e.image_url);
     const { classes } = this.props;
 
     return (
@@ -118,17 +120,39 @@ class Post extends Component {
           title={<Link to={`/profile/${auth_id}`}>{name}</Link>}
           subheader={<Moment calendar="()">{time}</Moment>}
         />
-
         {image_url ? (
-          <CardMedia
-            className={classes.media}
-            image={image_url}
-            title="Contemplative Reptile"
-          />
+          image_url.toLowerCase().includes(".png") ? (
+            <CardMedia
+              className={classes.media}
+              image={image_url}
+              title="Contemplative Reptile"
+            />
+          ) : image_url.toLowerCase().includes(".jpg") ? (
+            <CardMedia
+              className={classes.media}
+              image={image_url}
+              title="Contemplative Reptile"
+            />
+          ) : image_url.toLowerCase().includes(".jpeg") ? (
+            <CardMedia
+              className={classes.media}
+              image={image_url}
+              title="Contemplative Reptile"
+            />
+          ) : image_url.toLowerCase().includes(".mp3") ? (
+            <audio controls>
+              <source src={image_url} type="audio/mpeg" />
+            </audio>
+          ) : image_url.toLowerCase().includes("youtube") ? (
+            <ReactPlayer width="100%" url={image_url} />
+          ) : image_url.toLowerCase().includes("soundcloud") ? (
+            <ReactPlayer width="100%" url={image_url} />
+          ) : (
+            ""
+          )
         ) : (
           ""
         )}
-
         <CardContent>
           {!this.state.editing ? (
             <p onClick={e => this.handleEditingPost(e)}>{content}</p>
