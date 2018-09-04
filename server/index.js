@@ -31,6 +31,13 @@ const {
   deleteComment,
   getAllImagesGallery
 } = require("./Controllers/postsControllers");
+
+const {
+  getAllStories,
+  createStory,
+  deleteStory
+} = require("./Controllers/storiesControllers");
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -121,8 +128,12 @@ app.put("/api/post/comment/:comment_id", updateComment);
 app.delete("/api/post/comment/:comment_id", deleteComment);
 
 //---------------Gallery Endpoints -----------------------
-
 app.get("/api/getgallery/images", getAllImagesGallery);
+
+//----------------Stories Endpoints-----------------------
+app.get("/api/getstories", getAllStories);
+app.post("/api/story/create", createStory);
+app.delete("/api/story/:story_id", deleteStory);
 
 //----------------user profile Endpoints------------------
 
