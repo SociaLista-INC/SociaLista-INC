@@ -141,6 +141,10 @@ class MenuAppBar extends React.Component {
               </MenuItem>
               <Divider />
               <MenuItem onClick={() => this.setState({ open: false })}>
+                <Link to="/explore">Explore</Link>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={() => this.setState({ open: false })}>
                 <Link to={`/profile/${this.state.user}`}>Profile</Link>
               </MenuItem>
               <Divider />
