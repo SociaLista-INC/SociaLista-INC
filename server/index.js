@@ -5,6 +5,7 @@ const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
+const { getMostRecentLikes } = require("./Controllers/exploreControllers");
 const { logout, login, getUser } = require("./auth_controller");
 const {
   getProfile,
@@ -129,6 +130,10 @@ app.delete("/api/post/comment/:comment_id", deleteComment);
 
 //---------------Gallery Endpoints -----------------------
 app.get("/api/getgallery/images", getAllImagesGallery);
+
+//---------------Explore Endpoints------------------------
+
+app.get("/api/getrecentlikes", getMostRecentLikes);
 
 //----------------Stories Endpoints-----------------------
 app.get("/api/getstories", getAllStories);

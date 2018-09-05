@@ -22,6 +22,7 @@ import Typography from "@material-ui/core/Typography";
 import FolderIcon from "@material-ui/icons/Folder";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "./Explore.css";
+import axios from "axios";
 
 const styles = {
   card: {
@@ -48,9 +49,21 @@ class Explore extends React.Component {
     super(props);
     this.state = {
       dense: false,
-      secondary: false
+      secondary: false,
+      mostRecentLikes: []
     };
   }
+
+  componentDidMount() {
+    this.getMostRecentLikes();
+  }
+
+  getMostRecentLikes() {
+    axios
+      .get("/api/getrecentlikes")
+      .then(res => this.setState({ mostRecentLikes: res.data }));
+  }
+
   generate(element) {
     return [0, 1, 2].map(value =>
       React.cloneElement(element, {
@@ -62,6 +75,40 @@ class Explore extends React.Component {
     const { classes } = this.props;
     const bull = <span className={classes.bullet}>•</span>;
     const { dense, secondary } = this.state;
+    console.log(this.state.mostRecentLikes);
+    let mappedRecentLikes = this.state.mostRecentLikes.map((e, i) => {
+      return (
+        <Card className={classes.card}>
+          <CardContent>
+            <Typography className={classes.title} color="textSecondary">
+              Word of the Day
+            </Typography>
+            <List dense={dense}>
+              {/* {this.generate( */}
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar alt="Adelle Charles" src={e.picture} />
+                </ListItemAvatar>
+                <ListItemText
+                  primary="Single-line item"
+                  secondary={secondary ? "Secondary text" : null}
+                />
+                <ListItemSecondaryAction>
+                  <IconButton aria-label="Delete">
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+              // )}
+            </List>
+          </CardContent>
+          <CardActions>
+            <Button size="small">Learn More</Button>
+          </CardActions>
+        </Card>
+      );
+    });
+
     return (
       <div className="explore-cards">
         <Card className={classes.card}>
@@ -70,16 +117,16 @@ class Explore extends React.Component {
               Word of the Day
             </Typography>
             <List dense={dense}>
-              {this.generate(
+              {this.state.mostRecentLikes.map((e, i) => (
                 <ListItem>
                   <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
+                    <Avatar alt="Adelle Charles" src={e.picture} />
                   </ListItemAvatar>
                   <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
+                    primary={`${e.name} liked ${e.userwithpost}'s post "${
+                      e.content
+                    }"`}
+                    // secondary={secondary ? "Secondary text" : null}
                   />
                   <ListItemSecondaryAction>
                     <IconButton aria-label="Delete">
@@ -87,7 +134,7 @@ class Explore extends React.Component {
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
-              )}
+              ))}
             </List>
           </CardContent>
           <CardActions>
