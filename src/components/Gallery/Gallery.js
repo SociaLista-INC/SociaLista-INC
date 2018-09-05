@@ -8,6 +8,7 @@ class Gallery1 extends React.Component {
   constructor() {
     super();
     this.state = { photos: [], currentImage: 0 };
+    this.getPictures = this.getPictures.bind(this);
     this.closeLightbox = this.closeLightbox.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
@@ -46,10 +47,10 @@ class Gallery1 extends React.Component {
     });
   }
   render() {
-    console.log(this.state.photos);
+    // console.log(this.state.photos);
 
     let mappedPhotoes = this.state.photos.map((e, i) => {
-      console.log(e);
+      // console.log(e);
       return {
         src: e.image_url,
         width: Math.floor(Math.random() * 3) + 1,

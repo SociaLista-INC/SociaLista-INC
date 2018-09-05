@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Post from "./Post";
 import PostCreate from "./PostCreate";
+import Stories from "../Stories/Stories";
 
 class DashBoard extends Component {
   constructor(props) {
@@ -63,7 +64,7 @@ class DashBoard extends Component {
   }
 
   handleFileUpload = event => {
-    console.log(event.target.files);
+    // console.log(event.target.files);
     this.setState({ file: event.target.files });
   };
 
@@ -179,6 +180,7 @@ class DashBoard extends Component {
           handleImageUrlChange={this.handleImageUrlChange}
           handlePostClick={this.handlePostClick}
         />
+        <Stories />
         <div className="list-posts-postCard">{mappedPosts}</div>
       </div>
     );
