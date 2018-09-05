@@ -2,25 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
-import Button from "@material-ui/core/Button";
-// import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
 import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import FolderIcon from "@material-ui/icons/Folder";
-import DeleteIcon from "@material-ui/icons/Delete";
+
 import "./Explore.css";
 import axios from "axios";
 
@@ -28,7 +17,10 @@ const styles = {
   card: {
     width: "400px",
     minWidth: "300px",
-    marginBottom: "10px"
+    marginBottom: "10px",
+    height: "530px",
+    overflow: "scroll",
+    marginTop: "50px"
   },
   bullet: {
     display: "inline-block",
@@ -50,18 +42,34 @@ class Explore extends React.Component {
     this.state = {
       dense: false,
       secondary: false,
-      mostRecentLikes: []
+      mostRecentLikes: [],
+      mostRecentComments: [],
+      mostRecentFollowers: []
     };
   }
 
   componentDidMount() {
     this.getMostRecentLikes();
+    this.getMostRecentComments();
+    this.getMostRecentFollowers();
   }
 
   getMostRecentLikes() {
     axios
       .get("/api/getrecentlikes")
       .then(res => this.setState({ mostRecentLikes: res.data }));
+  }
+
+  getMostRecentComments() {
+    axios
+      .get("/api/getrecentcomments")
+      .then(res => this.setState({ mostRecentComments: res.data }));
+  }
+
+  getMostRecentFollowers() {
+    axios
+      .get("/api/getrecentfollowers")
+      .then(res => this.setState({ mostRecentFollowers: res.data }));
   }
 
   generate(element) {
@@ -73,134 +81,96 @@ class Explore extends React.Component {
   }
   render() {
     const { classes } = this.props;
-    const bull = <span className={classes.bullet}>•</span>;
-    const { dense, secondary } = this.state;
-    console.log(this.state.mostRecentLikes);
-    let mappedRecentLikes = this.state.mostRecentLikes.map((e, i) => {
-      return (
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              Word of the Day
-            </Typography>
-            <List dense={dense}>
-              {/* {this.generate( */}
-              <ListItem>
-                <ListItemAvatar>
-                  <Avatar alt="Adelle Charles" src={e.picture} />
-                </ListItemAvatar>
-                <ListItemText
-                  primary="Single-line item"
-                  secondary={secondary ? "Secondary text" : null}
-                />
-                <ListItemSecondaryAction>
-                  <IconButton aria-label="Delete">
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-              // )}
-            </List>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
-      );
-    });
+    const { dense } = this.state;
+    console.log(this.state.mostRecentFollowers);
 
     return (
-      <div className="explore-cards">
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              Word of the Day
-            </Typography>
-            <List dense={dense}>
-              {this.state.mostRecentLikes.map((e, i) => (
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar alt="Adelle Charles" src={e.picture} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary={`${e.name} liked ${e.userwithpost}'s post "${
-                      e.content
-                    }"`}
-                    // secondary={secondary ? "Secondary text" : null}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-            </List>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              Word of the Day
-            </Typography>
-            <List dense={dense}>
-              {this.generate(
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              )}
-            </List>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
-        <Card className={classes.card}>
-          <CardContent>
-            <Typography className={classes.title} color="textSecondary">
-              Word of the Day
-            </Typography>
-            <List dense={dense}>
-              {this.generate(
-                <ListItem>
-                  <ListItemAvatar>
-                    <Avatar>
-                      <FolderIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText
-                    primary="Single-line item"
-                    secondary={secondary ? "Secondary text" : null}
-                  />
-                  <ListItemSecondaryAction>
-                    <IconButton aria-label="Delete">
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              )}
-            </List>
-          </CardContent>
-          <CardActions>
-            <Button size="small">Learn More</Button>
-          </CardActions>
-        </Card>
+      <div>
+        <h1 className="header-explore">Activity</h1>
+        <div className="explore-cards">
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary">
+                Recent Likes
+              </Typography>
+              <List dense={dense}>
+                {this.state.mostRecentLikes.map((e, i) => (
+                  <ListItem key={i}>
+                    <ListItemAvatar>
+                      <Avatar alt={e.name} src={e.picture} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`${e.name} liked ${e.userwithpost}'s post "${
+                        e.content
+                      }"`}
+                      // {`${e.name} liked ${e.userwithpost}'s post "${
+                      //   e.content
+                      // }"`}
+                      // {`${e.name} liked ${e.userwithpost}'s post "${
+                      //   e.content
+                      // }"`}
+                      // {
+                      //   <div>
+                      //     <div>
+                      //       <div>
+                      //         {e.name}
+                      //         liked {e.userwithpost}
+                      //         's post
+                      //       </div>
+                      //     </div>
+                      //   </div>
+                      // }
+                      // {`${e.name} liked ${e.userwithpost}'s post "${
+                      //   e.content
+                      // }"`}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary">
+                Followers
+              </Typography>
+              <List dense={dense}>
+                {this.state.mostRecentFollowers.map((e, i) => (
+                  <ListItem key={i}>
+                    <ListItemAvatar>
+                      <Avatar alt={e.name} src={e.picture} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`${e.name} started following ${e.beingfollowed}`}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+          <Card className={classes.card}>
+            <CardContent>
+              <Typography className={classes.title} color="textSecondary">
+                Recent Comments
+              </Typography>
+              <List dense={dense}>
+                {this.state.mostRecentComments.map((e, i) => (
+                  <ListItem key={i}>
+                    <ListItemAvatar>
+                      <Avatar alt={e.name} src={e.picture} />
+                    </ListItemAvatar>
+                    <ListItemText
+                      primary={`${e.name} commented on ${
+                        e.userwithpost
+                      }'s post "${e.content}"`}
+                      // secondary={secondary ? "Secondary text" : null}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     );
   }

@@ -1,3 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 
-// import React from "react";
+class Stories extends Component {
+  render() {
+    return <div>stories</div>;
+  }
+}
+
+export default Stories;
