@@ -1,6 +1,8 @@
 const getAllStories = (req, res, next) => {
+  let { auth_id } = req.params;
+
   const db = req.app.get("db");
-  db.get_stories()
+  db.get_stories([auth_id])
     .then(post => res.status(200).send(post))
     .catch(e => res.status(500).send("somethingiswrong"));
 };

@@ -16,7 +16,8 @@ class DashBoard extends Component {
       contentEdit: "",
       postsLikes: [],
       media: "",
-      file: null
+      file: null,
+      loading: true
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
@@ -47,7 +48,7 @@ class DashBoard extends Component {
   }
   getSessions() {
     axios.get("/api/session").then(res => {
-      this.setState({ user: res.data });
+      this.setState({ user: res.data, loading: false });
     });
   }
 
@@ -171,6 +172,10 @@ class DashBoard extends Component {
         </div>
       );
     });
+    if (this.state.loading) {
+      return null;
+    }
+
     return (
       <div>
         <PostCreate
@@ -181,7 +186,7 @@ class DashBoard extends Component {
           handleImageUrlChange={this.handleImageUrlChange}
           handlePostClick={this.handlePostClick}
         />
-        <Stories />
+        <Stories currentUser={this.state.user} />
         <div className="list-posts-postCard">{mappedPosts}</div>
       </div>
     );
