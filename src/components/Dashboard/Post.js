@@ -12,10 +12,8 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-// import Typography from "@material-ui/core/Typography";
 import red from "@material-ui/core/colors/red";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-// import ShareIcon from "@material-ui/icons/Share";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -25,6 +23,7 @@ import PostLikeListOutput from "./PostLikeList";
 import axios from "axios";
 import Comments from "./Comments";
 import CommentCreate from "./CommentCreate";
+import ReactPlayer from "react-player";
 
 const styles = theme => ({
   card: {
@@ -34,7 +33,7 @@ const styles = theme => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%"
   },
   actions: {
     display: "flex"
@@ -103,7 +102,6 @@ class Post extends Component {
       time
     } = this.props.e;
 
-    // console.log(this.props.e);
     const { classes } = this.props;
 
     return (
@@ -118,17 +116,39 @@ class Post extends Component {
           title={<Link to={`/profile/${auth_id}`}>{name}</Link>}
           subheader={<Moment calendar="()">{time}</Moment>}
         />
-
         {image_url ? (
-          <CardMedia
-            className={classes.media}
-            image={image_url}
-            title="Contemplative Reptile"
-          />
+          image_url.toLowerCase().includes(".png") ? (
+            <CardMedia
+              className={classes.media}
+              image={image_url}
+              title="Contemplative Reptile"
+            />
+          ) : image_url.toLowerCase().includes(".jpg") ? (
+            <CardMedia
+              className={classes.media}
+              image={image_url}
+              title="Contemplative Reptile"
+            />
+          ) : image_url.toLowerCase().includes(".jpeg") ? (
+            <CardMedia
+              className={classes.media}
+              image={image_url}
+              title="Contemplative Reptile"
+            />
+          ) : image_url.toLowerCase().includes(".mp3") ? (
+            <audio controls>
+              <source src={image_url} type="audio/mpeg" />
+            </audio>
+          ) : image_url.toLowerCase().includes("youtube") ? (
+            <ReactPlayer width="100%" url={image_url} />
+          ) : image_url.toLowerCase().includes("soundcloud") ? (
+            <ReactPlayer width="100%" url={image_url} />
+          ) : (
+            ""
+          )
         ) : (
           ""
         )}
-
         <CardContent>
           {!this.state.editing ? (
             <p onClick={e => this.handleEditingPost(e)}>{content}</p>

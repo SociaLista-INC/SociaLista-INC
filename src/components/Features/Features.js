@@ -1,31 +1,3 @@
-// import React, { Component } from "react";
-// import FeaturesPicture from "../../FeaturesPicture.png";
-// import "./Features.css";
-
-// class Features extends Component {
-//   render() {
-//     return (
-//       <div id="Features-Background">
-//         <div id="features" className="features">
-//           <div
-//             className="center-align"
-//             style={{
-//               fontFamily: "Playfair Display",
-//               color: "#24101f",
-//               fontSize: "30px"
-//             }}
-//           >
-//             Features
-//           </div>
-//           <img id="Features-Picture" src={FeaturesPicture} alt="test" />
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// export default Features;
-
 import React, { Component } from "react";
 import MainLogo from "../../FeaturesPicture.png";
 
@@ -45,14 +17,13 @@ class Features extends Component {
 
           <div className="FeaturesPic-Container">
             <img
+              alt="logo"
               className="FeaturesPic"
               src={MainLogo}
               style={{ height: "400px", marginTop: "11vh" }}
             />
           </div>
-          <div className="rows">
-            <h5 />
-          </div>
+          <div className="rows" />
         </div>
       </div>
     );

@@ -26,12 +26,14 @@ class Footers extends Component {
             />
             <a href="https://github.com/KaustubhDeshpandeDev">
               <img
+                alt="icon"
                 src="https://image.flaticon.com/icons/svg/25/25231.svg"
                 width="25px"
               />
             </a>
             <a href="https://www.google.com">
               <img
+                alt="icon"
                 src="https://image.flaticon.com/icons/svg/34/34405.svg"
                 width="25px"
               />
@@ -48,12 +50,14 @@ class Footers extends Component {
             />
             <a href="https://github.com/KaustubhDeshpandeDev">
               <img
+                alt="icon"
                 src="https://image.flaticon.com/icons/svg/25/25231.svg"
                 width="25px"
               />
             </a>
             <a href="https://www.google.com">
               <img
+                alt="icon"
                 src="https://image.flaticon.com/icons/svg/34/34405.svg"
                 width="25px"
               />
@@ -70,12 +74,14 @@ class Footers extends Component {
             />
             <a href="https://github.com/KaustubhDeshpandeDev">
               <img
+                alt="icon"
                 src="https://image.flaticon.com/icons/svg/25/25231.svg"
                 width="25px"
               />
             </a>
             <a href="https://www.google.com">
               <img
+                alt="icon"
                 src="https://image.flaticon.com/icons/svg/34/34405.svg"
                 width="25px"
               />

@@ -72,10 +72,10 @@ class Comments extends React.Component {
   render() {
     // const { classes } = this.props;
     // console.log(this.props);
-    console.log(this.state);
+    // console.log(this.state);
 
     let commentsection = this.state.comments.map((com, i) => {
-      console.log(com.picture);
+      // console.log(com.picture);
       return (
         <div className="comments-section-comments" key={i}>
           <div>

@@ -10,9 +10,6 @@ import FloatingActionButtons from "../Buttons/Buttons";
 import "./style.css";
 
 class landing extends Component {
-  goLogin() {
-    window.location.href = "/auth";
-  }
   render() {
     return (
       <div id="top">

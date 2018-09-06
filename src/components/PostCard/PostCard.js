@@ -21,6 +21,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Moment from "react-moment";
 import axios from "axios";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
+import ReactPlayer from "react-player";
 
 const styles = theme => ({
   card: {
@@ -89,7 +90,6 @@ class RecipeReviewCard extends React.Component {
     console.log(this.props);
 
     const { classes } = this.props;
-
     let mappedPosts = this.props.posts.map((e, i) => {
       return (
         <Card key={i} className={classes.card}>
@@ -104,11 +104,35 @@ class RecipeReviewCard extends React.Component {
             subheader={<Moment calendar="()">{e.time}</Moment>}
           />
           {e.image_url ? (
-            <CardMedia
-              className={classes.media}
-              image={e.image_url}
-              title="Contemplative Reptile"
-            />
+            e.image_url.toLowerCase().includes(".png") ? (
+              <CardMedia
+                className={classes.media}
+                image={e.image_url}
+                title="Contemplative Reptile"
+              />
+            ) : e.image_url.toLowerCase().includes(".jpg") ? (
+              <CardMedia
+                className={classes.media}
+                image={e.image_url}
+                title="Contemplative Reptile"
+              />
+            ) : e.image_url.toLowerCase().includes(".jpeg") ? (
+              <CardMedia
+                className={classes.media}
+                image={e.image_url}
+                title="Contemplative Reptile"
+              />
+            ) : e.image_url.toLowerCase().includes(".mp3") ? (
+              <audio controls>
+                <source src={e.image_url} type="audio/mpeg" />
+              </audio>
+            ) : e.image_url.toLowerCase().includes("youtube") ? (
+              <ReactPlayer width="100%" url={e.image_url} />
+            ) : e.image_url.toLowerCase().includes("soundcloud") ? (
+              <ReactPlayer width="100%" url={e.image_url} />
+            ) : (
+              ""
+            )
           ) : (
             ""
           )}

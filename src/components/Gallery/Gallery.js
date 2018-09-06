@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import Gallery from "react-photo-gallery";
 import Lightbox from "react-images";
 import axios from "axios";
@@ -8,6 +8,7 @@ class Gallery1 extends React.Component {
   constructor() {
     super();
     this.state = { photos: [], currentImage: 0 };
+    this.getPictures = this.getPictures.bind(this);
     this.closeLightbox = this.closeLightbox.bind(this);
     this.openLightbox = this.openLightbox.bind(this);
     this.gotoNext = this.gotoNext.bind(this);
@@ -46,16 +47,26 @@ class Gallery1 extends React.Component {
     });
   }
   render() {
-    console.log(this.state.photos);
+    // console.log(this.state.photos);
 
-    let mappedPhotoes = this.state.photos.map((e, i) => {
-      console.log(e);
-      return {
-        src: e.image_url,
-        width: Math.floor(Math.random() * 3) + 1,
-        height: Math.floor(Math.random() * 2) + 1
-      };
-    });
+    let mappedPhotoes = this.state.photos
+      .filter(e => {
+        console.log(!e.image_url.toLowerCase().includes(".mp3"));
+
+        return (
+          e.image_url.toLowerCase().includes(".png") ||
+          e.image_url.toLowerCase().includes(".jpg") ||
+          e.image_url.toLowerCase().includes(".jpeg")
+        );
+      })
+      .map((e, i) => {
+        console.log(e);
+        return {
+          src: e.image_url,
+          width: Math.floor(Math.random() * 3) + 1,
+          height: Math.floor(Math.random() * 2) + 1
+        };
+      });
 
     return (
       <div>

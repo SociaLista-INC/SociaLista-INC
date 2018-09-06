@@ -5,21 +5,15 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import FolderIcon from "@material-ui/icons/Folder";
-import DeleteIcon from "@material-ui/icons/Delete";
+import Explore from "@material-ui/icons/Explore";
+import Link from "@material-ui/icons/Link";
+import "./Trending.css";
 
 const styles = {
   card: {
@@ -50,7 +44,7 @@ class Trending extends Component {
     this.state = {
       news: [],
       dense: false,
-      secondary: false
+      secondary: true
     };
   }
   componentDidMount() {
@@ -59,7 +53,9 @@ class Trending extends Component {
   getNews() {
     axios
       .get(
-        "https://newsapi.org/v2/top-headlines?country=us&apiKey=8d34de7e65e74b73849435f89f395b6e"
+        `https://newsapi.org/v2/top-headlines?country=us&apiKey=${
+          process.env.REACT_APP_NEWS_API
+        }`
       )
       .then(res => {
         console.log(res.data.articles);
@@ -70,36 +66,47 @@ class Trending extends Component {
   render() {
     // console.log(this.state.news);
 
-    let mappedNews = this.state.news.map((e, i) => {
-      return (
-        <div>
-          <div>
-            <a href={e.url}>{e.title}</a>
-          </div>
-          <div>{e.description}</div>
-        </div>
-      );
-    });
     return (
       <div>
-        <Card className={this.props.classes.card}>
-          <CardContent>
-            <Typography
-              className={this.props.classes.title}
-              color="textSecondary"
-            >
-              Recent Likes
-            </Typography>
-            <List dense={this.state.dense}>
-              {this.state.news.map((e, i) => (
-                <ListItem key={i}>
-                  <ListItemText primary={<a href={e.url}>{e.title}</a>} />
-                </ListItem>
-              ))}
-            </List>
-          </CardContent>
-        </Card>
-        <HashTagComponent />
+        <h1 className="header-trending"> Trending</h1>
+        <div className="trending-cards">
+          <Card className={this.props.classes.card}>
+            <CardContent>
+              <Explore />
+              <Typography
+                className={this.props.classes.title}
+                color="textSecondary"
+              >
+                News
+              </Typography>
+              <List dense={this.state.dense}>
+                {this.state.news.map((e, i) => (
+                  <ListItem key={i}>
+                    <ListItemText
+                      // primary={<a href={e.url}>{e.title}</a>} />
+
+                      primary={e.title}
+                      secondary={
+                        this.state.secondary
+                          ? e.description
+                            ? `${e.description}`
+                            : ""
+                          : ""
+                        //  !e.url == null : `${e.description}`
+                      }
+                    />
+                    <ListItemSecondaryAction>
+                      <IconButton href={e.url} aria-label="Link">
+                        <Link />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                ))}
+              </List>
+            </CardContent>
+          </Card>
+          <HashTagComponent />
+        </div>
       </div>
     );
   }

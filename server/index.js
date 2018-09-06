@@ -5,6 +5,11 @@ const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
+const {
+  getMostRecentLikes,
+  getMostRecentComments,
+  getMostRecentFollowers
+} = require("./Controllers/exploreControllers");
 const { logout, login, getUser } = require("./auth_controller");
 const {
   getProfile,
@@ -32,6 +37,13 @@ const {
   getAllImagesGallery,
   getHashTags
 } = require("./Controllers/postsControllers");
+
+const {
+  getAllStories,
+  createStory,
+  deleteStory,
+  getListOfFriends
+} = require("./Controllers/storiesControllers");
 
 const app = express();
 app.use(bodyParser.json());
@@ -124,8 +136,22 @@ app.put("/api/post/comment/:comment_id", updateComment);
 app.delete("/api/post/comment/:comment_id", deleteComment);
 
 //---------------Gallery Endpoints -----------------------
-
 app.get("/api/getgallery/images", getAllImagesGallery);
+
+//---------------Explore Endpoints------------------------
+
+app.get("/api/getrecentlikes", getMostRecentLikes);
+app.get("/api/getrecentcomments", getMostRecentComments);
+app.get("/api/getrecentfollowers", getMostRecentFollowers);
+
+//---------------HashTags API------------------------
+app.get("/api/hashtags", getHashTags);
+
+//----------------Stories Endpoints-----------------------
+app.get("/api/getstories/:auth_id", getAllStories);
+app.post("/api/story/create", createStory);
+app.delete("/api/story/:story_id", deleteStory);
+app.get("/api/getlistOffriends/:auth_id", getListOfFriends);
 
 //----------------user profile Endpoints------------------
 
@@ -183,7 +209,7 @@ const uploadFile = (buffer, name, type) => {
 // });
 
 // s3 post endpoint
-app.post("/test-upload", (request, response) => {
+app.post("/api/post-upload-file", (request, response) => {
   const form = new multiparty.Form();
   form.parse(request, async (error, fields, files) => {
     if (error) throw new Error(error);
@@ -194,6 +220,7 @@ app.post("/test-upload", (request, response) => {
       const timestamp = Date.now().toString();
       const fileName = `${timestamp}`;
       const data = await uploadFile(buffer, fileName, type);
+      console.log("THIS IS DATA", data.Location);
       return response.status(200).send(data);
     } catch (error) {
       return response.status(400).send(error);

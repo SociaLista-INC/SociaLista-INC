@@ -162,12 +162,14 @@ const getHashTags = (req, res, next) => {
   const axios = require("axios");
   axios
     .get(
-      "https://newsapi.org/v2/top-headlines?country=us&apiKey=8d34de7e65e74b73849435f89f395b6e"
+      `https://api.ritekit.com/v1/search/trending?green=1&tags=php&client_id=${
+        process.env.API_CLIENT_ID
+      }`
     )
     .then(results => {
-      console.log(results);
+      // console.log(results.data.tags);
 
-      res.status(200).send(results);
+      res.status(200).send(results.data.tags);
     })
     .catch(e => res.status(500).send("wrong"));
 };
