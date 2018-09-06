@@ -53,6 +53,7 @@ class SimpleModal extends React.Component {
     };
     this.getStories = this.getStories.bind(this);
     this.getFriends = this.getFriends.bind(this);
+    this.handleClickStory = this.handleClickStory.bind(this);
   }
 
   handleOpen = () => {
@@ -65,12 +66,16 @@ class SimpleModal extends React.Component {
 
   componentDidMount() {
     this.getFriends(this.props.currentUser.auth_id);
-    this.getStories(this.props.currentUser.auth_id);
+    // this.getStories(this.props.currentUser.auth_id);
   }
 
   getStories(auth_id) {
-    axios.get(`/api/getstories/${auth_id}`).then(res => {
-      this.setState({ stories: res.data, loadingStories: false });
+    return new Promise((resolve, reject) => {
+      axios.get(`/api/getstories/${auth_id}`).then(res => {
+        this.setState({ stories: res.data, loadingStories: false }, () =>
+          resolve()
+        );
+      });
     });
   }
 
@@ -80,14 +85,30 @@ class SimpleModal extends React.Component {
     });
   }
 
+  handleClickStory(auth_id) {
+    // console.log(auth_id);
+    this.getStories(auth_id).then(() => this.handleOpen());
+  }
+
   render() {
-    console.log(this.state.friends);
+    // console.log(this.state.friends);
 
     const { classes } = this.props;
 
-    if (this.state.loadingStories || this.state.loadingFriends) {
+    if (this.state.loadingFriends) {
       return null;
     }
+    let mappedAvatars = this.state.friends.map((avatar, i) => {
+      return (
+        <Avatar
+          key={i}
+          onClick={() => this.handleClickStory(avatar.auth_id)}
+          alt={i + avatar.friend}
+          src={avatar.picture}
+          className={classes.avatar}
+        />
+      );
+    });
 
     let mappedStories = this.state.stories.map((story, i) => {
       // console.log(story);
@@ -95,18 +116,6 @@ class SimpleModal extends React.Component {
         label: story.title,
         imgPath: story.img_url
       };
-    });
-
-    let mappedAvatars = this.state.friends.map((avatar, i) => {
-      return (
-        <Avatar
-          key={i}
-          onClick={this.handleOpen}
-          alt={i + avatar.friend}
-          src={avatar.picture}
-          className={classes.avatar}
-        />
-      );
     });
 
     return (
