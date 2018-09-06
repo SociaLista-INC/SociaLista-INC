@@ -142,7 +142,7 @@ app.get("/api/getrecentcomments", getMostRecentComments);
 app.get("/api/getrecentfollowers", getMostRecentFollowers);
 
 //----------------Stories Endpoints-----------------------
-app.get("/api/getstories", getAllStories);
+app.get("/api/getstories/:auth_id", getAllStories);
 app.post("/api/story/create", createStory);
 app.delete("/api/story/:story_id", deleteStory);
 

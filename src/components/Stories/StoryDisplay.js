@@ -37,7 +37,6 @@ class TextMobileStepper extends React.Component {
       activeStep: 0,
       stories: []
     };
-    // this.getStories = this.getStories.bind(this);
   }
 
   handleNext = () => {
