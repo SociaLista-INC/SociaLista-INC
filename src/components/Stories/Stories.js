@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import TextMobileStepper from "./StoryDisplay";
 import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
+import StoriesCreate from "./StoriesCreate";
 
 function rand() {
   return Math.round(Math.random() * 20) - 10;
@@ -49,11 +50,17 @@ class SimpleModal extends React.Component {
       currentUser: "",
       friends: [],
       loadingStories: true,
-      loadingFriends: true
+      loadingFriends: true,
+      title: "",
+      img_url: ""
     };
     this.getStories = this.getStories.bind(this);
     this.getFriends = this.getFriends.bind(this);
     this.handleClickStory = this.handleClickStory.bind(this);
+    this.handelUrlText = this.handelUrlText.bind(this);
+    this.handleTitleChange = this.handleTitleChange.bind(this);
+    this.handleStoryCreateClick = this.handleStoryCreateClick.bind(this);
+    this.createStory = this.createStory.bind(this);
   }
 
   handleOpen = () => {
@@ -90,6 +97,30 @@ class SimpleModal extends React.Component {
     this.getStories(auth_id).then(() => this.handleOpen());
   }
 
+  handleTitleChange(title) {
+    this.setState({ title });
+  }
+
+  handelUrlText(img_url) {
+    this.setState({ img_url });
+  }
+
+  handleStoryCreateClick() {
+    let { title, img_url } = this.state;
+    let { auth_id } = this.props.currentUser;
+    this.createStory(auth_id, title, img_url);
+  }
+
+  createStory(auth_id, title, img_url) {
+    axios
+      .post(`/api/story/create`, { auth_id, title, img_url })
+      .then(res => {
+        this.getFriends(this.props.currentUser.auth_id);
+        this.setState({ title: "", img_url: "" });
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
     // console.log(this.state.friends);
 
@@ -121,6 +152,11 @@ class SimpleModal extends React.Component {
     return (
       <div>
         <Typography gutterBottom>Checkout Stories!</Typography>
+        <StoriesCreate
+          handleTitleChange={this.handleTitleChange}
+          handelUrlText={this.handelUrlText}
+          handleStoryCreateClick={this.handleStoryCreateClick}
+        />
         <div className={classes.row}>{mappedAvatars}</div>
         <Modal
           aria-labelledby="simple-modal-title"
