@@ -18,7 +18,7 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Moment from "react-moment";
-
+import Loading from "react-loading-components";
 import PostLikeListOutput from "./PostLikeList";
 import axios from "axios";
 import Comments from "./Comments";
@@ -64,7 +64,8 @@ class Post extends Component {
       expanded: false,
       editing: false,
       likeList: [],
-      currentUser: this.props.currentUser.auth_id
+      currentUser: this.props.currentUser.auth_id,
+      loading: true
     };
     this.handleEditingPost = this.handleEditingPost.bind(this);
     this.createComment = this.createComment.bind(this);
