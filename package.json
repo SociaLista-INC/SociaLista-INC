@@ -26,6 +26,7 @@
     "react": "^16.4.2",
     "react-contenteditable": "^2.1.5",
     "react-dom": "^16.4.2",
+    "react-dropzone": "^5.0.1",
     "react-images": "^0.5.19",
     "react-measure": "^2.0.0",
     "react-moment": "^0.7.9",
@@ -35,6 +36,7 @@
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
     "redux": "^4.0.0",
+    "superagent": "^3.8.3",
     "typeface-roboto": "0.0.54"
   },
   "scripts": {

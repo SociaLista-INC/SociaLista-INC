@@ -3,18 +3,18 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Modal from "@material-ui/core/Modal";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import TextMobileStepper from "./StoryDisplay";
 import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
+// function rand() {
+//   return Math.round(Math.random() * 20) - 10;
+// }
 
 function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
+  //   const top = 50 + rand();
+  //   const left = 50 + rand();
 
   return {
     top: "50%",
