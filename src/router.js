@@ -4,6 +4,7 @@ import Landing from "./components/landing/landing";
 import DashBoard from "./components/Dashboard/DashBoard";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import Gallery from "./components/Gallery/Gallery";
+import Trending from "./components/Trending/Trending";
 
 export default (
   <Switch>
@@ -11,5 +12,6 @@ export default (
     <Route path="/dashboard" component={DashBoard} />
     <Route path="/profile/:auth_id" component={ProfilePage} />
     <Route path="/gallery" component={Gallery} />
+    <Route path="/trending" component={Trending} />
   </Switch>
 );

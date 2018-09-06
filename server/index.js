@@ -29,8 +29,10 @@ const {
   createComment,
   updateComment,
   deleteComment,
-  getAllImagesGallery
+  getAllImagesGallery,
+  getHashTags
 } = require("./Controllers/postsControllers");
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -100,6 +102,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
+
 //------------------Auth Endpoints--------------------
 app.get("/login", login);
 app.post("/api/logout", logout);
@@ -169,15 +172,15 @@ const uploadFile = (buffer, name, type) => {
 };
 
 // s3 get endpoint
-app.get("/media", async (req, res) => {
-  var response = await s3
-    .listObjectsV2({
-      Bucket: process.env.S3_BUCKET
-    })
-    .promise();
-  console.log("this is loggining", response);
-  res.status(200).send(response.Contents);
-});
+// app.get("/media", async (req, res) => {
+//   var response = await s3
+//     .listObjectsV2({
+//       Bucket: process.env.S3_BUCKET
+//     })
+//     .promise();
+//   console.log("this is loggining", response);
+//   res.status(200).send(response.Contents);
+// });
 
 // s3 post endpoint
 app.post("/test-upload", (request, response) => {

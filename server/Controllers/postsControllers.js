@@ -158,6 +158,20 @@ const getAllImagesGallery = (req, res, next) => {
     .catch(e => res.status(500).send("somethingiswrong"));
 };
 
+const getHashTags = (req, res, next) => {
+  const axios = require("axios");
+  axios
+    .get(
+      "https://newsapi.org/v2/top-headlines?country=us&apiKey=8d34de7e65e74b73849435f89f395b6e"
+    )
+    .then(results => {
+      console.log(results);
+
+      res.status(200).send(results);
+    })
+    .catch(e => res.status(500).send("wrong"));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -172,5 +186,6 @@ module.exports = {
   createComment,
   updateComment,
   deleteComment,
-  getAllImagesGallery
+  getAllImagesGallery,
+  getHashTags
 };
