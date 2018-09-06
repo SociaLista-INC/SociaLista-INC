@@ -136,7 +136,7 @@ app.get("/api/getgallery/images", getAllImagesGallery);
 app.get("/api/getrecentlikes", getMostRecentLikes);
 
 //----------------Stories Endpoints-----------------------
-app.get("/api/getstories", getAllStories);
+app.get("/api/getstories/:auth_id", getAllStories);
 app.post("/api/story/create", createStory);
 app.delete("/api/story/:story_id", deleteStory);
 
