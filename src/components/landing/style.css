@@ -9,7 +9,7 @@
   padding: 5px;
   text-align: center;
 } */
-.app-intro {
+/* .app-intro {
   color: white;
   position: absolute;
   height: 50px;
@@ -55,4 +55,57 @@
     font-size: 16px;
     line-height: 55px;
   }
+} */
+
+.app-intro {
+  color: white;
+  position: absolute;
+  height: 20vh;
+  width: 50%;
+  margin: auto;
+  right: 25%;
+  top: 25%;
+  border-radius: 4px;
+  padding: 5px;
+  text-align: center;
+}
+.landing-title {
+  background-color: white;
+  background: linear-gradient(45deg, #0f0d2f, #24101f);
+  height: 100vh;
+}
+#main-text {
+  font-size: 6vw;
+  color: #d3d3d3;
+}
+#slogan {
+  color: #d3d3d3;
+}
+
+.particlesHider {
+  height: 100vh;
+}
+@media only screen and (max-width: 1050px) {
+  .fontIcons {
+    display: none;
+  }
+}
+@media only screen and (max-width: 375px) {
+  #connect-button {
+    height: 10vh;
+  }
+  .features {
+    height: 566px;
+  }
+  .rows {
+    text-align: center;
+  }
+  .contact-small-text {
+    font-size: 16px;
+    line-height: 55px;
+  }
+}
+
+#connect-button {
+  margin-top: 18vh;
 }
