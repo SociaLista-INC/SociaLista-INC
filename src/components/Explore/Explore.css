@@ -6,3 +6,12 @@
   align-items: center;
   align-content: stretch;
 }
+.header-explore {
+  font-size: 3.5rem;
+  font-weight: 400;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  line-height: 1.30357em;
+  margin-left: -0.02em;
+  letter-spacing: -0.02em;
+  color: rgba(0, 0, 0, 0.87);
+}

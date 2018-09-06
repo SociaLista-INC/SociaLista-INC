@@ -12,10 +12,8 @@ import CardActions from "@material-ui/core/CardActions";
 import Collapse from "@material-ui/core/Collapse";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-// import Typography from "@material-ui/core/Typography";
 import red from "@material-ui/core/colors/red";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-// import ShareIcon from "@material-ui/icons/Share";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
@@ -35,7 +33,7 @@ const styles = theme => ({
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
+    paddingTop: "56.25%"
   },
   actions: {
     display: "flex"
@@ -67,7 +65,6 @@ class Post extends Component {
       editing: false,
       likeList: [],
       currentUser: this.props.currentUser.auth_id
-      // e: this.props.e
     };
     this.handleEditingPost = this.handleEditingPost.bind(this);
     this.createComment = this.createComment.bind(this);
@@ -105,7 +102,6 @@ class Post extends Component {
       time
     } = this.props.e;
 
-    // console.log(this.state.e.image_url);
     const { classes } = this.props;
 
     return (
