@@ -24,23 +24,30 @@
 //   constructor() {
 //     super();
 //     this.state = {
-//       friends: []
+//       friends: [],
+//       loadingFriends: true
 //     };
+//     this.getFriends = this.getFriends.bind(this);
 //   }
 
 //   componentDidMount() {
-//     this.getFriends("facebook|2288355554514695");
+//     this.getFriends(this.props.currentUser.auth_id);
 //   }
 
 //   getFriends(auth_id) {
 //     axios
-//       .get(`/api/getlistoffollowers/${auth_id}`)
-//       .then(res => this.setState({ friends: res.data }));
+//       .get(`/api/getlistOffriends/${auth_id}`)
+//       .then(res => this.setState({ friends: res.data, loadingFriends: false }));
 //   }
 
 //   render() {
 //     const { classes } = this.props;
+//     // console.log(this.props.currentUser.auth_id);
 //     // console.log(this.state.friends);
+
+//     if (this.state.loadingStories) {
+//       return null;
+//     }
 
 //     let mappedFriends = this.state.friends.map((avatar, i) => {
 //       // console.log(avatar);
@@ -48,9 +55,10 @@
 //         <div>
 //           <Avatar
 //             key={i}
-//             alt={i + avatar.name}
+//             alt={i + avatar.friend}
 //             src={avatar.picture}
 //             className={classes.avatar}
+//             onClick={this.props.hanleOpen}
 //           />
 //           {/* <Stories auth_id_friends={avatar.auth_id} /> */}
 //         </div>
