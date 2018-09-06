@@ -40,7 +40,8 @@ const {
 const {
   getAllStories,
   createStory,
-  deleteStory
+  deleteStory,
+  getListOfFriends
 } = require("./Controllers/storiesControllers");
 
 const app = express();
@@ -145,6 +146,7 @@ app.get("/api/getrecentfollowers", getMostRecentFollowers);
 app.get("/api/getstories/:auth_id", getAllStories);
 app.post("/api/story/create", createStory);
 app.delete("/api/story/:story_id", deleteStory);
+app.get("/api/getlistOffriends/:auth_id", getListOfFriends);
 
 //----------------user profile Endpoints------------------
 

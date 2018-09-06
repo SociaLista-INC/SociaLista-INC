@@ -17,9 +17,9 @@ function getModalStyle() {
   const left = 50 + rand();
 
   return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)"
   };
 }
 
@@ -75,12 +75,14 @@ class SimpleModal extends React.Component {
   }
 
   getFriends(auth_id) {
-    axios.get(`/api/getlistoffollowers/${auth_id}`).then(res => {
+    axios.get(`/api/getlistOffriends/${auth_id}`).then(res => {
       this.setState({ friends: res.data, loadingFriends: false });
     });
   }
 
   render() {
+    console.log(this.state.friends);
+
     const { classes } = this.props;
 
     if (this.state.loadingStories || this.state.loadingFriends) {
@@ -100,7 +102,7 @@ class SimpleModal extends React.Component {
         <Avatar
           key={i}
           onClick={this.handleOpen}
-          alt={i + avatar.name}
+          alt={i + avatar.friend}
           src={avatar.picture}
           className={classes.avatar}
         />

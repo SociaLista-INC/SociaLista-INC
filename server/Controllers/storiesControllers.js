@@ -31,4 +31,12 @@ const deleteStory = (req, res, next) => {
     .catch(err => res.status(500).send(err));
 };
 
-module.exports = { getAllStories, createStory, deleteStory };
+const getListOfFriends = (req, res, next) => {
+  // console.log(req.params.auth_id);
+  const db = res.app.get("db");
+  db.get_list_of_friends([req.params.auth_id])
+    .then(response => res.status(200).send(response))
+    .catch(e => res.status(500).send("Something is wrong"));
+};
+
+module.exports = { getAllStories, createStory, deleteStory, getListOfFriends };
