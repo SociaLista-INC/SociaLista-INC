@@ -18,7 +18,7 @@ class HashTags extends Component {
   }
 
   render() {
-    // console.log(this.state.HashTags);
+    console.log(this.state.HashTags);
     let mappedHashTags = this.state.HashTags.map((e, i) => {
       return (
         <div key={i}>
@@ -28,7 +28,7 @@ class HashTags extends Component {
     });
     return (
       <div className="container2">
-        <div className="container1">{/* {mappedHashTags} */}</div>
+        <div className="container1">{mappedHashTags}</div>
       </div>
     );
   }

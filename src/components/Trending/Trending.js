@@ -93,9 +93,6 @@ class Trending extends Component {
             <List dense={this.state.dense}>
               {this.state.news.map((e, i) => (
                 <ListItem key={i}>
-                  {/* <ListItemAvatar>
-                      <Avatar alt={e.name} src={e.picture} />
-                    </ListItemAvatar> */}
                   <ListItemText primary={<a href={e.url}>{e.title}</a>} />
                 </ListItem>
               ))}
