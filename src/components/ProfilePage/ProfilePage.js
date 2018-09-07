@@ -3,6 +3,7 @@ import axios from "axios";
 import Moment from "react-moment";
 import SimpleDialog from "../ListOfFollowers/ListOfFollowers";
 import PostCard from "../PostCard/PostCard";
+import Button from "@material-ui/core/Button";
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -13,8 +14,21 @@ class ProfilePage extends Component {
       numOfFollowes: 0,
       isFollowing: [],
       followers: [],
-      posts: []
+      posts: [],
+      loading: true
     };
+
+    this.handleDelete = this.handleDelete.bind(this);
+    this.handleLikePost = this.handleLikePost.bind(this);
+    this.handleDeleteLikePost = this.handleDeleteLikePost.bind(this);
+    this.getUserInfo = this.getUserInfo.bind(this);
+    this.getSessions = this.getSessions.bind(this);
+    this.getNumOfFollowes = this.getNumOfFollowes.bind(this);
+    this.getAllFollowers = this.getAllFollowers.bind(this);
+    this.handelFollow = this.handelFollow.bind(this);
+    this.handleUnFollow = this.handleUnFollow.bind(this);
+    this.checkIfFollowing = this.checkIfFollowing.bind(this);
+    this.getCurrentUserPosts = this.getCurrentUserPosts.bind(this);
   }
 
   componentDidMount() {
@@ -46,7 +60,7 @@ class ProfilePage extends Component {
 
   getSessions() {
     axios.get("/api/session").then(res => {
-      this.setState({ user: res.data });
+      this.setState({ user: res.data, loading: false });
       // console.log(this.state.user.auth_id);
     });
   }
@@ -81,7 +95,6 @@ class ProfilePage extends Component {
         }`
       )
       .then(res => {
-        // console.log(res);
         this.setState({ isFollowing: res.data });
       });
   }
@@ -92,12 +105,38 @@ class ProfilePage extends Component {
       .then(res => this.setState({ posts: res.data }));
   }
 
+  handleDelete(id) {
+    axios.delete(`api/post/${id}`).then(() => this.getCurrentUserPosts());
+  }
+
+  handleLikePost(post_id) {
+    let { auth_id } = this.state.user;
+    let rate = 1;
+
+    axios
+      .post(`/api/post/like/${post_id}`, { auth_id, rate })
+      .then(() => this.getCurrentUserPosts());
+  }
+
+  handleDeleteLikePost(post_id) {
+    let { auth_id } = this.state.user;
+
+    axios
+      .delete(`/api/like/${post_id}/${auth_id}`)
+      .then(() => this.getCurrentUserPosts());
+  }
+
   render() {
     // console.log(this.state.currentUser.auth_id);
     // console.log("number of followes", this.state.numOfFollowes);
     // console.log("check", this.state.isFollowing[0]);
     // console.log("THESE ARE THE POSTS", this.state.posts);
     // console.log("check", this.state.followers);
+
+    if (this.state.loading) {
+      return null;
+    }
+
     return (
       <div>
         <div>{this.state.currentUser.name}</div>
@@ -110,9 +149,9 @@ class ProfilePage extends Component {
         {this.state.user.auth_id ? (
           <div>
             {this.state.isFollowing[0] ? (
-              <button onClick={() => this.handleUnFollow()}>Unfollow</button>
+              <Button onClick={() => this.handleUnFollow()}>Unfollow</Button>
             ) : (
-              <button onClick={() => this.handelFollow()}>Follow</button>
+              <Button onClick={() => this.handelFollow()}>Follow</Button>
             )}
           </div>
         ) : (
@@ -129,6 +168,9 @@ class ProfilePage extends Component {
           user={this.state.user}
           posts={this.state.posts}
           currentUser={this.state.currentUser}
+          handleDelete={this.handleDelete}
+          handleLikePost={this.handleLikePost}
+          handleDeleteLikePost={this.handleDeleteLikePost}
         />
       </div>
     );

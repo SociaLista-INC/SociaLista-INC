@@ -178,6 +178,7 @@ class DashBoard extends Component {
 
     return (
       <div>
+        <Stories currentUser={this.state.user} />
         <PostCreate
           handelUrlText={this.handelUrlText}
           file={this.state.file}
@@ -186,7 +187,6 @@ class DashBoard extends Component {
           handleImageUrlChange={this.handleImageUrlChange}
           handlePostClick={this.handlePostClick}
         />
-        <Stories currentUser={this.state.user} />
         <div className="list-posts-postCard">{mappedPosts}</div>
       </div>
     );

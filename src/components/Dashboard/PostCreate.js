@@ -27,7 +27,7 @@ export default class PostCreate extends React.Component {
     // console.log(this.props.file);
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Write a Post</Button>
+        <Button onClick={this.handleClickOpen}>Be Social, Create a Post</Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
@@ -35,26 +35,18 @@ export default class PostCreate extends React.Component {
         >
           <DialogTitle id="form-dialog-title">Post</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel
-              numquam, facere explicabo debitis iure aperiam iste ea eius illo
-              culpa! Nam reiciendis at numquam distinctio, cum corporis non
-              provident voluptates.
-            </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
               id="name"
-              label="Post"
-              type="email"
+              label="Say something!"
               fullWidth
               onChange={e => this.props.handleContentChange(e.target.value)}
             />
             <TextField
               margin="dense"
               id="ur"
-              label="Enter an Image URL or select one below"
-              type="input"
+              label="Image, mp3 / mp4, SoundCloud, YouTube"
               fullWidth
               onChange={e => this.props.handelUrlText(e.target.value)}
             />
@@ -66,7 +58,7 @@ export default class PostCreate extends React.Component {
                   accept=".png, .jpg, .jpeg, .mp4, .mp3"
                   onChange={this.props.handleFileUpload}
                 />
-                <button type="submit">Upload</button>
+                <Button type="submit">Upload</Button>
               </form>
             </Button>
           </DialogContent>

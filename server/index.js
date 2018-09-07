@@ -215,7 +215,7 @@ app.post("/api/post-upload-file", (request, response) => {
       const timestamp = Date.now().toString();
       const fileName = `${timestamp}`;
       const data = await uploadFile(buffer, fileName, type);
-      console.log("THIS IS DATA", data.Location);
+      // console.log("THIS IS DATA", data.Location);
       return response.status(200).send(data);
     } catch (error) {
       return response.status(400).send(error);
