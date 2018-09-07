@@ -32,11 +32,6 @@ class landing extends Component {
                     size: {
                       value: 4,
                       random: true
-                      // anim: {
-                      //   speed: 6,
-                      //   opacity_min: 1,
-                      //   size_min: 0.3
-                      // }
                     },
                     line_linked: {
                       enable: false

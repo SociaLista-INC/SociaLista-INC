@@ -14,14 +14,15 @@ import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import red from "@material-ui/core/colors/red";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-// import ShareIcon from "@material-ui/icons/Share";
-// import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-// import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Moment from "react-moment";
 import axios from "axios";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import ReactPlayer from "react-player";
+
+import Comments from "../Dashboard/Comments";
+import CommentCreate from "../Dashboard/CommentCreate";
+import PostLikeListOutput from "../Dashboard/PostLikeList";
 
 const styles = theme => ({
   card: {
@@ -55,51 +56,44 @@ const styles = theme => ({
 });
 
 class RecipeReviewCard extends React.Component {
-  state = { expanded: false };
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false,
+      likeList: []
+    };
+
+    this.createComment = this.createComment.bind(this);
+    this.getListofLikes = this.getListofLikes.bind(this);
+  }
 
   handleExpandClick = () => {
     this.setState(state => ({ expanded: !state.expanded }));
   };
 
-  handleDelete(id) {
-    axios.delete(`api/post/${id}`);
-    // .then(() => this.props.getUserInfo());
+  createComment(post_id, auth_id, comment) {
+    // console.log(post_id, auth_id, comment);
+    axios
+      .post(`/api/post/comment`, { post_id, auth_id, comment })
+      .then(() => this.handleExpandClick());
   }
 
-  handleLikePost(post_id) {
-    console.log("THIS IS THE ID", post_id);
-
-    let { auth_id } = this.props.user;
-    let rate = 1;
-
-    axios.post(`/api/post/like/${post_id}`, { auth_id, rate });
-    // .then(res => {});
-  }
-
-  handleDeleteLikePost(post_id) {
-    let { auth_id } = this.props.user;
-
-    axios.delete(`/api/like/${post_id}/${auth_id}`);
-    // .then(res => {
-    //   this.getPosts();
-    // }
-    // );
+  getListofLikes(post_id) {
+    axios
+      .get(`/api/post/userlist/like/${post_id}`)
+      .then(res => this.setState({ likeList: res.data }));
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
 
     const { classes } = this.props;
+
     let mappedPosts = this.props.posts.map((e, i) => {
       return (
         <Card key={i} className={classes.card}>
           <CardHeader
             avatar={<Avatar alt="Adelle Charles" src={e.picture} />}
-            action={
-              <IconButton>
-                <MoreVertIcon />
-              </IconButton>
-            }
             title={e.name}
             subheader={<Moment calendar="()">{e.time}</Moment>}
           />
@@ -142,13 +136,13 @@ class RecipeReviewCard extends React.Component {
           <CardActions className={classes.actions} disableActionSpacing>
             <IconButton
               aria-label="Like the Post"
-              onClick={() => this.handleLikePost(e.post_id)}
+              onClick={() => this.props.handleLikePost(e.post_id)}
             >
               <FavoriteIcon />
             </IconButton>
             <IconButton
               aria-label="Share"
-              onClick={() => this.handleDeleteLikePost(e.post_id)}
+              onClick={() => this.props.handleDeleteLikePost(e.post_id)}
             >
               <img
                 alt="unlike btn"
@@ -159,7 +153,7 @@ class RecipeReviewCard extends React.Component {
             {this.props.user.auth_id === e.auth_id ? (
               <IconButton
                 aria-label="Delete the Post"
-                onClick={() => this.handleDelete(e.post_id)}
+                onClick={() => this.props.handleDelete(e.post_id)}
               >
                 <DeleteForeverOutlinedIcon />
               </IconButton>
@@ -167,67 +161,34 @@ class RecipeReviewCard extends React.Component {
               ""
             )}
 
-            {/* <IconButton aria-label="Share">
-              <ShareIcon />
-            </IconButton> */}
-            {e.likestotal ? (
-              <IconButton
-                className={classnames(classes.expand, {
-                  [classes.expandOpen]: this.state.expanded
-                })}
-                // onClick={this.handleExpandClick}
-                // aria-expanded={this.state.expanded}
-                // aria-label="Show more"
-              >
-                <div style={{ fontSize: "1rem" }}>
-                  {e.likestotal > 1 ? (
-                    <div>{e.likestotal} Likes</div>
-                  ) : (
-                    <div>
-                      {e.likestotal}
-                      Like
-                    </div>
-                  )}
-                </div>
-              </IconButton>
-            ) : (
-              ""
-            )}
+            <PostLikeListOutput
+              post_id={e.post_id}
+              getListofLikes={this.getListofLikes}
+              likeList={this.state.likeList}
+              likestotal={e.likestotal}
+            />
+
+            <IconButton
+              className={classnames(classes.expand, {
+                [classes.expandOpen]: this.state.expanded
+              })}
+              onClick={this.handleExpandClick}
+              aria-expanded={this.state.expanded}
+              aria-label="Show more"
+            >
+              <ExpandMoreIcon />
+            </IconButton>
           </CardActions>
           <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
-            <CardContent>
-              <Typography paragraph variant="body2">
-                Method:
-              </Typography>
-              <Typography paragraph>
-                Heat 1/2 cup of the broth in a pot until simmering, add saffron
-                and set aside for 10 minutes.
-              </Typography>
-              <Typography paragraph>
-                Heat oil in a (14- to 16-inch) paella pan or a large, deep
-                skillet over medium-high heat. Add chicken, shrimp and chorizo,
-                and cook, stirring occasionally until lightly browned, 6 to 8
-                minutes. Transfer shrimp to a large plate and set aside, leaving
-                chicken and chorizo in the pan. Add pimentón, bay leaves,
-                garlic, tomatoes, onion, salt and pepper, and cook, stirring
-                often until thickened and fragrant, about 10 minutes. Add
-                saffron broth and remaining 4 1/2 cups chicken broth; bring to a
-                boil.
-              </Typography>
-              <Typography paragraph>
-                Add rice and stir very gently to distribute. Top with artichokes
-                and peppers, and cook without stirring, until most of the liquid
-                is absorbed, 15 to 18 minutes. Reduce heat to medium-low, add
-                reserved shrimp and mussels, tucking them down into the rice,
-                and cook again without stirring, until mussels have opened and
-                rice is just tender, 5 to 7 minutes more. (Discard any mussels
-                that don’t open.)
-              </Typography>
-              <Typography>
-                Set aside off of the heat to let rest for 10 minutes, and then
-                serve.
-              </Typography>
-            </CardContent>
+            <Comments
+              post_id={e.post_id}
+              currentUser={this.props.currentUser.auth_id}
+            />
+            <CommentCreate
+              post_id={e.post_id}
+              auth_id={this.props.currentUser.auth_id}
+              createComment={this.createComment}
+            />
           </Collapse>
         </Card>
       );

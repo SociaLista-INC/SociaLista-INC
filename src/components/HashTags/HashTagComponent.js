@@ -46,7 +46,6 @@ class HashTagComponent extends Component {
 
   componentDidMount() {
     axios.get("/api/hashtags").then(res => {
-      console.log(res);
       this.setState({ HashTags: res.data });
     });
   }

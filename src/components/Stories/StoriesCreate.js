@@ -4,11 +4,9 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Avatar from "@material-ui/core/Avatar";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 
 const styles = {
@@ -61,40 +59,22 @@ class StoriesCreate extends React.Component {
         >
           <DialogTitle id="form-dialog-title">Story</DialogTitle>
           <DialogContent>
-            <DialogContentText>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel
-              numquam, facere explicabo debitis iure aperiam iste ea eius illo
-              culpa! Nam reiciendis at numquam distinctio, cum corporis non
-              provident voluptates.
-            </DialogContentText>
             <TextField
               autoFocus
               margin="dense"
-              id="name"
-              label="Title"
-              type="email"
-              fullWidth
-              onChange={e => this.props.handleTitleChange(e.target.value)}
-            />
-            <TextField
-              margin="dense"
               id="ur"
-              label="Enter an Image URL or select one below"
-              type="input"
+              label="Take a photo!"
               fullWidth
               onChange={e => this.props.handelUrlText(e.target.value)}
             />
-            {/* <Button label="My Label">
-              <form onSubmit={this.props.handleImageUrlChange}>
-                <input
-                  label="upload file"
-                  type="file"
-                  accept=".png, .jpg, .jpeg, .mp4, .mp3"
-                  onChange={this.props.handleFileUpload}
-                />
-                <button type="submit">Upload</button>
-              </form>
-            </Button> */}
+
+            <TextField
+              margin="dense"
+              id="name"
+              label="Title"
+              fullWidth
+              onChange={e => this.props.handleTitleChange(e.target.value)}
+            />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
