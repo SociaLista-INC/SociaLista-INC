@@ -3,7 +3,6 @@ import axios from "axios";
 import Post from "./Post";
 import PostCreate from "./PostCreate";
 import Stories from "../Stories/Stories";
-import UploadCloudinary from "../UploadCloudinary/UploadCloudinary";
 
 class DashBoard extends Component {
   constructor(props) {
@@ -179,7 +178,6 @@ class DashBoard extends Component {
 
     return (
       <div>
-        <UploadCloudinary />
         <PostCreate
           handelUrlText={this.handelUrlText}
           file={this.state.file}

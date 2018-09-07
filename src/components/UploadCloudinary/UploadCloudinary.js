@@ -26,15 +26,13 @@ class UploadCloudinary extends Component {
         console.log(err);
       }
       if (response.body.secure_url !== "") {
-        // this.props.updatePicture(response.body.secure_url);
+        this.props.handelUrlText(response.body.secure_url);
         this.setState({ image: response.body.secure_url });
       }
     });
   };
 
   render() {
-    console.log(this.state.image);
-
     return (
       <div>
         <Dropzone
@@ -54,7 +52,7 @@ class UploadCloudinary extends Component {
                   className="ep_upload_pic"
                   src={this.state.image}
                   alt="event pic"
-                  width="20px"
+                  width="90px"
                 />
               </div>
             )}
