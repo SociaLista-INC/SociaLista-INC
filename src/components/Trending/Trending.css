@@ -1,4 +1,4 @@
-.explore-cards {
+.trending-cards {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
@@ -6,9 +6,8 @@
   align-items: center;
   align-content: stretch;
 }
-.header-explore {
-  padding-top: 10vh;
-  font-size: 2rem;
+.header-trending {
+  font-size: 3.5rem;
   font-weight: 400;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   line-height: 1.30357em;

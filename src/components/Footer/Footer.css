@@ -1,4 +1,4 @@
-#Features-Background {
+/* #Features-Background {
   padding: 20px;
   background-color: #d3d5d6;
 
@@ -36,9 +36,15 @@
   margin-top: 40px;
   height: 70vh;
   width: 110vh;
+} */
+
+#myfooter {
+  background-color: lightgrey !important;
+}
+.social-links {
+  margin: 15px;
 }
 
-#test {
-  height: 100px;
-  width: 100px;
+#avatar-container {
+  width: 1vw;
 }

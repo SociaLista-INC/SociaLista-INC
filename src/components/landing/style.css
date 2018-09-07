@@ -1,18 +1,7 @@
-/* .app-intro {
-  position: absolute;
-  height: 0px;
-  width: 735px;
-  margin: auto;
-  right: 25%;
-  top: 25%;
-  border-radius: 4px;
-  padding: 5px;
-  text-align: center;
-} */
 .app-intro {
   color: white;
   position: absolute;
-  height: 50px;
+  height: 20vh;
   width: 50%;
   margin: auto;
   right: 25%;
@@ -22,17 +11,18 @@
   text-align: center;
 }
 .landing-title {
+  background-color: white;
   background: linear-gradient(45deg, #0f0d2f, #24101f);
   height: 100vh;
 }
+#main-text {
+  font-size: 6vw;
+  color: #d3d3d3;
+}
 #slogan {
-  margin-top: 50px;
+  color: #d3d3d3;
 }
 
-#connect-button {
-  color: black;
-  margin-top: 200px;
-}
 .particlesHider {
   height: 100vh;
 }
@@ -42,8 +32,8 @@
   }
 }
 @media only screen and (max-width: 375px) {
-  #free-trial-button {
-    font-size: 0.7rem;
+  #connect-button {
+    height: 10vh;
   }
   .features {
     height: 566px;
@@ -55,4 +45,8 @@
     font-size: 16px;
     line-height: 55px;
   }
+}
+
+#connect-button {
+  margin-top: 18vh;
 }

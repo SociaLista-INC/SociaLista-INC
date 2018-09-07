@@ -61,7 +61,6 @@ class ProfilePage extends Component {
   getSessions() {
     axios.get("/api/session").then(res => {
       this.setState({ user: res.data, loading: false });
-      // console.log(this.state.user.auth_id);
     });
   }
 

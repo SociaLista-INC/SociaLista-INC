@@ -34,7 +34,8 @@ const {
   createComment,
   updateComment,
   deleteComment,
-  getAllImagesGallery
+  getAllImagesGallery,
+  getHashTags
 } = require("./Controllers/postsControllers");
 
 const {
@@ -113,6 +114,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
+
 //------------------Auth Endpoints--------------------
 app.get("/login", login);
 app.post("/api/logout", logout);
@@ -141,6 +143,9 @@ app.get("/api/getgallery/images", getAllImagesGallery);
 app.get("/api/getrecentlikes", getMostRecentLikes);
 app.get("/api/getrecentcomments", getMostRecentComments);
 app.get("/api/getrecentfollowers", getMostRecentFollowers);
+
+//---------------HashTags API------------------------
+app.get("/api/hashtags", getHashTags);
 
 //----------------Stories Endpoints-----------------------
 app.get("/api/getstories/:auth_id", getAllStories);

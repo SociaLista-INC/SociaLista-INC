@@ -16,6 +16,7 @@ import Menu from "@material-ui/core/Menu";
 import classNames from "classnames";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
+
 import { Link } from "react-router-dom";
 import axios from "axios";
 
@@ -146,6 +147,10 @@ class MenuAppBar extends React.Component {
               <Divider />
               <MenuItem onClick={() => this.setState({ open: false })}>
                 <Link to={`/profile/${this.state.user}`}>Profile</Link>
+              </MenuItem>
+              <Divider />
+              <MenuItem onClick={() => this.setState({ open: false })}>
+                <Link to="/trending">Trending</Link>
               </MenuItem>
               <Divider />
             </Drawer>
