@@ -1,4 +1,4 @@
-#Features-Background {
+/* #Features-Background {
   padding: 20px;
   background-color: #d3d5d6;
 
@@ -35,4 +35,34 @@
   margin-top: 40px;
   height: 70vh;
   width: 110vh;
+} */
+
+#feature-container {
+  background: lightgrey !important;
+}
+
+.features {
+  height: 700px;
+  width: 75%;
+  margin: auto;
+}
+@media screen and (max-width: 480px) {
+  .FeaturesPic {
+    height: 150px !important;
+    width: 250px !important;
+  }
+}
+
+.rows {
+  display: flex;
+  justify-content: space-around;
+  margin: 30px 0;
+}
+@media only screen and (max-width: 425px) {
+  .features {
+    width: 95%;
+  }
+  .rows {
+    font-size: 12px;
+  }
 }

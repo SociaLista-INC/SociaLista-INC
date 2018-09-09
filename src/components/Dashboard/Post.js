@@ -18,7 +18,7 @@ import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined"
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Moment from "react-moment";
-
+import Loading from "react-loading-components";
 import PostLikeListOutput from "./PostLikeList";
 import axios from "axios";
 import Comments from "./Comments";
@@ -64,7 +64,8 @@ class Post extends Component {
       expanded: false,
       editing: false,
       likeList: [],
-      currentUser: this.props.currentUser.auth_id
+      currentUser: this.props.currentUser.auth_id,
+      loading: true
     };
     this.handleEditingPost = this.handleEditingPost.bind(this);
     this.createComment = this.createComment.bind(this);
@@ -105,7 +106,7 @@ class Post extends Component {
     const { classes } = this.props;
 
     return (
-      <Card className={classes.card}>
+      <Card style={{ backgroundColor: "#292A3A" }} className={classes.card}>
         <CardHeader
           avatar={<Avatar alt="Adelle Charles" src={picture} />}
           action={
@@ -113,8 +114,16 @@ class Post extends Component {
               <MoreVertIcon />
             </IconButton>
           }
-          title={<Link to={`/profile/${auth_id}`}>{name}</Link>}
-          subheader={<Moment calendar="()">{time}</Moment>}
+          title={
+            <Link to={`/profile/${auth_id}`} style={{ color: "#D3D3D3" }}>
+              {name}
+            </Link>
+          }
+          subheader={
+            <Moment calendar="()" style={{ color: "#D3D3D3" }}>
+              {time}
+            </Moment>
+          }
         />
         {image_url ? (
           image_url.toLowerCase().includes(".png") ? (
@@ -139,7 +148,8 @@ class Post extends Component {
             <audio controls>
               <source src={image_url} type="audio/mpeg" />
             </audio>
-          ) : image_url.toLowerCase().includes("youtube") ? (
+          ) : image_url.toLowerCase().includes("youtube") ||
+          image_url.toLowerCase().includes(".mp4") ? (
             <ReactPlayer width="100%" url={image_url} />
           ) : image_url.toLowerCase().includes("soundcloud") ? (
             <ReactPlayer width="100%" url={image_url} />
@@ -149,7 +159,7 @@ class Post extends Component {
         ) : (
           ""
         )}
-        <CardContent>
+        <CardContent style={{ color: "#D3D3D3" }}>
           {!this.state.editing ? (
             <p onClick={e => this.handleEditingPost(e)}>{content}</p>
           ) : this.state.currentUser === auth_id ? (
@@ -167,6 +177,7 @@ class Post extends Component {
         </CardContent>
         <CardActions className={classes.actions} disableActionSpacing>
           <IconButton
+            style={{ color: "#D3D3D3" }}
             aria-label="Like the Post"
             onClick={() => this.props.handleLikePost(post_id)}
           >
@@ -178,12 +189,13 @@ class Post extends Component {
           >
             <img
               alt="unlike btn"
-              src="https://image.flaticon.com/icons/svg/838/838669.svg"
+              src="https://res.cloudinary.com/drdwvrmvv/image/upload/v1536361061/nkkkf9qtttvo9bpitvso.png"
               width="20px"
             />
           </IconButton>
           {this.state.currentUser === auth_id ? (
             <IconButton
+              style={{ color: "#D3D3D3" }}
               aria-label="Delete the Post"
               onClick={() => this.props.handleDelete(post_id)}
             >
@@ -200,6 +212,7 @@ class Post extends Component {
           />
 
           <IconButton
+            style={{ color: "#D3D3D3" }}
             className={classnames(classes.expand, {
               [classes.expandOpen]: this.state.expanded
             })}

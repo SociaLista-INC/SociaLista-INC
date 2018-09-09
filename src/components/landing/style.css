@@ -9,7 +9,7 @@
   padding: 5px;
   text-align: center;
 } */
-.app-intro {
+/* .app-intro {
   color: white;
   position: absolute;
   height: 50px;
@@ -54,5 +54,134 @@
   .contact-small-text {
     font-size: 16px;
     line-height: 55px;
+  }
+} */
+
+.app-intro {
+  color: white;
+  position: absolute;
+  height: 20vh;
+  width: 50%;
+  margin: auto;
+  right: 25%;
+  top: 25%;
+  border-radius: 4px;
+  padding: 5px;
+  text-align: center;
+}
+.landing-title {
+  background-color: white;
+  background: linear-gradient(45deg, #0f0d2f, #24101f);
+  height: 100vh;
+}
+#main-text {
+  font-family: "Playfair Display", serif;
+  font-size: 7vw;
+  color: white;
+  line-height: 1.15em;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: #c38d5f;
+  margin-bottom: 4px;
+}
+
+#slogan {
+  color: white;
+}
+
+.particlesHider {
+  height: 100vh;
+}
+@media only screen and (min-width: 500px) {
+  #main-text {
+    font-size: 6vw;
+  }
+  #connect-button {
+    margin-top: 40px;
+  }
+}
+
+@media only screen and (max-width: 1050px) {
+  .fontIcons {
+    display: none;
+  }
+}
+@media only screen and (max-width: 375px) {
+  #connect-button {
+    height: 10vh;
+  }
+  .features {
+    height: 566px;
+  }
+  .rows {
+    text-align: center;
+  }
+  .contact-small-text {
+    font-size: 16px;
+    line-height: 55px;
+  }
+}
+
+#connect-button {
+  margin-top: 40px;
+}
+.slog {
+  font-family: "Poppins", Arial, sans-serif;
+
+  letter-spacing: 0.3px;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 1.3em;
+}
+@media only screen and (max-width: 402px) {
+  .slog {
+    font-size: 4vw;
+  }
+}
+
+@media only screen and (max-width: 414px) {
+  .app-intro {
+    color: white;
+    position: absolute;
+    height: 20vh;
+    width: 50%;
+    margin: auto;
+    right: 25%;
+    top: 30%;
+    border-radius: 4px;
+    padding: 5px;
+    text-align: center;
+  }
+}
+
+/* #slogan {
+  color: #ff524e;
+
+  -webkit-animation: redpulsetext 3s ease-in-out infinite;
+}
+
+@-webkit-keyframes redpulsetext {
+  0% {
+    color: #ff524e;
+  }
+
+  10% {
+    color: white;
+  }
+} */
+
+#alogan {
+  color: white;
+  -webkit-animation: redpulsetext 3s ease-in-out infinite;
+  animation-delay: 4s;
+}
+
+@-webkit-keyframes redpulsetext {
+  0% {
+    color: white;
+  }
+
+  20% {
+    color: #ff524e;
   }
 }

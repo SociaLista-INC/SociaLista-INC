@@ -25,17 +25,31 @@ export default class PostCreate extends React.Component {
 
   render() {
     // console.log(this.props.file);
+    // style={{ backgroundColor: "#292A3A",color: "#D3D3D3" }}
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Write a Post</Button>
+        <Button
+          style={{ color: "#D3D3D3" }}
+          className="post-margin-post"
+          onClick={this.handleClickOpen}
+        >
+          Write a Post
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Post</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
+          <DialogTitle
+            style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
+            id="form-dialog-title"
+          >
+            <div style={{ color: "#D3D3D3" }}>Post</div>
+          </DialogTitle>
+          <DialogContent
+            style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
+          >
+            <DialogContentText style={{ color: "#D3D3D3" }}>
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel
               numquam, facere explicabo debitis iure aperiam iste ea eius illo
               culpa! Nam reiciendis at numquam distinctio, cum corporis non
@@ -51,6 +65,7 @@ export default class PostCreate extends React.Component {
               onChange={e => this.props.handleContentChange(e.target.value)}
             />
             <TextField
+              color="#D3D3D3"
               margin="dense"
               id="ur"
               label="Enter an Image URL or select one below"
@@ -70,16 +85,18 @@ export default class PostCreate extends React.Component {
               </form>
             </Button>
           </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+          <DialogActions
+            style={{ backgroundColor: "#292A3A", color: "#D3D3D3", margin: 0 }}
+          >
+            <Button style={{ color: "#D3D3D3" }} onClick={this.handleClose}>
               Cancel
             </Button>
             <Button
+              style={{ color: "#D3D3D3" }}
               onClick={() => {
                 this.props.handlePostClick();
                 this.handleClose();
               }}
-              color="primary"
             >
               Post
             </Button>

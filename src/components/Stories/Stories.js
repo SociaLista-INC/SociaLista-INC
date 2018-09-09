@@ -151,7 +151,9 @@ class SimpleModal extends React.Component {
 
     return (
       <div>
-        <Typography gutterBottom>Checkout Stories!</Typography>
+        <Typography style={{ color: "#D3D3D3" }} gutterBottom>
+          Checkout Stories!
+        </Typography>
         <StoriesCreate
           handleTitleChange={this.handleTitleChange}
           handelUrlText={this.handelUrlText}

@@ -233,7 +233,7 @@ class RecipeReviewCard extends React.Component {
       );
     });
 
-    return <div className="list-posts-postCard">{mappedPosts}</div>;
+    return <div className="user-posts-postCard">{mappedPosts}</div>;
   }
 }
 

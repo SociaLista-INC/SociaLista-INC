@@ -43,7 +43,7 @@ class UploadCloudinary extends Component {
         >
           <div>
             {this.state.image === "" ? (
-              <div className="ce_dropzone_text" style={{ color: "#6a6a6a" }}>
+              <div className="ce_dropzone_text" style={{ color: "#D3D3D3" }}>
                 take a picture!
               </div>
             ) : (

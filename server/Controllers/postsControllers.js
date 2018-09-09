@@ -158,6 +158,22 @@ const getAllImagesGallery = (req, res, next) => {
     .catch(e => res.status(500).send("somethingiswrong"));
 };
 
+const getHashTags = (req, res, next) => {
+  const axios = require("axios");
+  axios
+    .get(
+      `https://api.ritekit.com/v1/search/trending?green=1&tags=php&client_id=${
+        process.env.API_CLIENT_ID
+      }`
+    )
+    .then(results => {
+      // console.log(results.data.tags);
+
+      res.status(200).send(results.data.tags);
+    })
+    .catch(e => res.status(500).send("wrong"));
+};
+
 module.exports = {
   getAllPosts,
   deletePost,
@@ -172,5 +188,6 @@ module.exports = {
   createComment,
   updateComment,
   deleteComment,
-  getAllImagesGallery
+  getAllImagesGallery,
+  getHashTags
 };

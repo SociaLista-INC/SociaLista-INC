@@ -43,17 +43,30 @@ export default class CommentCreate extends React.Component {
     // console.log(this.state);
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>Leave a comment</Button>
+        <Button style={{ color: "#D3D3D3" }} onClick={this.handleClickOpen}>
+          Leave a comment
+        </Button>
         <Dialog
           open={this.state.open}
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Comment</DialogTitle>
-          <DialogContent>
-            <DialogContentText>Thanks for leaving a comment</DialogContentText>
+          <DialogTitle
+            style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
+            // id="form-dialog-title"
+          >
+            Comment
+          </DialogTitle>
+          <DialogContent style={{ backgroundColor: "#292A3A" }}>
+            <DialogContentText
+              style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
+            >
+              Thanks for leaving a comment
+            </DialogContentText>
             <TextField
+              style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
               autoFocus
+              color="#D3D3D3"
               margin="dense"
               onChange={e => this.handleCommentChange(e.target.value)}
               id="name"
@@ -62,11 +75,19 @@ export default class CommentCreate extends React.Component {
               fullWidth
             />
           </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+          <DialogActions style={{ backgroundColor: "#292A3A", margin: 0 }}>
+            <Button
+              style={{ color: "#D3D3D3" }}
+              onClick={this.handleClose}
+              color="primary"
+            >
               Cancel
             </Button>
-            <Button onClick={() => this.createPostComment()} color="primary">
+            <Button
+              style={{ color: "#D3D3D3" }}
+              onClick={() => this.createPostComment()}
+              color="primary"
+            >
               Submit
             </Button>
           </DialogActions>

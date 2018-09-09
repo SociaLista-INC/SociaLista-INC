@@ -60,15 +60,25 @@ class StoriesCreate extends React.Component {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">Story</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
+          <DialogTitle
+            style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
+            id="form-dialog-title"
+          >
+            <div style={{ color: "#D3D3D3" }}>Story</div>
+          </DialogTitle>
+          <DialogContent
+            style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
+          >
+            <DialogContentText
+              style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
+            >
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel
               numquam, facere explicabo debitis iure aperiam iste ea eius illo
               culpa! Nam reiciendis at numquam distinctio, cum corporis non
               provident voluptates.
             </DialogContentText>
             <TextField
+              style={{ color: "#D3D3D3" }}
               autoFocus
               margin="dense"
               id="name"
@@ -78,28 +88,17 @@ class StoriesCreate extends React.Component {
               onChange={e => this.props.handleTitleChange(e.target.value)}
             />
             <UploadCloudinary handelUrlText={this.props.handelUrlText} />
-            {/* <Button label="My Label">
-              <form onSubmit={this.props.handleImageUrlChange}>
-                <input
-                  label="upload file"
-                  type="file"
-                  accept=".png, .jpg, .jpeg, .mp4, .mp3"
-                  onChange={this.props.handleFileUpload}
-                />
-                <button type="submit">Upload</button>
-              </form>
-            </Button> */}
           </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
+          <DialogActions style={{ backgroundColor: "#292A3A", margin: 0 }}>
+            <Button style={{ color: "#D3D3D3" }} onClick={this.handleClose}>
               Cancel
             </Button>
             <Button
+              style={{ color: "#D3D3D3" }}
               onClick={() => {
                 this.props.handleStoryCreateClick();
                 this.handleClose();
               }}
-              color="primary"
             >
               Story
             </Button>

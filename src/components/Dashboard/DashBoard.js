@@ -3,6 +3,9 @@ import axios from "axios";
 import Post from "./Post";
 import PostCreate from "./PostCreate";
 import Stories from "../Stories/Stories";
+import Loading from "react-loading-components";
+import News from "../News/News";
+import HashTagComponent from "../HashTags/HashTagComponent";
 
 class DashBoard extends Component {
   constructor(props) {
@@ -17,7 +20,8 @@ class DashBoard extends Component {
       postsLikes: [],
       media: "",
       file: null,
-      loading: true
+      loading: true,
+      isloading: true
     };
     this.handleContentChange = this.handleContentChange.bind(this);
     this.handlePostClick = this.handlePostClick.bind(this);
@@ -149,7 +153,7 @@ class DashBoard extends Component {
 
   getPostsLikes() {
     axios.get("/api/getlikes").then(res => {
-      this.setState({ postsLikes: res.data });
+      this.setState({ postsLikes: res.data, isloading: false });
     });
   }
 
@@ -175,9 +179,11 @@ class DashBoard extends Component {
     if (this.state.loading) {
       return null;
     }
-
+    if (this.state.isloading) {
+      return <Loading type="puff" width={100} height={100} fill="#f44242" />;
+    }
     return (
-      <div>
+      <div className="main-background-dashboard">
         <PostCreate
           handelUrlText={this.handelUrlText}
           file={this.state.file}
@@ -187,7 +193,15 @@ class DashBoard extends Component {
           handlePostClick={this.handlePostClick}
         />
         <Stories currentUser={this.state.user} />
-        <div className="list-posts-postCard">{mappedPosts}</div>
+        <div className="list-posts-postCard">
+          <div>
+            <HashTagComponent />
+          </div>
+          <div>{mappedPosts}</div>
+          <div>
+            <News />
+          </div>
+        </div>
       </div>
     );
   }
