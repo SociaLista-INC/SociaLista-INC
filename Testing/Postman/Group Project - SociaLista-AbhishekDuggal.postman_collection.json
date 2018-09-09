@@ -1,0 +1,480 @@
+{
+	"info": {
+		"_postman_id": "91338ce9-8bd7-4546-a65c-e0fda3a699fa",
+		"name": "Group Project - SociaLista",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3001/api/post/7",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/post/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"7"
+					]
+				},
+				"description": "Delete"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6e0f93c4-f098-424e-a366-ac56be3f2366",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"auth_id\": \"facebook|2288355554514695\",\n\t\"content\": \"Testing Post\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/post/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/session",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/session",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"session"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/image/create",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "34d809e8-d133-4d0f-892c-7cabd23533a0",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('response', function () {",
+							"    pm.response.to.have.status(200)",
+							"})",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"auth_id\": \"facebook|2288355554514695\",\n\t\"image_url\": \"http://www.batfa.com/photo-newcar-prius-colors.files/Prius-color-GrayMetallic.jpg\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/post/image/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"image",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/62",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"content\":\"Hi from Postico\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/post/62",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"62"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/like/103",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"auth_id\":\"facebook|2288355554514695\",\n\t\"rate\": \"1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/post/like/103",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"like",
+						"103"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/getlikes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/getlikes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"getlikes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/userlist/like/168",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/post/userlist/like/168",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"userlist",
+						"like",
+						"168"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/comments/150",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/post/comments/150",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"comments",
+						"150"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/comment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2feceec9-9598-41d5-9b6b-166954791fce",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Data array is empty\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(undefined);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"auth_id\": \"facebook|2288355554514695\", \n\t\"post_id\": \"193\", \n\t\"comment\": \"Testing from Postman\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/post/comment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"comment"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/comment/14",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"comment\": \"I am updating from Postman\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/post/comment/14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"comment",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/post/comment/14",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/post/comment/14",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"post",
+						"comment",
+						"14"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/getgallery/images",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/getgallery/images",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"getgallery",
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/getstories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/getstories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"getstories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/story/create",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"auth_id\": \"facebook|2288355554514695\", \n\t\"title\": \"Posting from Postman\" , \n\t\"img_url\": \"http://mountainrailwv.com/wp-content/uploads/Chase-Gunnoe-IMG_7795_HR-1.jpg\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:3001/api/story/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"story",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/api/story/7",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "db96462a-9d79-4f8b-bbbb-10ba1de402cb",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code name has string\", function () {",
+							"    pm.response.to.have.status(\"OK\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:3001/api/story/7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"api",
+						"story",
+						"7"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

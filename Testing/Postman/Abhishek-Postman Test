@@ -1,0 +1,31 @@
+Test 1 - http://localhost:3001/api/post/comment
+
+pm.test("Data array is empty", function () {
+    var jsonData = pm.response.json();
+    pm.expect(undefined);
+});
+
+Test 2 - http://localhost:3001/api/story/7
+
+pm.test("Status code name has string", function () {
+    pm.response.to.have.status("OK");
+});
+
+Test 3 - http://localhost:3001/api/post/comment/14
+
+pm.test("Data array is empty", function () {
+    var jsonData = pm.response.json();
+    pm.expect(undefined);
+});
+
+Test 4 - http://localhost:3001/api/post/image/create
+
+pm.test('response', function () {
+    pm.response.to.have.status(200)
+})
+
+Test 5 - http://localhost:3001/api/post/create
+
+pm.test("Successful POST request", function () {
+    pm.expect(pm.response.code).to.be.oneOf([200,201,202]);
+});
