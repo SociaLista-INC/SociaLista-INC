@@ -8,7 +8,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-
+import Loading from "react-loading-components";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 
 const styles = {
@@ -27,7 +27,8 @@ const styles = {
   },
   title: {
     marginBottom: 16,
-    fontSize: 14
+    fontSize: 14,
+    color: "#D3D3D3"
   },
   pos: {
     marginBottom: 12
@@ -40,22 +41,29 @@ class HashTagComponent extends Component {
     this.state = {
       HashTags: [],
       dense: false,
-      secondary: true
+      secondary: true,
+      loading: true
     };
   }
 
   componentDidMount() {
     axios.get("/api/hashtags").then(res => {
-      this.setState({ HashTags: res.data });
+      this.setState({ HashTags: res.data, loading: false });
     });
   }
 
   render() {
+    if (this.state.loading) {
+      return <Loading type="puff" width={100} height={100} fill="#f44242" />;
+    }
     return (
       <div>
-        <Card className={this.props.classes.card}>
+        <Card
+          style={{ backgroundColor: "#292A3A" }}
+          className={this.props.classes.card}
+        >
           <CardContent>
-            <TrendingUpIcon />
+            <TrendingUpIcon style={{ color: "#D3D3D3" }} />
             <Typography
               className={this.props.classes.title}
               color="textSecondary"
@@ -65,7 +73,9 @@ class HashTagComponent extends Component {
             <List dense={this.state.dense}>
               {this.state.HashTags.map((e, i) => (
                 <ListItem key={i}>
-                  <ListItemText primary={<div>#{e.tag}</div>} />
+                  <ListItemText
+                    primary={<div style={{ color: "#D3D3D3" }}>#{e.tag}</div>}
+                  />
                 </ListItem>
               ))}
             </List>

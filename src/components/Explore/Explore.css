@@ -14,5 +14,10 @@
   line-height: 1.30357em;
   margin-left: -0.02em;
   letter-spacing: -0.02em;
-  color: rgba(0, 0, 0, 0.87);
+  color: #d3d3d3;
+  background-color: #161c23;
+}
+.explore-main {
+  background-color: #161c23;
+  padding-bottom: 40px;
 }

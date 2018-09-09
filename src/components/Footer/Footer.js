@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Footer } from "react-materialize";
+
 import "./Footer.css";
 
 import Avatar from "@material-ui/core/Avatar";
@@ -7,101 +7,82 @@ import Avatar from "@material-ui/core/Avatar";
 class Footers extends Component {
   render() {
     return (
-      <div className="footerBody">
-        <Footer id="myfooter">
-          {" "}
-          <h4
-            style={{ marginTop: "0px", marginBottom: "0px", paddingTop: "2vh" }}
-          >
-            Project by Kaustubh Deshpande, Abdul Kanjo, Abhishek Duggal
-          </h4>
+      <div className="fotter-main">
+        <div className="flexing-each-eng">
           <div>
-            <Avatar
-              style={{
-                width: 60,
-                height: 60
-              }}
+            <img
+              className="our-imgs"
+              width="90px"
+              src="https://avatars1.githubusercontent.com/u/39711965?s=460&v=4"
+              alt="Abdul"
+            />
+          </div>
+          <div className="our-info">
+            <div>Abdul Alhajkanjo</div>
+            <a href="https://www.linkedin.com/in/abdul-alhajkanjo-355911155/">
+              <img
+                width="20px"
+                src="https://image.flaticon.com/icons/svg/174/174857.svg"
+              />
+            </a>
+            <a>
+              <img
+                width="20px"
+                src="https://image.flaticon.com/icons/svg/25/25657.svg"
+              />
+            </a>
+          </div>
+        </div>
+        <div className="flexing-each-eng">
+          <div>
+            <img
+              className="our-imgs"
+              width="90px"
+              src="https://media.licdn.com/dms/image/C4D03AQEsv9f8NiLcNA/profile-displayphoto-shrink_200_200/0?e=1541635200&v=beta&t=pFmvHagh4nrvIqng1ohrkFsPe1krHwtf09lSVnl2LLs"
+              alt="Abhishek"
+            />
+          </div>
+          <div className="our-info">
+            <div>Abhishek Duggal</div>
+            <a href="https://www.linkedin.com/in/abhishek-duggal-15149b17/">
+              <img
+                width="20px"
+                src="https://image.flaticon.com/icons/svg/174/174857.svg"
+              />
+            </a>
+            <a>
+              <img
+                width="20px"
+                src="https://image.flaticon.com/icons/svg/25/25657.svg"
+              />
+            </a>
+          </div>
+        </div>
+        <div style={{ paddingLeft: "40px" }} className="flexing-each-eng">
+          <div>
+            <img
+              className="our-imgs"
+              width="90px"
               src="https://avatars0.githubusercontent.com/u/29470373?s=460&v=4"
-              alt="Kaustubh Deshpande"
+              alt="Kaustubh"
             />
-            <a href="https://github.com/KaustubhDeshpandeDev">
+          </div>
+          <div className="our-info">
+            <div>Kaustubh Deshpande</div>
+            <a href="https://www.linkedin.com/in/kaustubh-deshpande-45649a162/">
               <img
-                alt="icon"
-                src="https://image.flaticon.com/icons/svg/25/25231.svg"
-                width="25px"
+                width="20px"
+                src="https://image.flaticon.com/icons/svg/174/174857.svg"
               />
             </a>
-            <a href="https://www.google.com">
+            <a>
               <img
-                alt="icon"
-                src="https://image.flaticon.com/icons/svg/34/34405.svg"
-                width="25px"
+                width="20px"
+                src="https://image.flaticon.com/icons/svg/25/25657.svg"
               />
             </a>
           </div>
-          <div>
-            <Avatar
-              style={{
-                width: 60,
-                height: 60
-              }}
-              src="https://media.licdn.com/dms/image/C4E03AQFzKdx-TsfaQA/profile-displayphoto-shrink_200_200/0?e=1541030400&v=beta&t=5a3iv_5kuc54UaTX_KQ7YsMuZhDgyGl6Y_HGTfXyNbk"
-              alt="Abdul Kanjo"
-            />
-            <a href="https://github.com/KaustubhDeshpandeDev">
-              <img
-                alt="icon"
-                src="https://image.flaticon.com/icons/svg/25/25231.svg"
-                width="25px"
-              />
-            </a>
-            <a href="https://www.google.com">
-              <img
-                alt="icon"
-                src="https://image.flaticon.com/icons/svg/34/34405.svg"
-                width="25px"
-              />
-            </a>
-          </div>
-          <div>
-            <Avatar
-              style={{
-                width: 60,
-                height: 60
-              }}
-              src="https://media.licdn.com/dms/image/C4D03AQEsv9f8NiLcNA/profile-displayphoto-shrink_200_200/0?e=1541030400&v=beta&t=bCRpktbCgnuidiTFHMbwDdxKJNwGOcEYdnVImvblvIQ"
-              alt="Abhishek Duggal"
-            />
-            <a href="https://github.com/KaustubhDeshpandeDev">
-              <img
-                alt="icon"
-                src="https://image.flaticon.com/icons/svg/25/25231.svg"
-                width="25px"
-              />
-            </a>
-            <a href="https://www.google.com">
-              <img
-                alt="icon"
-                src="https://image.flaticon.com/icons/svg/34/34405.svg"
-                width="25px"
-              />
-            </a>
-          </div>
-          <p
-            className="grey-text text-lighten-4"
-            style={{
-              marginTop: "1px",
-              marginBottom: "0px",
-              fontSize: "2vh",
-              padding: "0px"
-            }}
-          >
-            This website was coded as an example to demonstrate our skills. This
-            website is active, with active users using it for its intended
-            purpose. If you have a need for a custom website or software, feel
-            free to reach out to us through of of our social media links below.
-          </p>
-        </Footer>
+        </div>
       </div>
     );
   }

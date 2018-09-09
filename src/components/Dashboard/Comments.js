@@ -83,19 +83,22 @@ class Comments extends React.Component {
             />
           </div>
           <div className="comments-section-comments-text">
-            <Typography>
+            <Typography style={{ color: "#D3D3D3" }}>
               {!this.state.editing ? (
                 <Typography
+                  style={{ color: "#D3D3D3" }}
                   paragraph
                   onClick={e => this.handleEditingComment(e)}
                 >
                   {com.comment}
                   {this.props.currentUser === com.auth_id ? (
                     <IconButton
+                      style={{ color: "#D3D3D3" }}
+                      color="#D3D3D3"
                       aria-label="Delete the Post"
                       onClick={() => this.handleDeleteComment(com.comment_id)}
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <DeleteForeverOutlinedIcon color="#D3D3D3" />
                     </IconButton>
                   ) : (
                     ""
@@ -123,7 +126,7 @@ class Comments extends React.Component {
     });
     return (
       <CardContent>
-        <Typography paragraph variant="body2">
+        <Typography style={{ color: "#D3D3D3" }} paragraph variant="body2">
           {this.state.comments[0] ? "Comments" : "No comments yet"}
         </Typography>
         {commentsection}

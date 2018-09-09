@@ -21,7 +21,8 @@ const styles = {
     marginBottom: "10px",
     height: "530px",
     overflow: "scroll",
-    marginTop: "50px"
+    marginTop: "50px",
+    color: "#D3D3D3"
   },
   bullet: {
     display: "inline-block",
@@ -30,7 +31,8 @@ const styles = {
   },
   title: {
     marginBottom: 16,
-    fontSize: 14
+    fontSize: 14,
+    color: "#D3D3D3"
   },
   pos: {
     marginBottom: 12
@@ -70,12 +72,15 @@ class Trending extends Component {
     return (
       <div>
         <div className="trending-cards">
-          <Card className={this.props.classes.card}>
+          <Card
+            style={{ backgroundColor: "#292A3A" }}
+            className={this.props.classes.card}
+          >
             <CardContent>
               <Explore />
               <Typography
                 className={this.props.classes.title}
-                color="textSecondary"
+                color="lightgrey"
               >
                 News
               </Typography>
@@ -83,17 +88,29 @@ class Trending extends Component {
                 {this.state.news.map((e, i) => (
                   <ListItem key={i}>
                     <ListItemText
-                      primary={e.title}
+                      primary={
+                        <div style={{ color: "#D3D3D3" }}>{e.title}</div>
+                      }
                       secondary={
-                        this.state.secondary
-                          ? e.description
-                            ? `${e.description}`
-                            : ""
-                          : ""
+                        this.state.secondary ? (
+                          e.description ? (
+                            <div style={{ color: "#79797F" }}>
+                              {e.description}
+                            </div>
+                          ) : (
+                            ""
+                          )
+                        ) : (
+                          ""
+                        )
                       }
                     />
                     <ListItemSecondaryAction>
-                      <IconButton href={e.url} aria-label="Link">
+                      <IconButton
+                        style={{ color: "#D3D3D3" }}
+                        href={e.url}
+                        aria-label="Link"
+                      >
                         <Link />
                       </IconButton>
                     </ListItemSecondaryAction>

@@ -6,6 +6,7 @@ import Stories from "../Stories/Stories";
 import Loading from "react-loading-components";
 import News from "../News/News";
 import HashTagComponent from "../HashTags/HashTagComponent";
+
 class DashBoard extends Component {
   constructor(props) {
     super(props);
@@ -180,7 +181,7 @@ class DashBoard extends Component {
       return <Loading type="puff" width={100} height={100} fill="#f44242" />;
     }
     return (
-      <div>
+      <div className="main-background-dashboard">
         <Stories currentUser={this.state.user} />
         <PostCreate
           handelUrlText={this.handelUrlText}
