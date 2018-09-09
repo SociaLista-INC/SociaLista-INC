@@ -6,7 +6,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-// import axios from "axios";
 
 export default class CommentCreate extends React.Component {
   constructor(props) {
@@ -52,10 +51,10 @@ export default class CommentCreate extends React.Component {
           aria-labelledby="form-dialog-title"
         >
           <DialogTitle
-            style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
+            style={{ backgroundColor: "#292A3A" }}
             // id="form-dialog-title"
           >
-            Comment
+            <div style={{ color: "#D3D3D3" }}>Comment</div>
           </DialogTitle>
           <DialogContent style={{ backgroundColor: "#292A3A" }}>
             <DialogContentText

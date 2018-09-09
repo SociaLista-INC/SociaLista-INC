@@ -60,7 +60,6 @@ class Trending extends Component {
         }`
       )
       .then(res => {
-        console.log(res.data.articles);
         this.setState({ news: res.data.articles, loading: false });
       });
   }

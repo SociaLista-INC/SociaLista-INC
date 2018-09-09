@@ -1,7 +1,4 @@
 import React, { Component } from "react";
-
-import { Row, Col } from "react-materialize";
-
 import "./Contact.css";
 
 class Contact extends Component {
@@ -15,36 +12,9 @@ class Contact extends Component {
           <h5 className="contact-small-text">
             We at SociaLista hope that you were able to benefit from our social
             media website. If you have any questions, or suggestions, please
-            reach out to us at the links below. We apprecite your feedback!
+            reach out to us at the links below. We apprecite your feedback! This
+            site is built for demonstration and learning purposes only!
           </h5>
-          <div className="rows spaced-rows" />
-          <Row>
-            <Col s={4} className="grid-example">
-              <a
-                className="grey-text text-lighten-3 fa fa-linkedin fa-4x"
-                href="https://www.linkedin.com/in/bryce-hull-9a9429123/"
-              >
-                {" "}
-              </a>
-            </Col>
-
-            <Col s={4} className="grid-example">
-              <a
-                className="grey-text text-lighten-3 fa fa-twitter fa-4x"
-                href="https://twitter.com/BryceHull1"
-              >
-                {" "}
-              </a>
-            </Col>
-            <Col s={4} className="grid-example">
-              <a
-                className="grey-text text-lighten-3 fa fa-github fa-4x"
-                href="https://github.com/bahull"
-              >
-                {" "}
-              </a>
-            </Col>
-          </Row>
         </div>
       </div>
     );

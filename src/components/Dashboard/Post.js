@@ -16,9 +16,7 @@ import red from "@material-ui/core/colors/red";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import DeleteForeverOutlinedIcon from "@material-ui/icons/DeleteForeverOutlined";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Moment from "react-moment";
-import Loading from "react-loading-components";
 import PostLikeListOutput from "./PostLikeList";
 import axios from "axios";
 import Comments from "./Comments";
@@ -109,11 +107,11 @@ class Post extends Component {
       <Card style={{ backgroundColor: "#292A3A" }} className={classes.card}>
         <CardHeader
           avatar={<Avatar alt="Adelle Charles" src={picture} />}
-          action={
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          }
+          // action={
+          // <IconButton>
+          //   <MoreVertIcon />
+          // </IconButton>
+          // }
           title={
             <Link to={`/profile/${auth_id}`} style={{ color: "#D3D3D3" }}>
               {name}

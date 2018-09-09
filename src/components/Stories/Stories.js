@@ -3,20 +3,12 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Modal from "@material-ui/core/Modal";
-// import Button from "@material-ui/core/Button";
 import TextMobileStepper from "./StoryDisplay";
 import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import StoriesCreate from "./StoriesCreate";
 
-// function rand() {
-//   return Math.round(Math.random() * 20) - 10;
-// }
-
 function getModalStyle() {
-  //   const top = 50 + rand();
-  //   const left = 50 + rand();
-
   return {
     top: "50%",
     left: "50%",
@@ -46,7 +38,7 @@ class SimpleModal extends React.Component {
     super();
     this.state = {
       open: false,
-      stories: [],
+      stories: [1],
       currentUser: "",
       friends: [],
       loadingStories: true,
@@ -73,7 +65,6 @@ class SimpleModal extends React.Component {
 
   componentDidMount() {
     this.getFriends(this.props.currentUser.auth_id);
-    // this.getStories(this.props.currentUser.auth_id);
   }
 
   getStories(auth_id) {
@@ -93,7 +84,6 @@ class SimpleModal extends React.Component {
   }
 
   handleClickStory(auth_id) {
-    // console.log(auth_id);
     this.getStories(auth_id).then(() => this.handleOpen());
   }
 
@@ -122,7 +112,7 @@ class SimpleModal extends React.Component {
   }
 
   render() {
-    // console.log(this.state.friends);
+    // console.log(this.state);
 
     const { classes } = this.props;
 
@@ -159,20 +149,28 @@ class SimpleModal extends React.Component {
           handelUrlText={this.handelUrlText}
           handleStoryCreateClick={this.handleStoryCreateClick}
         />
-        <div className={classes.row}>{mappedAvatars}</div>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
-          open={this.state.open}
-          onClose={this.handleClose}
-        >
-          <div style={getModalStyle()} className={classes.paper}>
-            <Typography variant="title" id="modal-title">
-              Text in a modal
-            </Typography>
-            <TextMobileStepper mappedStories={mappedStories} />
-          </div>
-        </Modal>
+        {this.state.friends.length === 0 ? (
+          <p>You have no friends! Lets be social explore! </p>
+        ) : (
+          <div className={classes.row}>{mappedAvatars}</div>
+        )}
+        {this.state.stories.length === 0 ? (
+          ""
+        ) : (
+          <Modal
+            aria-labelledby="simple-modal-title"
+            aria-describedby="simple-modal-description"
+            open={this.state.open}
+            onClose={this.handleClose}
+          >
+            <div style={getModalStyle()} className={classes.paper}>
+              <Typography variant="title" id="modal-title">
+                Check out Story!
+              </Typography>
+              <TextMobileStepper mappedStories={mappedStories} />
+            </div>
+          </Modal>
+        )}
       </div>
     );
   }

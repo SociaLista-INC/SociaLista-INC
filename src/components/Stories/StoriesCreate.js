@@ -4,11 +4,9 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Avatar from "@material-ui/core/Avatar";
 import PropTypes from "prop-types";
-import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import UploadCloudinary from "../UploadCloudinary/UploadCloudinary";
 
@@ -69,7 +67,7 @@ class StoriesCreate extends React.Component {
           <DialogContent
             style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
           >
-            <DialogContentText
+            {/* <DialogContentText
               style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
             >
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel
@@ -77,17 +75,25 @@ class StoriesCreate extends React.Component {
               culpa! Nam reiciendis at numquam distinctio, cum corporis non
               provident voluptates.
             </DialogContentText>
+          
+          <DialogContent> */}
             <TextField
               style={{ color: "#D3D3D3" }}
               autoFocus
               margin="dense"
+              id="ur"
+              label="Take a photo!"
+              fullWidth
+              onChange={e => this.props.handelUrlText(e.target.value)}
+            />
+            <UploadCloudinary handelUrlText={this.props.handelUrlText} />
+            <TextField
+              margin="dense"
               id="name"
               label="Title"
-              type="email"
               fullWidth
               onChange={e => this.props.handleTitleChange(e.target.value)}
             />
-            <UploadCloudinary handelUrlText={this.props.handelUrlText} />
           </DialogContent>
           <DialogActions style={{ backgroundColor: "#292A3A", margin: 0 }}>
             <Button style={{ color: "#D3D3D3" }} onClick={this.handleClose}>

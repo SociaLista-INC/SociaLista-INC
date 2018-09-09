@@ -86,7 +86,9 @@ class Explore extends React.Component {
   render() {
     const { classes } = this.props;
     const { dense } = this.state;
-    console.log(this.state.mostRecentFollowers);
+
+    // console.log(this.state.mostRecentFollowers);
+
     return (
       <div className="explore-main">
         <h1 className="header-explore">Activity</h1>

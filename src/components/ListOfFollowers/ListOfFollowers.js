@@ -9,9 +9,6 @@ import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import ListItemText from "@material-ui/core/ListItemText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Dialog from "@material-ui/core/Dialog";
-// import PersonIcon from "@material-ui/icons/Person";
-// import AddIcon from "@material-ui/icons/Add";
-// import Typography from "@material-ui/core/Typography";
 import blue from "@material-ui/core/colors/blue";
 
 var emails = ["username@gmail.com", "user02@gmail.com"];
@@ -64,14 +61,7 @@ class SimpleDialog extends React.Component {
             <ListItem
               button
               onClick={() => this.handleListItemClick("addAccount")}
-            >
-              {/* <ListItemAvatar>
-                <Avatar>
-                  <AddIcon />
-                </Avatar>
-              </ListItemAvatar> */}
-              {/* <ListItemText primary="add account" /> */}
-            </ListItem>
+            />
           </List>
         </div>
       </Dialog>
