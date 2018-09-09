@@ -6,7 +6,7 @@ import "./Trending.css";
 class Trending extends Component {
   render() {
     return (
-      <div>
+      <div className="maing-trending">
         <h1 className="header-trending"> Trending</h1>
         <div className="trending-cards">
           <News />

@@ -9,7 +9,16 @@ import NavigationIcon from "@material-ui/icons/Navigation";
 
 const styles = theme => ({
   button: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit,
+    border: "2px solid #ff524e",
+    borderRadius: " 200px",
+    paddingTop: "9px",
+    paddingBottom: "8px",
+    paddingLeft: "19px",
+    paddingRight: "19px",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    color: "#ff524e"
   },
   extendedIcon: {
     marginRight: theme.spacing.unit
@@ -20,16 +29,19 @@ function FloatingActionButtons(props) {
   const { classes } = props;
   return (
     <div>
-      <Button
-        // component={Link}
-        // to="http://localhost:3001/login"
-        variant="extendedFab"
-        aria-label="Delete"
-        className={classes.button}
-      >
-        <NavigationIcon className={classes.extendedIcon} />
-        <a href="http://localhost:3001/login">Connect</a>
-      </Button>
+      <a href="http://localhost:3001/login">
+        <Button
+          // component={Link}
+          // to="http://localhost:3001/login"
+          variant="outlined"
+          color="secondary"
+          aria-label="Delete"
+          className={classes.button}
+        >
+          <NavigationIcon className={classes.extendedIcon} />
+          Connect
+        </Button>
+      </a>
     </div>
   );
 }
