@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import "./Footer.css";
 
-import Avatar from "@material-ui/core/Avatar";
+// import Avatar from "@material-ui/core/Avatar";
 
 class Footers extends Component {
   render() {
@@ -23,12 +23,14 @@ class Footers extends Component {
               <img
                 width="20px"
                 src="https://image.flaticon.com/icons/svg/174/174857.svg"
+                alt="Abdul Alhajkanjo"
               />
             </a>
             <a>
               <img
                 width="20px"
                 src="https://image.flaticon.com/icons/svg/25/25657.svg"
+                alt="Abdul K"
               />
             </a>
           </div>
@@ -48,12 +50,14 @@ class Footers extends Component {
               <img
                 width="20px"
                 src="https://image.flaticon.com/icons/svg/174/174857.svg"
+                alt="Abhishek Duggal"
               />
             </a>
             <a>
               <img
                 width="20px"
                 src="https://image.flaticon.com/icons/svg/25/25657.svg"
+                alt="Abhishek D"
               />
             </a>
           </div>
@@ -73,12 +77,14 @@ class Footers extends Component {
               <img
                 width="20px"
                 src="https://image.flaticon.com/icons/svg/174/174857.svg"
+                alt="Kaustubh Deshpande"
               />
             </a>
             <a>
               <img
                 width="20px"
                 src="https://image.flaticon.com/icons/svg/25/25657.svg"
+                alt="Kaustubh D"
               />
             </a>
           </div>

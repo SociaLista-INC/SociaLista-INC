@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Particles from "react-particles-js";
 import Fade from "react-reveal/Fade";
-import Features from "./../Features/Features";
+// import Features from "./../Features/Features";
 import Footer from "./../Footer/Footer";
 import FloatingActionButtons from "../Buttons/Buttons";
 

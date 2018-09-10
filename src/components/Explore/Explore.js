@@ -13,7 +13,8 @@ import Typography from "@material-ui/core/Typography";
 import LinkBtn from "@material-ui/icons/Link";
 import IconButton from "@material-ui/core/IconButton";
 import "./Explore.css";
-import axios, { Link } from "axios";
+import axios from "axios";
+// import axios, { Link } from "axios";
 
 const styles = {
   card: {
