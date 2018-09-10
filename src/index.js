@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import { HashRouter } from "react-router-dom";
 import App from "./App";
-import registerServiceWorker from "./registerServiceWorker";
+// import registerServiceWorker from "./registerServiceWorker";
 
 ReactDOM.render(
   <HashRouter>
@@ -11,4 +11,4 @@ ReactDOM.render(
   </HashRouter>,
   document.getElementById("root")
 );
-registerServiceWorker();
+// registerServiceWorker();
