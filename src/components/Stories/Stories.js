@@ -7,7 +7,7 @@ import TextMobileStepper from "./StoryDisplay";
 import axios from "axios";
 import Avatar from "@material-ui/core/Avatar";
 import StoriesCreate from "./StoriesCreate";
-
+import "./Stories.css";
 function getModalStyle() {
   return {
     top: "50%",
@@ -140,7 +140,7 @@ class SimpleModal extends React.Component {
     });
 
     return (
-      <div>
+      <div className="stories-main">
         <Typography style={{ color: "#D3D3D3" }} gutterBottom>
           Stories!
         </Typography>
@@ -150,7 +150,9 @@ class SimpleModal extends React.Component {
           handleStoryCreateClick={this.handleStoryCreateClick}
         />
         {this.state.friends.length === 0 ? (
-          <p>You have no friends! Lets be social explore! </p>
+          <p style={{ color: "#D3D3D3" }}>
+            You have no friends :( Be social and explore!{" "}
+          </p>
         ) : (
           <div className={classes.row}>{mappedAvatars}</div>
         )}

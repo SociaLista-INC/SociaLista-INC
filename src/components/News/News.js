@@ -84,39 +84,43 @@ class Trending extends Component {
               >
                 News
               </Typography>
-              <List dense={this.state.dense}>
-                {this.state.news.map((e, i) => (
-                  <ListItem key={i}>
-                    <ListItemText
-                      primary={
-                        <div style={{ color: "#D3D3D3" }}>{e.title}</div>
-                      }
-                      secondary={
-                        this.state.secondary ? (
-                          e.description ? (
-                            <div style={{ color: "#79797F" }}>
-                              {e.description}
-                            </div>
+              {this.state.loading ? (
+                <Loading type="puff" width={100} height={100} fill="#f44242" />
+              ) : (
+                <List dense={this.state.dense}>
+                  {this.state.news.map((e, i) => (
+                    <ListItem key={i}>
+                      <ListItemText
+                        primary={
+                          <div style={{ color: "#D3D3D3" }}>{e.title}</div>
+                        }
+                        secondary={
+                          this.state.secondary ? (
+                            e.description ? (
+                              <div style={{ color: "#79797F" }}>
+                                {e.description}
+                              </div>
+                            ) : (
+                              ""
+                            )
                           ) : (
                             ""
                           )
-                        ) : (
-                          ""
-                        )
-                      }
-                    />
-                    <ListItemSecondaryAction>
-                      <IconButton
-                        style={{ color: "#D3D3D3" }}
-                        href={e.url}
-                        aria-label="Link"
-                      >
-                        <Link />
-                      </IconButton>
-                    </ListItemSecondaryAction>
-                  </ListItem>
-                ))}
-              </List>
+                        }
+                      />
+                      <ListItemSecondaryAction>
+                        <IconButton
+                          style={{ color: "#D3D3D3" }}
+                          href={e.url}
+                          aria-label="Link"
+                        >
+                          <Link />
+                        </IconButton>
+                      </ListItemSecondaryAction>
+                    </ListItem>
+                  ))}
+                </List>
+              )}
             </CardContent>
           </Card>
         </div>
