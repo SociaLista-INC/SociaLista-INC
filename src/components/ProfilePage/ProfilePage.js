@@ -112,7 +112,7 @@ class ProfilePage extends Component {
   }
 
   handleDelete(id) {
-    axios.delete(`api/post/${id}`).then(() => this.getCurrentUserPosts());
+    axios.delete(`/api/post/${id}`).then(() => this.getCurrentUserPosts());
   }
 
   handleLikePost(post_id) {
