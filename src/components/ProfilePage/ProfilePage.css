@@ -5,3 +5,20 @@
 .user-main-name {
   padding-top: 20px;
 }
+.picture-profile-page {
+  border-radius: 50%;
+  height: 180px;
+  width: 180px;
+  margin-top: 30px;
+}
+.profile-user-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: stretch;
+}
+.followers-profilel {
+  padding-bottom: 17px;
+}

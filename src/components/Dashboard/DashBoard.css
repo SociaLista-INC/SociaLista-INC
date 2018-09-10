@@ -7,3 +7,11 @@
   background-color: #161c23;
   margin-top: 50px;
 }
+@media only screen and (max-width: 1200px) {
+  .dashboard-posts {
+    order: -1;
+  }
+  .dashboard-hash {
+    order: 3;
+  }
+}
