@@ -107,11 +107,6 @@ class Post extends Component {
       <Card style={{ backgroundColor: "#292A3A" }} className={classes.card}>
         <CardHeader
           avatar={<Avatar alt="Adelle Charles" src={picture} />}
-          // action={
-          // <IconButton>
-          //   <MoreVertIcon />
-          // </IconButton>
-          // }
           title={
             <Link to={`/profile/${auth_id}`} style={{ color: "#D3D3D3" }}>
               {name}

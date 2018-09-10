@@ -53,9 +53,6 @@ class HashTagComponent extends Component {
   }
 
   render() {
-    if (this.state.loading) {
-      return <Loading type="puff" width={100} height={100} fill="#f44242" />;
-    }
     return (
       <div>
         <Card
@@ -70,15 +67,19 @@ class HashTagComponent extends Component {
             >
               Trending HashTags
             </Typography>
-            <List dense={this.state.dense}>
-              {this.state.HashTags.map((e, i) => (
-                <ListItem key={i}>
-                  <ListItemText
-                    primary={<div style={{ color: "#D3D3D3" }}>#{e.tag}</div>}
-                  />
-                </ListItem>
-              ))}
-            </List>
+            {this.state.loading ? (
+              <Loading type="puff" width={100} height={100} fill="#f44242" />
+            ) : (
+              <List dense={this.state.dense}>
+                {this.state.HashTags.map((e, i) => (
+                  <ListItem key={i}>
+                    <ListItemText
+                      primary={<div style={{ color: "#D3D3D3" }}>#{e.tag}</div>}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            )}
           </CardContent>
         </Card>
       </div>

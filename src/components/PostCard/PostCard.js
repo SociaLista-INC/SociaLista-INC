@@ -28,7 +28,8 @@ const styles = theme => ({
   card: {
     width: "400px",
     marginBottom: "10px",
-    minWidth: "300px"
+    minWidth: "300px",
+    backgroundColor: "#292A3A"
   },
   media: {
     height: 0,
@@ -94,8 +95,12 @@ class RecipeReviewCard extends React.Component {
         <Card key={i} className={classes.card}>
           <CardHeader
             avatar={<Avatar alt="Adelle Charles" src={e.picture} />}
-            title={e.name}
-            subheader={<Moment calendar="()">{e.time}</Moment>}
+            title={<div style={{ color: "#D3D3D3" }}>{e.name}</div>}
+            subheader={
+              <Moment style={{ color: "#D3D3D3" }} calendar="()">
+                {e.time}
+              </Moment>
+            }
           />
           {e.image_url ? (
             e.image_url.toLowerCase().includes(".png") ? (
@@ -131,7 +136,9 @@ class RecipeReviewCard extends React.Component {
             ""
           )}
           <CardContent>
-            <Typography component="p">{e.content}</Typography>
+            <Typography style={{ color: "#D3D3D3" }} component="p">
+              {e.content}
+            </Typography>
           </CardContent>
           <CardActions className={classes.actions} disableActionSpacing>
             <IconButton
@@ -169,6 +176,7 @@ class RecipeReviewCard extends React.Component {
             />
 
             <IconButton
+              style={{ color: "#D3D3D3" }}
               className={classnames(classes.expand, {
                 [classes.expandOpen]: this.state.expanded
               })}

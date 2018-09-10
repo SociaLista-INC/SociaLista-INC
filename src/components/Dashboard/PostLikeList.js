@@ -52,7 +52,6 @@ class PostLikeList extends React.Component {
         <div style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}>
           <List>
             {getUsers.map((user, i) => (
-              // console.log(user)
               <ListItem
                 button
                 onClick={() => this.handleListItemClick(user)}
