@@ -51,7 +51,7 @@ class Gallery1 extends React.Component {
 
     let mappedPhotoes = this.state.photos
       .filter(e => {
-        console.log(!e.image_url.toLowerCase().includes(".mp3"));
+        // console.log(!e.image_url.toLowerCase().includes(".mp3"));
 
         return (
           e.image_url.toLowerCase().includes(".png") ||
@@ -60,7 +60,7 @@ class Gallery1 extends React.Component {
         );
       })
       .map((e, i) => {
-        console.log(e);
+        // console.log(e);
         return {
           src: e.image_url,
           width: Math.floor(Math.random() * 3) + 1,
@@ -70,7 +70,6 @@ class Gallery1 extends React.Component {
 
     return (
       <div>
-        {console.log(mappedPhotoes)}
         <Gallery
           caption={"asdasds"}
           photos={mappedPhotoes}

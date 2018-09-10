@@ -1,0 +1,32 @@
+describe("On Page Init", () => {
+  beforeEach(() => cy.visit("http://localhost:3000"));
+
+  it("Shouldn't do much", () => {
+    expect(true).to.equal(true);
+  });
+
+  it("Loads the page", () => {
+    cy.visit("http://localhost:3000");
+  });
+
+  it("Find Button", () => {
+    // cy.visit("http://localhost:3000/#/dashboard");
+    cy.get(".MuiTouchRipple-root-39");
+  });
+
+  it("Does Intro Load", () => {
+    cy.get(".app-intro");
+  });
+
+  it("Body Exist", () => {
+    cy.get(".landing-body");
+  });
+
+  it("Find Title", () => {
+    cy.get("#main-text");
+  });
+
+  it("cy.get() - query DOM elements", () => {
+    cy.get("#main-text").should("contain", "S o c i a L i s t a");
+  });
+});

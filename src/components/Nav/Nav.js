@@ -23,17 +23,16 @@ import axios from "axios";
 
 const styles = {
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    backgroudColor: "black"
   },
   flex: {
     flexGrow: 1
   },
   menuButton: {
     marginLeft: -12,
-    marginRight: 20
-  },
-  background: {
-    color: "red"
+    marginRight: 20,
+    color: "#D3D3D3"
   }
 };
 
@@ -116,7 +115,7 @@ class MenuAppBar extends React.Component {
     // console.log("hello ", this.state.userOnSessions);
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar style={{ backgroundColor: "#292A3A" }} position="static">
           <Toolbar>
             <IconButton
               className={classes.menuButton}
@@ -124,7 +123,10 @@ class MenuAppBar extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Drawer open={this.state.open}>
+            <Drawer
+              containerStyle={{ backgroundColor: "black" }}
+              open={this.state.open}
+            >
               <MenuItem disabled>Menu</MenuItem>
               <MenuItem>
                 <Link onClick={() => this.setState({ open: false })} to="/">
@@ -162,6 +164,7 @@ class MenuAppBar extends React.Component {
               variant="title"
               color="inherit"
               className={classes.flex}
+              style={{ color: "#D3D3D3" }}
             >
               <img src={BigLogo} height="90vh" />
             </Typography>

@@ -1,6 +1,4 @@
 import React from "react";
-// import Collapse from "@material-ui/core/Collapse";
-// import IconButton from "@material-ui/core/IconButton";
 import "./DashBoard.css";
 import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
@@ -75,7 +73,6 @@ class Comments extends React.Component {
     // console.log(this.state);
 
     let commentsection = this.state.comments.map((com, i) => {
-      // console.log(com.picture);
       return (
         <div className="comments-section-comments" key={i}>
           <div>
@@ -86,24 +83,26 @@ class Comments extends React.Component {
             />
           </div>
           <div className="comments-section-comments-text">
-            <Typography>
+            <Typography style={{ color: "#D3D3D3" }}>
               {!this.state.editing ? (
                 <Typography
+                  style={{ color: "#D3D3D3" }}
                   paragraph
                   onClick={e => this.handleEditingComment(e)}
                 >
                   {com.comment}
                   {this.props.currentUser === com.auth_id ? (
                     <IconButton
+                      style={{ color: "#D3D3D3" }}
+                      color="#D3D3D3"
                       aria-label="Delete the Post"
                       onClick={() => this.handleDeleteComment(com.comment_id)}
                     >
-                      <DeleteForeverOutlinedIcon />
+                      <DeleteForeverOutlinedIcon color="#D3D3D3" />
                     </IconButton>
                   ) : (
                     ""
                   )}
-                  {/* By: {com.name} */}
                 </Typography>
               ) : this.props.currentUser === com.auth_id ? (
                 <ContentEditable
@@ -121,24 +120,13 @@ class Comments extends React.Component {
               )}
             </Typography>
           </div>
-          <div className="comments-section-comments-btn">
-            {/* {this.props.currentUser === com.auth_id ? (
-              <IconButton
-                aria-label="Delete the Post"
-                onClick={() => this.handleDeleteComment(com.comment_id)}
-              >
-                <DeleteForeverOutlinedIcon />
-              </IconButton>
-            ) : (
-              ""
-            )} */}
-          </div>
+          <div className="comments-section-comments-btn" />
         </div>
       );
     });
     return (
       <CardContent>
-        <Typography paragraph variant="body2">
+        <Typography style={{ color: "#D3D3D3" }} paragraph variant="body2">
           {this.state.comments[0] ? "Comments" : "No comments yet"}
         </Typography>
         {commentsection}

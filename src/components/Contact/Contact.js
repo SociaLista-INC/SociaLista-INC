@@ -1,29 +1,4 @@
-// import React, { Component } from "react";
-// import FeaturesPictureTwo from "../../FeaturesPictureTwo.png";
-// import "./FeatureTwo.css";
-
-// class FeatureTwo extends Component {
-//   render() {
-//     return (
-//       <div id="FeatureTwo-Background">
-//         <div id="features" className="features">
-//           <h2 className="center-align">Features Two</h2>
-//           <div className="rows">
-//             <h5>Put mobile mockup here </h5>
-//           </div>
-//           {/* <img id="Features-Picture-Two" src={FeaturesPictureTwo} alt="test" /> */}
-//         </div>
-//       </div>
-//     );
-//   }
-// }
-
-// export default FeatureTwo;
-
 import React, { Component } from "react";
-
-import { Row, Col } from "react-materialize";
-
 import "./Contact.css";
 
 class Contact extends Component {
@@ -37,8 +12,10 @@ class Contact extends Component {
           <h5 className="contact-small-text">
             We at SociaLista hope that you were able to benefit from our social
             media website. If you have any questions, or suggestions, please
-            reach out to us at the links below. We apprecite your feedback!
+            reach out to us at the links below. We apprecite your feedback! This
+            site is built for demonstration and learning purposes only!
           </h5>
+<<<<<<< HEAD
           <div className="rows spaced-rows" />
           <Row>
             <Col s={4} className="grid-example">
@@ -67,6 +44,8 @@ class Contact extends Component {
               </a>
             </Col>
           </Row>
+=======
+>>>>>>> 927cfdf988c8fe9506ff2d5ac2ba837e8e693048
         </div>
       </div>
     );

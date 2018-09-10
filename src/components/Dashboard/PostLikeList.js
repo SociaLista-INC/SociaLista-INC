@@ -39,10 +39,17 @@ class PostLikeList extends React.Component {
         aria-labelledby="simple-dialog-title"
         {...other}
       >
-        <DialogTitle style={{ textAlign: "center" }} id="simple-dialog-title">
-          Liked By
+        <DialogTitle
+          style={{
+            textAlign: "center",
+            backgroundColor: "#292A3A",
+            color: "#D3D3D3"
+          }}
+          id="simple-dialog-title"
+        >
+          <div style={{ color: "#D3D3D3" }}>Liked By</div>
         </DialogTitle>
-        <div>
+        <div style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}>
           <List>
             {getUsers.map((user, i) => (
               // console.log(user)
@@ -59,7 +66,9 @@ class PostLikeList extends React.Component {
                   />
                 </ListItemAvatar>
 
-                <ListItemText primary={user.name} />
+                <ListItemText
+                  primary={<div style={{ color: "#D3D3D3" }}>{user.name}</div>}
+                />
               </ListItem>
             ))}
           </List>
@@ -104,6 +113,7 @@ class PostLikeListOutput extends React.Component {
         <br />
 
         <Button
+          style={{ color: "#D3D3D3" }}
           className="like-btn-postlike"
           onClick={() => {
             this.props.getListofLikes(this.props.post_id);
