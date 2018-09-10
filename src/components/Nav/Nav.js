@@ -16,6 +16,7 @@ import Menu from "@material-ui/core/Menu";
 import classNames from "classnames";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
+import BigLogo from "../../BigLogo.png";
 
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -30,6 +31,9 @@ const styles = {
   menuButton: {
     marginLeft: -12,
     marginRight: 20
+  },
+  background: {
+    color: "red"
   }
 };
 
@@ -159,7 +163,7 @@ class MenuAppBar extends React.Component {
               color="inherit"
               className={classes.flex}
             >
-              S o c i a L i s t a
+              <img src={BigLogo} height="90vh" />
             </Typography>
             {auth && (
               <div>

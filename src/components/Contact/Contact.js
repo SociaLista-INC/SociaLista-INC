@@ -49,7 +49,7 @@ class Contact extends Component {
                 {" "}
               </a>
             </Col>
-
+            1
             <Col s={4} className="grid-example">
               <a
                 className="grey-text text-lighten-3 fa fa-twitter fa-4x"
