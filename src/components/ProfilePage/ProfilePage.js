@@ -36,6 +36,13 @@ class ProfilePage extends Component {
     this.getSessions();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.auth_id !== prevProps.match.params.auth_id) {
+      this.getUserInfo();
+      this.getSessions();
+    }
+  }
+
   async getUserInfo() {
     await axios
       .get(`/api/getprofileinfo/${this.props.match.params.auth_id}`)
@@ -138,29 +145,49 @@ class ProfilePage extends Component {
 
     return (
       <div className="user-main-profile">
-        <div className="user-main-name">{this.state.currentUser.name}</div>
         <img
+          className="picture-profile-page"
           alt={this.state.currentUser.name}
           src={this.state.currentUser.picture}
           width="90px"
         />
-        <Moment format="ll">{this.state.currentUser.time}</Moment>
-        {this.state.user.auth_id ? (
+        <div style={{ color: "#D3D3D3" }} className="user-main-name">
+          {this.state.currentUser.name}
+        </div>
+        <div className="profile-user-info">
           <div>
-            {this.state.isFollowing[0] ? (
-              <Button onClick={() => this.handleUnFollow()}>Unfollow</Button>
+            {this.state.user.auth_id ? (
+              <div>
+                {this.state.isFollowing[0] ? (
+                  <Button
+                    style={{ color: "#D3D3D3" }}
+                    onClick={() => this.handleUnFollow()}
+                  >
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button
+                    style={{ color: "#D3D3D3" }}
+                    onClick={() => this.handelFollow()}
+                  >
+                    Follow
+                  </Button>
+                )}
+              </div>
             ) : (
-              <Button onClick={() => this.handelFollow()}>Follow</Button>
+              <div style={{ color: "#D3D3D3" }}> please login</div>
             )}
           </div>
-        ) : (
-          "please login"
-        )}
-        <div>
-          Followers
-          {this.state.numOfFollowes}
+          <div style={{ color: "#D3D3D3" }}>
+            joined <Moment format="ll">{this.state.currentUser.time}</Moment>{" "}
+          </div>
+          <div className="followers-profilel">
+            <SimpleDialog
+              numOfFollowes={this.state.numOfFollowes}
+              followers={this.state.followers}
+            />
+          </div>
         </div>
-        <SimpleDialog followers={this.state.followers} />
         <br />
         <PostCard
           getUserInfo={this.getUserInfo}

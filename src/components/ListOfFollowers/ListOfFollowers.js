@@ -37,11 +37,24 @@ class SimpleDialog extends React.Component {
         aria-labelledby="simple-dialog-title"
         {...other}
       >
-        <DialogTitle style={{ textAlign: "center" }} id="simple-dialog-title">
-          Followers
+        <DialogTitle
+          style={{
+            textAlign: "center",
+            color: "#D3D3D3",
+            backgroundColor: "#292A3A"
+          }}
+          id="simple-dialog-title"
+        >
+          <div style={{ color: "#D3D3D3" }}>Followers</div>
         </DialogTitle>
+
         <div>
-          <List>
+          <List
+            style={{
+              color: "#D3D3D3",
+              backgroundColor: "#292A3A"
+            }}
+          >
             {emails.map((email, i) => (
               <ListItem
                 button
@@ -55,7 +68,9 @@ class SimpleDialog extends React.Component {
                     // className={classNames(classes.avatar, classes.bigAvatar)}
                   />
                 </ListItemAvatar>
-                <ListItemText primary={email.name} />
+                <ListItemText
+                  primary={<div style={{ color: "#D3D3D3" }}>{email.name}</div>}
+                />
               </ListItem>
             ))}
             <ListItem
@@ -94,13 +109,15 @@ class SimpleDialogDemo extends React.Component {
   };
 
   render() {
-    // console.log(this.props.followers);
+    // console.log(this.props.numOfFollowes);
     emails = this.props.followers;
     // console.log(emails);
     return (
       <div>
         <br />
-        <Button onClick={this.handleClickOpen}>Followers</Button>
+        <Button style={{ color: "#D3D3D3" }} onClick={this.handleClickOpen}>
+          Followers {this.props.numOfFollowes}
+        </Button>
         <SimpleDialogWrapped
           selectedValue={this.state.selectedValue}
           open={this.state.open}
