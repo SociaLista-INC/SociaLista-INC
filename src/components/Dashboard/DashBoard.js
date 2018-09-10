@@ -177,9 +177,6 @@ class DashBoard extends Component {
     if (this.state.loading) {
       return null;
     }
-    if (this.state.isloading) {
-      return <Loading type="puff" width={100} height={100} fill="#f44242" />;
-    }
     return (
       <div className="main-background-dashboard">
         <Stories currentUser={this.state.user} />
@@ -195,7 +192,13 @@ class DashBoard extends Component {
           <div>
             <HashTagComponent />
           </div>
-          <div>{mappedPosts}</div>
+          <div>
+            {this.state.isloading ? (
+              <Loading type="puff" width={100} height={100} fill="#f44242" />
+            ) : (
+              mappedPosts
+            )}
+          </div>
           <div>
             <News />
           </div>

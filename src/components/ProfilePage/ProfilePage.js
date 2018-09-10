@@ -4,7 +4,7 @@ import Moment from "react-moment";
 import SimpleDialog from "../ListOfFollowers/ListOfFollowers";
 import PostCard from "../PostCard/PostCard";
 import Button from "@material-ui/core/Button";
-
+import "./ProfilePage.css";
 class ProfilePage extends Component {
   constructor(props) {
     super(props);
@@ -137,8 +137,8 @@ class ProfilePage extends Component {
     }
 
     return (
-      <div>
-        <div>{this.state.currentUser.name}</div>
+      <div className="user-main-profile">
+        <div className="user-main-name">{this.state.currentUser.name}</div>
         <img
           alt={this.state.currentUser.name}
           src={this.state.currentUser.picture}
