@@ -67,17 +67,7 @@ class StoriesCreate extends React.Component {
           <DialogContent
             style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
           >
-            {/* <DialogContentText
-              style={{ backgroundColor: "#292A3A", color: "#D3D3D3" }}
-            >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vel
-              numquam, facere explicabo debitis iure aperiam iste ea eius illo
-              culpa! Nam reiciendis at numquam distinctio, cum corporis non
-              provident voluptates.
-            </DialogContentText>
-          
-          <DialogContent> */}
-            <TextField
+            {/* <TextField
               style={{ color: "#D3D3D3" }}
               autoFocus
               margin="dense"
@@ -85,7 +75,7 @@ class StoriesCreate extends React.Component {
               label="Take a photo!"
               fullWidth
               onChange={e => this.props.handelUrlText(e.target.value)}
-            />
+            /> */}
             <UploadCloudinary handelUrlText={this.props.handelUrlText} />
             <TextField
               margin="dense"

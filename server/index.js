@@ -46,6 +46,9 @@ const {
 } = require("./Controllers/storiesControllers");
 
 const app = express();
+
+app.use(express.static(__dirname + "/../build"));
+
 app.use(bodyParser.json());
 
 //---------------AWS setup----------------------
@@ -226,6 +229,12 @@ app.post("/api/post-upload-file", (request, response) => {
       return response.status(400).send(error);
     }
   });
+});
+
+//----------------Build Info -------------------------------
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "../build/index.html"));
 });
 
 //----------------port info---------------------------------

@@ -189,10 +189,10 @@ class DashBoard extends Component {
           handlePostClick={this.handlePostClick}
         />
         <div className="list-posts-postCard">
-          <div>
+          <div className="dashboard-hash">
             <HashTagComponent />
           </div>
-          <div>
+          <div className="dashboard-posts">
             {this.state.isloading ? (
               <Loading type="puff" width={100} height={100} fill="#f44242" />
             ) : (
