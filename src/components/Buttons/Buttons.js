@@ -29,10 +29,8 @@ function FloatingActionButtons(props) {
   const { classes } = props;
   return (
     <div>
-      <a href="http://localhost:3001/login">
+      <a href={process.env.REACT_APP_AUTH_LOGIN}>
         <Button
-          // component={Link}
-          // to="http://localhost:3001/login"
           variant="outlined"
           color="secondary"
           aria-label="Delete"

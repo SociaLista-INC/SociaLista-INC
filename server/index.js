@@ -5,6 +5,7 @@ const massive = require("massive");
 const session = require("express-session");
 const passport = require("passport");
 const strategy = require("./strategy");
+const path = require("path");
 const {
   getMostRecentLikes,
   getMostRecentComments,
@@ -239,7 +240,7 @@ app.get("*", (req, res) => {
 
 //----------------port info---------------------------------
 
-const port = 3001;
+const port = process.env.port || 3001;
 app.listen(port, () => {
   console.log(`Server is listening ${port}`);
 });

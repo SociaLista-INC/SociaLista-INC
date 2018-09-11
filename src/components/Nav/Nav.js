@@ -12,7 +12,6 @@ import Menu from "@material-ui/core/Menu";
 import classNames from "classnames";
 import Divider from "@material-ui/core/Divider";
 import Avatar from "@material-ui/core/Avatar";
-import BigLogo from "../../BigLogo.png";
 
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -162,7 +161,7 @@ class MenuAppBar extends React.Component {
               className={classes.flex}
               style={{ color: "#D3D3D3" }}
             >
-              <img src={BigLogo} height="90vh" />
+              S o c i a L i s t a
             </Typography>
             {auth && (
               <div>

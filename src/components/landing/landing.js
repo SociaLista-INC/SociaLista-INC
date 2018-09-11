@@ -85,6 +85,12 @@ class landing extends Component {
             </Fade>
           </div>
         </div>
+        <div>
+          <img
+            src="https://res.cloudinary.com/drdwvrmvv/image/upload/v1536618935/az2cagmsy295prj0d5v1.png"
+            width="80vw"
+          />
+        </div>
         <Footer />
       </div>
     );
