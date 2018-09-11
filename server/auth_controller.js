@@ -4,7 +4,6 @@ const logout = (req, res) => {
   req.session.destroy(() => {
     res.redirect(process.env.REACT_APP_CLIENT);
   });
-  // console.log("hello", req.session);
 };
 
 const getUser = (req, res) => {
