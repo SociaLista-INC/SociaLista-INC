@@ -97,6 +97,7 @@ const getUserListlikePost = (req, res, next) => {
 
   db.get_listofusers_postLikes([post_id])
     .then(response => {
+      console.log(response);
       res.status(200).send(response);
     })
     .catch(err => res.status(500).send(err));
