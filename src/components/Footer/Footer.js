@@ -46,7 +46,10 @@ class Footers extends Component {
           </div>
           <div className="our-info">
             <div>Abhishek Duggal</div>
-            <a href="https://www.linkedin.com/in/abhishek-duggal-15149b17/">
+            <a
+              className="LinkedIn-button"
+              href="https://www.linkedin.com/in/abhishek-duggal-15149b17/"
+            >
               <img
                 width="20px"
                 src="https://image.flaticon.com/icons/svg/174/174857.svg"
