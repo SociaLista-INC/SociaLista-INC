@@ -1,0 +1,29 @@
+1. http://localhost:3001/api/getrecentlikes
+pm.test("Data array is coming", function () {
+    var jsonData = pm.response.json();
+    pm.expect([]);
+});
+
+2. http://localhost:3001/api/getrecentcomments
+pm.test("status", function () {
+    var jsonData = pm.response.json();
+    pm.response.to.have.status("OK");
+});
+
+3. http://localhost:3001/api/getrecentfollowers
+pm.test("Data array is coming", function () {
+    var jsonData = pm.response.json();
+    pm.response.to.have.status(200);
+});
+
+4. http://localhost:3001/api/session (ONLY IF LOGED IN)
+pm.test("Data array is coming", function () {
+     var jsonData = pm.response.json();
+    pm.expect("auth_id");
+});
+
+5.http://localhost:3001/api/hashtags
+pm.test("Data and object", function () {
+    var jsonData = pm.response.json();
+    pm.expect([{}]);
+});
