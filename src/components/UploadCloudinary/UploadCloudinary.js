@@ -62,15 +62,5 @@ class UploadCloudinary extends Component {
     );
   }
 }
-// function mapStateToProps(state) {
-//   return {
-//     picture: state.picture
-//   };
-// }
-// export default connect(
-//   mapStateToProps,
-//   {
-//     updatePicture
-//   }
-// )(ImageUploader);
+
 export default UploadCloudinary;
